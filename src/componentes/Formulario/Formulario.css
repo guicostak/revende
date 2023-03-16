@@ -1,0 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* VARIÁVEIS */
+
+:root{
+  --main-color: #E82C4F;
+  --text-color: rgb(0, 0, 0);
+  --light-main: #f75371;
+  --dark-main: #d4304e;
+  --main-background: #ffffff;
+}
