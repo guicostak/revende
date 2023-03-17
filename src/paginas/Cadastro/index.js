@@ -1,6 +1,6 @@
-import Logo from '../../componentes/Logo'
-import Formulario from '../../componentes/Formulario'
-import Rodape from '../../componentes/Rodape'
+import Logo from '../../componentesCadastro/Logo'
+import Formulario from '../../componentesCadastro/Formulario'
+import Rodape from '../../componentesCadastro/Rodape'
 import './cadastro.css'
 
 
