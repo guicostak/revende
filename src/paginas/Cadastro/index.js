@@ -5,14 +5,13 @@ import './cadastro.css'
 
 
 const Cadastro = () =>{
-return (
-  <div className="body">
-    <Logo />
-    <Formulario />
-    <Rodape />
-  </div>
-  
-)
+  return (
+    <div className="body">
+      <Logo />
+      <Formulario />
+      <Rodape />
+    </div>
+  )
 }
 
 export default Cadastro

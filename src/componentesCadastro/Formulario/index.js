@@ -1,4 +1,3 @@
-import './Formulario.css'
 import CardTop from '../CardTop'
 import CardBottom from '../CardBottom'
 

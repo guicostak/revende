@@ -1,17 +1,4 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-:root{
-  --main-color: #E82C4F;
-  --text-color: rgb(0, 0, 0);
-  --light-main: #f75371;
-  --dark-main: #d4304e;
-  --main-background: #ffffff;
-}
- 
 #card-bottom{
   height: auto;
   width: 40vw;
@@ -83,3 +70,42 @@ form p a:hover{
   transition: 0.5s;
 }
 
+@media only screen and (max-width: 950px){
+  #card-bottom{
+    width: 85vw;
+    padding-inline: 5vw;
+  }
+
+  #submit{
+    margin-top: 3vh;
+    width: 60vw;
+    height: 6vh;
+  }
+
+  form p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1vw;
+  
+    margin-block: 5vh;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #card-bottom{
+    width: 85vw;
+    padding-inline: 5vw;
+  }
+
+  #submit{
+    margin-top: 3vh;
+    width: 70vw;
+    height: 7vh;
+  }
+
+  form p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1vw;
+  
+    margin-block: 5vh;
+  }  
+}

@@ -1,6 +1,6 @@
 import './CardTop.css'
-import googleLogo from '../img/logos/google-logo.png'
-import facebookLogo from '../img/logos/facebook-logo.png'
+import googleLogo from '../../img/logos/google-logo.png'
+import facebookLogo from '../../img/logos/facebook-logo.png'
 import Botao from '../Botao'
 
 const CardTop = () => {

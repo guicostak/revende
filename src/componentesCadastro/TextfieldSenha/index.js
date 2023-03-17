@@ -1,6 +1,6 @@
 import './TextfieldSenha.css'
-import mostrarSenha from '../img/vetores/mostrarSenha.png'
-import mostrarSenha2 from '../img/vetores/mostrarSenha2.png'
+import mostrarSenha from '../../img/vetores/mostrarSenha.png'
+import mostrarSenha2 from '../../img/vetores/mostrarSenha2.png'
 import { useState } from 'react'
 
 const TextfieldSenha = props => {
