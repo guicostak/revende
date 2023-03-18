@@ -1,0 +1,97 @@
+.headerHome #headerHomeLogo{
+  width: 12vw;  
+}
+
+.headerHome{
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+  height: 13vh;
+
+
+  justify-content: left;
+  align-items: left;
+  padding-inline: 2vw;
+}
+
+.headerHome #busca {
+  width: 18vw;
+  height: 5vh;
+  padding-inline: 1vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  
+  border: 1px solid var(--main-color);
+  border-radius: 100px;
+
+
+  margin-left: 3vw;
+}
+
+.headerHome #txtBusca{
+  border: none;
+  height: 3vh;
+  width: 16vw;
+
+  color: var(--text-color);
+  font-size: 1.2vw;
+  outline: none;
+}
+
+.headerHome #txtBusca::placeholder{
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2vw;
+  color: var(--navbar);
+}
+
+.headerHome #busca img{
+  width: 1.2vw;
+  cursor: pointer
+}
+
+#navbar ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin-left: 37vw;
+  gap: 2vw;
+}
+
+#navbar ul button{
+  cursor: pointer;
+  width: 8vw;
+  height: 6vh;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.9vw;
+  border-radius: 50px;
+  transition: 0.5s;
+}
+
+#navbar ul button:hover{
+  transition: 0.5s;
+  background-color: var(--light-main);
+}
+
+#navbar ul > li .link{
+  text-decoration: none;
+  height: 13vh;
+  font-family: 'Poppins', sans-serif;
+  color: var(--navbar);
+}
+
+#navbar ul > li:hover{
+  border-bottom: 2px solid var(--main-color);
+}
+
+#navbar ul > li img{
+  width: 1.4vw;
+}
+

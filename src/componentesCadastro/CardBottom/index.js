@@ -5,9 +5,11 @@ import email from '../../img/vetores/email.png'
 import cpf from '../../img/vetores/identidade.png'
 import data from '../../img/vetores/data.png'
 import senha from '../../img/vetores/senha.png'
-import Submit from '../Submit'
-import TextfieldSenha from '../TextfieldSenha'
 import { useState } from 'react'
+import mostrarSenha from '../../img/vetores/mostrarSenha.png'
+import mostrarSenha2 from '../../img/vetores/mostrarSenha2.png'
+import Swal from 'sweetalert2'
+
 
 
 const CardBottom = (props) => {
@@ -17,10 +19,18 @@ const CardBottom = (props) => {
   const[inputCpf, setInputCpf]= useState('')
   const[inputDate, setInputDate]= useState('')
   const[inputPassword, setInputPassword]= useState('')
+  const [type, setType] = useState('password')
+  const [icon, setIcon] = useState(mostrarSenha)
+  const [borderColor, setBorderColor] = useState('var(--main-color)')
 
 
   function campoVazio() {
-    
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+      footer: '<a href="">Why do I have this issue?</a>'
+    })
   }
 
   const handleSubmit = (e) => {
@@ -37,9 +47,16 @@ const CardBottom = (props) => {
     if(!inputName){
       campoVazio()
     }else if(inputName.length < 6){
-      alert("menor que 6")
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Parece que você não preencheu todos os campos!',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+      
     }
     else{
+      validName = true
     }
     
     if(!inputEmail) {
@@ -72,8 +89,33 @@ const CardBottom = (props) => {
     }
     else{
     }
+  
   }
-    
+
+  
+    const Toggle = () => {
+      if (type === 'password') {
+        setType('text')
+        setIcon(mostrarSenha2)
+      } else {
+        setType('password')
+        setIcon(mostrarSenha)
+      }
+    }
+  
+    const HandleFocus = () => {
+      setBorderColor('var(--text-color)')
+    }
+  
+    const BlurFocus = (e) => {
+      setBorderColor('var(--main-color)')
+
+    }
+  
+    const aoDigitado = (e) => {
+      props.aoAlterado(e.target.value)
+    }
+  
   return(
     <form id="card-bottom" onSubmit={handleSubmit}>
   <Textfield
@@ -84,7 +126,7 @@ const CardBottom = (props) => {
     type="name"
     name="name"
     placeholder="Digite seu nome completo"
-    maxLenght="47"
+    max="47"
     value={inputName}
     aoAlterado={value => setInputName(value)}
     />
@@ -97,7 +139,7 @@ const CardBottom = (props) => {
     type="text"
     name="email"
     placeholder="Digite seu E-mail"
-    maxLenght="47"
+    max="47"
     value={inputEmail}
     aoAlterado={value => setInputEmail(value)}
     />
@@ -110,7 +152,7 @@ const CardBottom = (props) => {
     type="text"
     name="cpf"
     placeholder="Digite seu CPF"
-    maxLenght="14"
+    max="14"
     value={inputCpf}
     aoAlterado={value => setInputCpf(value)}
     />
@@ -126,13 +168,29 @@ const CardBottom = (props) => {
     aoAlterado={value => setInputDate(value)}
     />
 
-  <TextfieldSenha 
-  imagem={senha}
-  value={inputPassword}
-  aoAlterado={value => setInputPassword(value)}
-  />
+  <div className="textfield">
+      <label id="labelSenha" htmlFor="senha">
+        Crie uma senha para sua conta!
+      </label>
+      <a>
+        <img src={senha} className="vetores" />
+        <input
+          id="senha"
+          type={type}
+          name="password"
+          placeholder="Digite sua senha"
+          onFocus={HandleFocus}
+          onBlur={BlurFocus}
+          style={{ borderBottomColor: borderColor }}
+          value={props.value}
+          onChange={aoDigitado}
+        />
+        <img src={icon} id="mostrarSenha" onClick={Toggle} 
+        style={{ borderBottomColor: borderColor }}/>
+      </a>
+    </div>
 
-    <Submit />
+    <input id="submit" type="submit" value="Criar conta"></input>
 
     <p>Ao criar uma conta, concordo com os <a>Termos e Políticas</a> da Revende</p>
     </form>

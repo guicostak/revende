@@ -14,6 +14,23 @@ const Textfield = props => {
 
   const aoDigitado = (e) => {
     props.aoAlterado(e.target.value)
+    if(e.target.id == "cpf"){
+    const newCPF = formatCPF(e.target.value)
+    e.target.value = newCPF
+    props.aoAlterado(e.target.value)
+    }
+  }
+
+  function formatCPF(cpf) {
+    // Remove todos os caracteres que não são dígitos
+    cpf = cpf.replace(/\D/g, '');
+  
+    // Adiciona os pontos e o traço na formatação do CPF
+    cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+    cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+    cpf = cpf.replace(/(\d{3})(\d{1,2})/, '$1-$2');
+  
+    return cpf;
   }
 
   return (
@@ -26,7 +43,7 @@ const Textfield = props => {
           type={props.type}
           name={props.name}
           placeholder={props.placeholder}
-          maxLength={props.maxLength}
+          maxLength={props.max}
           onFocus={HandleFocus}
           onBlur={BlurFocus}
           style={{ borderBottomColor: borderColor }}

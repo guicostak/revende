@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
 *{
   margin: 0;
   padding: 0;
@@ -7,9 +9,10 @@
 :root{
   --main-color: #E82C4F;
   --text-color: rgb(0, 0, 0);
-  --light-main: #f75371;
+  --light-main: #eb4d6a;
   --dark-main: #d4304e;
   --main-background: #ffffff;
+  --navbar: #686767;
 }
 
 body {
