@@ -5,8 +5,9 @@
 .headerHome{
   display: flex;
   flex-direction: row;
-  width: 90vw;
+  width: 95vw;
   height: 13vh;
+  border: none;
 
 
   justify-content: left;
@@ -57,7 +58,7 @@
   justify-content: center;
   align-items: center;
   list-style: none;
-  margin-left: 37vw;
+  margin-left: 40vw;
   gap: 2vw;
 }
 
@@ -72,18 +73,20 @@
   font-weight: 700;
   font-size: 0.9vw;
   border-radius: 50px;
-  transition: 0.5s;
+  transition: 0.7s;
 }
 
 #navbar ul button:hover{
-  transition: 0.5s;
-  background-color: var(--light-main);
+  transition: 0.7s;
+  background-color: white;
+  color: var(--main-color);
+  border: 1px solid var(--main-color)
 }
 
 #navbar ul > li .link{
   text-decoration: none;
   height: 13vh;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--main-font);
   color: var(--navbar);
 }
 
