@@ -70,6 +70,32 @@ form p a:hover{
   transition: 0.5s;
 }
 
+.swalButton {
+  background-color: var(--main-color);
+  color: white;
+  width: 8vw;
+  height: 8vh;
+  font-size: 1vw;
+  font-family: 'Poppins',sans-serif;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.swalTitle{
+  color: var(--main-color);
+  font-size: 2vw;
+  font-family: 'Poppins',sans-serif;
+}
+
+.swalText{
+  color: var(--main-color);
+  font-size: 1vw;
+  font-family: 'Poppins',sans-serif;
+}
+
+
+
 @media only screen and (max-width: 950px){
   #card-bottom{
     width: 90vw;

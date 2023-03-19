@@ -13,11 +13,13 @@ const Textfield = props => {
   }
 
   const aoDigitado = (e) => {
-    props.aoAlterado(e.target.value)
     if(e.target.id == "cpf"){
     const newCPF = formatCPF(e.target.value)
     e.target.value = newCPF
     props.aoAlterado(e.target.value)
+    }
+    else{
+      props.aoAlterado(e.target.value)
     }
   }
 
