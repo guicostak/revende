@@ -1,32 +1,17 @@
 import './Carrosel.css'
-import Slider from 'react-slick';
+import { useState } from 'react'
+import Carousel from 'react-elastic-carousel'
 
-function Carrosel() {
-  const images = [
-    { src: 'image1.jpg' },
-    { src: 'image2.jpg' },
-    { src: 'image3.jpg' },
-    { src: 'image4.jpg' },
-    { src: 'image5.jpg' }
-  ];
+const Carrosel = () => {
+  return(
+    <div className='Carrosel'>
+      <div className='controls-wrapper'>
+      </div>
+      <div className='carrosel-wrapper'>
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
-
-  return (
-    <Slider {...settings}>
-      {images.map((image, index) => (
-        <div key={index}>
-          <img src={image.src} alt={`Slide ${index + 1}`} />
-        </div>
-      ))}
-    </Slider>
-  );
+      </div>
+    </div>
+  )
 }
 
 export default Carrosel
