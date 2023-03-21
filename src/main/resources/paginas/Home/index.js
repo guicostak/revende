@@ -9,7 +9,6 @@ const Home = () =>{
     <div className="body">
       <Header />
       <Categorias />
-      <Carrosel />
     </div>
   )
 }
