@@ -1,0 +1,137 @@
+
+#card-bottom{
+  height: auto;
+  width: 40vw;
+
+  display: flex;
+  flex-direction: column;
+  
+  justify-content: center;
+  align-items: center;
+
+  border-inline: 1px solid var(--dark-main);
+
+  background-color: var(--main-background);
+}
+
+#submit{
+  width: 30vw;
+  height: 3.5rem;
+
+  font-size: 1rem;
+  color: white;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+
+  justify-content: center;
+  align-items: center;
+
+  margin-block: 3vh;
+  
+  border-radius: 30px;
+  border: none;
+
+  background-color: var(--main-color);
+  transition: 0.5s;
+}
+
+#submit:hover{
+  cursor: pointer;
+  background-color: var(--dark-main);
+  transition: 0.5s;
+}
+
+#submit:active{
+  cursor: pointer;
+  background-color: var(--main-color);
+  transition: 1s;
+}
+
+form p{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1vw;
+
+  margin-block: 5vh;
+}
+
+form p a{ 
+  color: var(--main-color);
+  transition: 0.5s;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+form p a:hover{ 
+  color: var(--light-main);
+  transition: 0.5s;
+}
+
+.swalButton {
+  background-color: var(--main-color);
+  color: white;
+  width: 8vw;
+  height: 8vh;
+  font-size: 1vw;
+  font-family: 'Poppins',sans-serif;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.swalTitle{
+  color: var(--main-color);
+  font-size: 2vw;
+  font-family: 'Poppins',sans-serif;
+}
+
+.swalText{
+  color: var(--main-color);
+  font-size: 1vw;
+  font-family: 'Poppins',sans-serif;
+}
+
+
+
+@media only screen and (max-width: 950px){
+  #card-bottom{
+    width: 90vw;
+    padding-inline: 5vw;
+  }
+
+  #submit{
+    margin-top: 3vh;
+    width: 60vw;
+    height: 6vh;
+  }
+
+  form p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1vw;
+  
+    margin-block: 5vh;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #card-bottom{
+    width: 90vw;
+    padding-inline: 5vw;
+  }
+
+  #submit{
+    margin-top: 3vh;
+    width: 70vw;
+    height: 7vh;
+  }
+
+  form p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1vw;
+  
+    margin-block: 5vh;
+  }  
+}

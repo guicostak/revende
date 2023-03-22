@@ -1,0 +1,7 @@
+com\revende\RevendeApplication.class
+com\revende\repository\UserRepository.class
+com\revende\infrastructure\config\security\SecurityConfig.class
+com\revende\model\entities\User.class
+com\revende\application\entrypoint\api\UserController.class
+com\revende\infrastructure\config\security\PasswordConfig.class
+com\revende\application\entrypoint\dto\user\LoginDTO.class

@@ -1,0 +1,7 @@
+D:\apps\revende\src\main\java\com\revende\infrastructure\config\security\PasswordConfig.java
+D:\apps\revende\src\main\java\com\revende\model\entities\User.java
+D:\apps\revende\src\main\java\com\revende\application\entrypoint\dto\user\LoginDTO.java
+D:\apps\revende\src\main\java\com\revende\repository\UserRepository.java
+D:\apps\revende\src\main\java\com\revende\infrastructure\config\security\SecurityConfig.java
+D:\apps\revende\src\main\java\com\revende\RevendeApplication.java
+D:\apps\revende\src\main\java\com\revende\application\entrypoint\api\UserController.java
