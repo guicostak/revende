@@ -1,0 +1,58 @@
+@keyframes mover {
+  0% { transform: scaleY(1); }
+  50% { transform:  scaleY(1.03); }
+  100% { transform: scaleY(1); }
+}
+
+
+.descontos h1{
+  color: var(--navbar);
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 2vw;
+  text-align: left;
+  margin-left: 15vw;
+  margin-bottom: 5vh;
+
+}
+.descontos{
+  height: auto;
+  padding-top: 5vh;
+  padding-bottom: 20vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.descontosLista{
+  width: 100vw;
+  height: 50vh;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+  padding-block: 5vh;
+  border: 1px solid var(--main-background);
+  background-color: var(--main-color);
+}
+
+.descontosLista img{
+  width: 12vw;
+  height: 40vh;
+  cursor: pointer;
+  transition: 1s;
+  animation-name: mover;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.borda{
+  border-right: 1px solid var(--main-background);
+}
+
+.descontosLista img:hover{
+  filter: brightness(.92);
+}
+

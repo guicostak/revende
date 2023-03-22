@@ -1,7 +1,7 @@
 import Header from '../../componentesHome/Header'
 import Categorias from '../../componentesHome/Categorias'
-import './Home.css'
 import Carrosel from '../../componentesHome/Carrosel'
+import Descontos from '../../componentesHome/Descontos'
 
 
 const Home = () =>{
@@ -14,6 +14,7 @@ const Home = () =>{
       <Header />
       <Categorias />
       <Carrosel />  
+      <Descontos />
     </div>
   )
 }
