@@ -17,7 +17,6 @@
 .descontos{
   height: auto;
   padding-top: 5vh;
-  padding-bottom: 20vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
