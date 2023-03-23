@@ -1,0 +1,77 @@
+.slider{
+width: 70vw;
+ height: 80vh;
+ margin-top: 10vh;
+ margin-bottom: 10vh;
+
+}
+
+.slider h2{
+  color: var(--navbar);
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 2vw;
+}
+
+.slide img{
+  width: 48vw;
+}
+
+.slide{
+  width: 69vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+  margin-block: 10vh;
+  box-shadow: 5px 5px 10px 1px rgb(201, 194, 194);
+
+}
+
+.slide .info{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 40vw;
+}
+
+.slide .info h1{
+  color: var(--main-color);
+  font-family: var(--main-font);
+  font-size: 2vw;
+  margin-top: 2vh;
+  text-align: left;
+}
+
+.slide .info h4{
+  color: var(--main-color);
+  font-family: var(--main-font);
+  margin-top: 4vh;
+}
+
+.slide .info p{
+  font-size: 1.2vw;
+  margin-top: 3vh;
+  text-align: left;
+}
+
+.slide .info button{
+  cursor: pointer;
+  width: 10vw;
+  height: 8vh;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.9vw;
+  border-radius: 50px;
+  transition: 0.7s;
+  margin-top: 3vh;
+}
+
+.slide .info button:hover {
+  transition: 0.7s;
+  background-color: white;
+  color: var(--main-color);
+  border: 1px solid var(--main-color)
+}

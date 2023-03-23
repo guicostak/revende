@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 
 *{
   margin: 0;
@@ -12,8 +13,14 @@
   --light-main: #eb4d6a;
   --dark-main: #d4304e;
   --main-background: #ffffff;
+  --second-background: rgb(247, 245, 245);
   --navbar: #686767;
   --main-font:  'Poppins', sans-serif;
+}
+
+@keyframes mover {
+  from { scale: 1; }
+  to { scale: 1.05; }
 }
 
 body {
