@@ -52,6 +52,10 @@
   border-right: 1px solid var(--main-background);
 }
 
+.borda:first-child{
+  border-left: 1px solid var(--main-background);
+}
+
 .descontosLista img:hover{
   filter: brightness(.92);
 }
