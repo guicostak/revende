@@ -1,0 +1,59 @@
+.quebra{
+  width: 100vw;
+  height: 30vh;
+  background-color: var(--second-background);
+  margin-block: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+}
+
+.textfield{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+
+.quebra h2{
+  color: var(--main-color);
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.7vw;
+}
+.quebra p{
+  color: var(--nabar);
+  border: none;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.2vw;
+}
+
+.quebra img{
+  width: 10vw;
+}
+
+.quebra button{
+  cursor: pointer;
+  width: 8vw;
+  height: 8vh;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.9vw;
+  border-radius: 50px;
+  transition: 0.7s;
+  margin-left: 10vw;
+}
+
+.quebra button:hover{
+  transition: 0.7s;
+  background-color: var(--second-background);
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+
+}
