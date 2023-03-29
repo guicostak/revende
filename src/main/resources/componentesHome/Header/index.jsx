@@ -5,10 +5,12 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import ajuda from '../../img/vetores/ajuda.png'
 
+
+
 const Header = () => {
   return(
     <header className='headerHome'>
-      <img src={logo} id="headerHomeLogo"/>
+      <img  src={logo} id="headerHomeLogo"/>
       <div id='busca'>
         <input type="text" id="txtBusca" placeholder="Buscar..."/>
         <img src={lupa} id="btnBusca" alt="Buscar"/>

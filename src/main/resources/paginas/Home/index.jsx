@@ -1,8 +1,8 @@
 import Header from '../../componentesHome/Header'
 import Categorias from '../../componentesHome/Categorias'
 import Carrosel from '../../componentesHome/Carrosel'
-import Descontos from '../../componentesHome/Descontos'
-
+import Ingressos from '../../componentesHome/Ingressos'
+import Quebra from '../../componentesHome/Quebra'
 
 const Home = () =>{
   const setting = {
@@ -14,7 +14,8 @@ const Home = () =>{
       <Header />
       <Categorias />
       <Carrosel />  
-      <Descontos />
+      <Quebra />
+      <Ingressos />
     </div>
   )
 }
