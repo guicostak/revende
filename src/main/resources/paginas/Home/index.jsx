@@ -4,6 +4,7 @@ import Carrosel from '../../componentesHome/Carrosel'
 import Ingressos from '../../componentesHome/Ingressos'
 import Quebra from '../../componentesHome/Quebra'
 import Rodape from '../../componentesHome/Rodape'
+import Destaques from '../../componentesHome/Destaques'
 
 
 const Home = () =>{
@@ -11,7 +12,8 @@ const Home = () =>{
     <body>
       <Header />
       <Categorias />
-      <Carrosel />  
+      <Carrosel /> 
+    
       <Quebra />
       <Ingressos />
       <Rodape />

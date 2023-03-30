@@ -21,12 +21,11 @@ function Carrosel() {
     <div className='slider'>
       <h2>Eventos em destaque</h2>
       <Swiper
-        modules = {[Navigation, Pagination]}
+        modules = {[ Pagination ]}
         pagination={{clickable: true,
         width: 100}}
         autoplay={{delay: 5000}}
         loop
-        id='swp'
         > 
          <SwiperSlide>
             <Slide
