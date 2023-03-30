@@ -17,6 +17,7 @@ const Ingressos = () =>{
       <h1>Anúncios recentes</h1>
     <Swiper
       loop
+      speed={1300}
     > 
     <SwiperSlide>
         <Ingresso

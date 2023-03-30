@@ -3,6 +3,7 @@ import Categorias from '../../componentesHome/Categorias'
 import Carrosel from '../../componentesHome/Carrosel'
 import Ingressos from '../../componentesHome/Ingressos'
 import Quebra from '../../componentesHome/Quebra'
+import Rodape from '../../componentesHome/Rodape'
 
 const Home = () =>{
   const setting = {
@@ -16,6 +17,7 @@ const Home = () =>{
       <Carrosel />  
       <Quebra />
       <Ingressos />
+      <Rodape />
     </div>
   )
 }

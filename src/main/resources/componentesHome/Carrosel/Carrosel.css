@@ -1,5 +1,5 @@
 .slider{
-  width: 70vw;
+  width: 69.5vw;
    height: 80vh;
    margin-top: 10vh;
    margin-bottom: 5vh;
@@ -32,7 +32,8 @@
     display: flex;
     flex-direction: column;
     align-items: left;
-    width: 40vw;
+    width: 30vw;
+    padding-right: 1vw;
   }
   
   .slide .info h1{
@@ -67,7 +68,7 @@
     font-size: 0.9vw;
     border-radius: 50px;
     transition: 0.7s;
-    margin-top: 3vh;
+    margin-top: 1vh;
   }
   
   .slide .info button:hover {
