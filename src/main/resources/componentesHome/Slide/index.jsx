@@ -1,6 +1,6 @@
 const Slide = (props) =>{
   return(
-    <div className="slide">
+    <div className="sld">
       <img src={props.imgEvento}/>
       <div className="info">
         <h4>{props.dataEvento}</h4>

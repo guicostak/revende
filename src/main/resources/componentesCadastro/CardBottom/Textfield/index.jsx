@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import('./Textfield.css')
 
-const Textfield = props => {
+const Textfield = ({ forLabel, label, imagem, id, type, name, placeholder, max, value, aoAlterado  }) => {
   const [borderColor, setBorderColor] = useState('var(--main-color)')
 
   const HandleFocus = () => {
@@ -12,14 +11,14 @@ const Textfield = props => {
     setBorderColor('var(--main-color)')
   }
 
-  const aoDigitado = (e) => {
+  function aoDigitado (e) {
     if(e.target.id == "cpf"){
     const newCPF = formatCPF(e.target.value)
     e.target.value = newCPF
-    props.aoAlterado(e.target.value)
+    aoAlterado(e.target.value)
     }
     else{
-      props.aoAlterado(e.target.value)
+      aoAlterado(e.target.value)
     }
   }
 
@@ -37,20 +36,20 @@ const Textfield = props => {
 
   return (
     <div className="textfield">
-      <label htmlFor={props.forlabel}>{props.label}</label>
+      <label htmlFor={forLabel}>{label}</label>
       <a>
-        <img src={props.imagem} class="vetores" />
+        <img src={imagem} class="vetores" />
         <input
-          id={props.id}
-          type={props.type}
-          name={props.name}
-          placeholder={props.placeholder}
-          maxLength={props.max}
+          id={id}
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          maxLength={max}
+          value={value}
           onFocus={HandleFocus}
           onBlur={BlurFocus}
-          style={{ borderBottomColor: borderColor }}
-          value={props.value}
           onChange={aoDigitado}
+          style={{ borderBottomColor: borderColor }}
         />
       </a>
     </div>

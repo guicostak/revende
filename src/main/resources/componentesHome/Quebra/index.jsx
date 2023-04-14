@@ -9,7 +9,7 @@ const  Quebra = () => {
         <h2>Procurando o que fazer com a galera ? </h2>
         <p>Cadastre-se e veja o que recomendamos para você</p>
       </div>
-      <button>entrar</button>
+      <button>cadastrar</button>
     </div>
   )
 }

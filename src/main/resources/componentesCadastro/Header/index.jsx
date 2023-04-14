@@ -1,7 +1,7 @@
-import './Logo.css'
+import './Header.css'
 import logo from '../../img/logos/logo.png'
 
-const Logo = () => {
+const Header = () => {
   return(
     <header className='header'>
       <img src={logo} id='logo' alt="revende"></img>
@@ -9,4 +9,4 @@ const Logo = () => {
   )
 }
 
-export default Logo
+export default Header
