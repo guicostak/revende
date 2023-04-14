@@ -1,10 +1,11 @@
-import mostrarSenha from '../../img/vetores/mostrarSenha.png'
-import mostrarSenha2 from '../../img/vetores/mostrarSenha2.png'
+import mostrarSenha from '../../../img/vetores/mostrarSenha.png'
+import mostrarSenha2 from '../../../img/vetores/mostrarSenha2.png'
 import { useState } from 'react'
 
-const TextfieldSenha = props => {
+const TextfieldSenha = ({ imagem, value, aoAlterado }) => {
   const [type, setType] = useState('password')
   const [icon, setIcon] = useState(mostrarSenha)
+  const [borderColor, setBorderColor] = useState('var(--main-color)')
 
   const Toggle = () => {
     if (type === 'password') {
@@ -16,18 +17,16 @@ const TextfieldSenha = props => {
     }
   }
 
-  const [borderColor, setBorderColor] = useState('var(--main-color)')
-
-  const HandleFocus = () => {
+  function HandleFocus() {
     setBorderColor('var(--text-color)')
   }
 
-  const BlurFocus = () => {
+  function BlurFocus() {
     setBorderColor('var(--main-color)')
   }
 
-  const aoDigitado = (e) => {
-    props.aoAlterado(e.target.value)
+  function aoDigitado(e) {
+    aoAlterado(e.target.value)
   }
 
   return (
@@ -36,7 +35,7 @@ const TextfieldSenha = props => {
         Crie uma senha para sua conta!
       </label>
       <a>
-        <img src={props.imagem} className="vetores" />
+        <img src={imagem} className="vetores" />
         <input
           id="senha"
           type={type}
@@ -45,7 +44,7 @@ const TextfieldSenha = props => {
           onFocus={HandleFocus}
           onBlur={BlurFocus}
           style={{ borderBottomColor: borderColor }}
-          value={props.value}
+          value={value}
           onChange={aoDigitado}
         />
 
@@ -55,6 +54,5 @@ const TextfieldSenha = props => {
     </div>
   )
 }
-
 
 export default TextfieldSenha

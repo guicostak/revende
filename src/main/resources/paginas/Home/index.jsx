@@ -13,7 +13,7 @@ const Home = () =>{
       <Header />
       <Categorias />
       <Carrosel /> 
-    
+      <Destaques />
       <Quebra />
       <Ingressos />
       <Rodape />

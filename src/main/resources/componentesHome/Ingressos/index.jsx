@@ -1,6 +1,6 @@
 import './Ingressos.css'
 import imagem from '../../img/vetores/ingresso.png'
-import Ingresso from '../ingresso'
+import Ingresso from '../Ingresso'
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
