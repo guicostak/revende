@@ -7,7 +7,10 @@ import cpf from '../../img/vetores/identidade.png'
 import data from '../../img/vetores/data.png'
 import senha from '../../img/vetores/senha.png'
 import { useState } from 'react'
+import React from "react";
 import Swal from 'sweetalert2'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -18,25 +21,17 @@ const CardBottom = (props) => {
   const[inputCpf, setInputCpf]= useState('')
   const[inputDate, setInputDate]= useState('')
   const[inputPassword, setInputPassword]= useState('')
+  const[erroCamposVazios, setErroCamposVazios] = useState("none")
 
 
   function campoVazio() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Opa...',
-      text: 'Parece que existem campos vazios!',
-      footer: '<a href="">Preciso de ajuda</a>',
-      cssClass: 'my-dialog-class',
-      buttonsStyling: false,
-        customClass: {
-        confirmButton: 'swalButton',
-        title: 'swalTitle',
-        text: 'swalText'
-      }
-    })
+    setErroCamposVazios("flex")
+    setTimeout(() => {
+      setErroCamposVazios("none")
+    }, "3000");
   }
 
-  const handleSubmit = (e) => {
+  const efetuarCadastro = (e) => {
 
     let validName = false
     let validEmail = false
@@ -48,19 +43,15 @@ const CardBottom = (props) => {
 
     if(!inputName){
       campoVazio()
-    }else if(inputName.length < 6){
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>',
-        cssClass: 'my-dialog-class',
-        buttonsStyling: false
-      })
+      validName = false
     }
-    else{
-      validName = true
+    else if(inputName.length < 6){
+
+      validName = false
     }
+      else{
+        validName = true
+      }
     
     if(!inputEmail) {
       campoVazio()
@@ -68,34 +59,34 @@ const CardBottom = (props) => {
     else if(inputEmail.indexOf('@') == -1 || inputEmail.indexOf('.') == -1 || inputEmail.indexOf('.') - inputEmail.indexOf('@') == 1){
       alert("email invalido")
     }
-    else{
-    }
+      else{
+      }
 
     if(!inputCpf){
       campoVazio()
     }else if(inputCpf.length < 14){
       alert("menor que 6")
     }
-    else{
-    }
+      else{
+      }
  
     if(!inputDate){
       campoVazio()
     }
-    else{
-    }
+      else{
+      }
 
     if(!inputPassword){
       campoVazio()
     }else if(inputPassword.length < 6){
       alert("menor que 6")
     }
-    else{
-    }
+      else{
+      }
   }
   
   return(
-    <form id="card-bottom" onSubmit={handleSubmit}>
+    <form id="card-bottom" onSubmit={efetuarCadastro}>
       <Textfield
         forLabel="name"
         label="Qual é o seu nome?"
@@ -150,6 +141,11 @@ const CardBottom = (props) => {
         aoAlterado={value => setInputPassword(value)}
         imagem={senha}
       />
+
+      <div style={{ display: erroCamposVazios }} className='mensagemErro'>
+      <span>Parece que existem campos não preenchidos!</span>
+      <FontAwesomeIcon icon={faTimesCircle} />
+      </div>
 
       <input id="submit" type="submit" value="Criar conta"></input>
 

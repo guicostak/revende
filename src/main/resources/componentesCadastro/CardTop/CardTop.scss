@@ -16,99 +16,48 @@ h1{
   margin-bottom: 10vh;
 }
 
-#facebook{
-  text-decoration: none;
-
-  margin-bottom: 3vh;
-}
-
 #logo2 {
   display: none;
 }
 
-#facebook button{
-  width: 25vw;
-  height: 3rem;
+#facebook{
+  text-decoration: none;
 
-  border-radius: 30px;
-  border: none;
-
-  display: flex;
-  flex-direction: row;
-  gap: 2vw;
-
-  font-size: 1rem;
-  color: white;
-  font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
- 
-
-  justify-content: center;
-  align-items: center;
+  margin-bottom: 3vh; 
   
-  background-color: #1977f3;
-  transition: 0.5s;
-}
+  img{
+    margin-left: 10px;
+    width: 2rem;
+  }
 
-#facebook button:hover{
-  cursor: pointer;
-  transform: scale(1.02);
-  transition: 0.5s;
-}
+  button{
+    @include botaoCardTop(#1977f3, none, white);
 
-#facebook button:active{
-  cursor: pointer;
-  transform: scale(1.02);
-}
-
-#facebook img{
-  margin-left: 10px;
-  width: 2rem;
+    &:hover{
+      transform: scale(1.02);
+      transition: 0.5s;
+    }
+  }
 }
 
 #google{
   text-decoration: none;
-}
 
-#google button{
-  width: 25vw;
-  height: 3rem;
+  img{
+    width: 1.8rem;
+  }
 
-  border-radius: 30px;
-  border: 1px solid black;
+  button{
+    @include botaoCardTop(#ffffff, 1px solid black, rgb(100, 100, 100));
 
-  display: flex;
-  flex-direction: row;
-  gap: 2vw;
+    margin-bottom: 5vh;
 
-  font-size: 1rem;
-  color: rgb(100, 100, 100);
-  font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
-  
-  justify-content: center;
-  align-items: center;
-
-  margin-bottom: 5vh;
-  
-  background-color: #ffffff;
-  transition: 0.5s;
-}
-
-#google img{
-  width: 1.8rem;
-}
-
-#google button:hover{
-  cursor: pointer;
-  transform: scale(1.02);
-  transition: 0.5s;
-}
-
-#google button:active{
-  cursor: pointer;
-  transform: scale(1.02);
-  background-color: #e9e9e9;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.02);
+      transition: 0.5s;
+    }
+  }
 }
 
 @media only screen and (max-width: 950px){

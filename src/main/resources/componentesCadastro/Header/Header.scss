@@ -1,18 +1,14 @@
+@import '../../index.scss';
+
 header{
   width: 37vw;
-
   margin-bottom: 3vh;
-  
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
+  @include flexCenter(row);
   border-bottom: 1px solid var(--dark-main);
 }
 
 #logo{
-  width: 12vw;
+  width: 10vw;
   
   margin-top: 2rem;
   margin-bottom: 2rem;
