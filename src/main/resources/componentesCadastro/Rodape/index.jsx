@@ -1,9 +1,11 @@
-import './Rodape.css'
+import './Rodape.scss'
+import { Link } from 'react-router-dom';
+import React from 'react'
 
-const Rodape = () => {
+const Rodape = ({ referencia, texto, referenciaTexto}) => {
   return(
     <footer id="rodape">
-      <p>Já possui cadastro? <a href="login.html">Faça login!</a></p>
+      <p>{texto}<Link to={referencia}><a href="login.html">{referenciaTexto}</a></Link></p>
     </footer>
   )
 }

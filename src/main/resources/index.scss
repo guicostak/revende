@@ -32,10 +32,58 @@ body {
   flex-direction: column;  
   justify-content: center;
   align-items: center;
+  
   border-inline: 1px solid var(--dark-main);
   background-color: var(--main-background);
 }
 
+@mixin botaoCardTop($background-color, $border, $color){
+  width: 25vw;
+  height: 3rem;
+
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+
+  font-size: 1rem;
+
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+ 
+
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.5s;
+  cursor: pointer;
+
+  color: $color;
+  border: $border;
+  background-color: $background-color;
+}
+
+@mixin flexCenter($flex-direction){
+  display: flex;
+  flex-direction: $flex-direction;
+
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin body(){
+  width: auto;
+  height: auto;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+                       
+  justify-content: top;
+  align-items: center;
+}
 
 /*KEYFRAMES */
 

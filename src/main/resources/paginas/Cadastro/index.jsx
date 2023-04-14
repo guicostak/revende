@@ -1,6 +1,6 @@
 import Header from '../../componentesCadastro/Header'
 import Rodape from '../../componentesCadastro/Rodape'
-import './cadastro.css'
+import './cadastro.scss'
 import CardTop from '../../componentesCadastro/CardTop'
 import CardBottom from '../../componentesCadastro/CardBottom'
 
@@ -8,9 +8,16 @@ const Cadastro = () =>{
   return (
     <body className="body">
       <Header />
-      <CardTop />
+      <CardTop 
+      label={"Registre-se"}
+      titulo={"Crie sua conta!"}
+      />
       <CardBottom />
-      <Rodape />
+      <Rodape 
+      referencia={"/login"} 
+      texto={"Já possui cadastro? "}
+      referenciaTexto={" Faça login!"}
+      />
     </body>
   )
 }
