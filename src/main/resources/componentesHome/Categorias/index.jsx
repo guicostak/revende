@@ -1,4 +1,4 @@
-import './Categorias.css'
+import './Categorias.scss'
 import shows from '../../img/categorias/shows.png'
 import teatro from '../../img/categorias/teatro.png'
 import esportes from '../../img/categorias/esportes.png'
