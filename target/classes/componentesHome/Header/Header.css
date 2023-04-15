@@ -5,14 +5,15 @@
 .headerHome{
   display: flex;
   flex-direction: row;
-  width: 95vw;
+  width: 100vw;
   height: 13vh;
   border: none;
 
 
   justify-content: left;
   align-items: left;
-  padding-inline: 2vw;
+  padding-inline: 3vw;
+  background-color: var(--main-background);
 }
 
 .headerHome #busca {
