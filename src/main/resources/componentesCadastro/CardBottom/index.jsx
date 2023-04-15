@@ -98,9 +98,9 @@ const CardBottom = ({ displayState }) => {
       const user = {
         name: inputName,
         email: inputEmail,
+        password: inputPassword,
         cpf: inputCpf,
-        date: inputDate,
-        password: inputPassword
+        birthday: inputDate
       }
 
     if(validName && validEmail && validCpf && validDate && validPassword){
