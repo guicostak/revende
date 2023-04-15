@@ -183,20 +183,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
-.mensagemErro{
+.erroCamposVazios{
   @include flexCenter(row);
-  
-  font-family:Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: var(--main-color);
-  font-size: 1.2vw;
-  margin-top: 1vh;
-  margin-bottom: 4vh;
+  @include erroClasse();
+}
 
-  span{
-    font-size: 1.1vw;
-    margin-right: 0.7vw;
-  }
+.erroCpf{
+  @include flexCenter(row);
+  @include erroClasse();
+}
+
+.erroEmail{
+  @include flexCenter(row);
+  @include erroClasse();
 }
 
 @media only screen and (max-width: 950px){
