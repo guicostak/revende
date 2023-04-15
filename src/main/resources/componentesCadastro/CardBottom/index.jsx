@@ -104,7 +104,7 @@ const CardBottom = ({ displayState }) => {
       }
 
     if(validName && validEmail && validCpf && validDate && validPassword){
-      axios.post('https://localhost8080/user/register', user)
+      axios.post('https://localhost:8080/user/register', user)
       .then(response => {
         Swal.fire(
           'Good job!',
