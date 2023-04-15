@@ -1,11 +1,11 @@
 import './Ingressos.css'
 import imagem from '../../img/vetores/ingresso.png'
-import Ingresso from '../Ingresso'
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import Ingresso from '../Ingresso'
 
 
 
