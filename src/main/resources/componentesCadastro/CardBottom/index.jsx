@@ -9,12 +9,12 @@ import senha from '../../img/vetores/senha.png'
 import { useState } from 'react'
 import React from "react";
 import Swal from 'sweetalert2'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import ErrorMessage from './ErrorMessage'
+import axios from 'axios'
 
 
 
-const CardBottom = (props) => {
+const CardBottom = ({ displayState }) => {
 
   const[inputName, setInputName]= useState('')
   const[inputEmail, setInputEmail]= useState('')
@@ -22,17 +22,19 @@ const CardBottom = (props) => {
   const[inputDate, setInputDate]= useState('')
   const[inputPassword, setInputPassword]= useState('')
   const[erroCamposVazios, setErroCamposVazios] = useState("none")
+  const[erroCpf, setErroCpf] = useState("none")
+  const[erroEmail, setErroEmail] = useState("none")
 
 
   function campoVazio() {
-    setErroCamposVazios("flex")
-    setTimeout(() => {
-      setErroCamposVazios("none")
-    }, "3000");
+      setErroCamposVazios("flex")
+      setTimeout(() => {
+        setErroCamposVazios("none")
+      }, "3000");
   }
 
   const efetuarCadastro = (e) => {
-
+  
     let validName = false
     let validEmail = false
     let validCpf = false
@@ -45,44 +47,80 @@ const CardBottom = (props) => {
       campoVazio()
       validName = false
     }
-    else if(inputName.length < 6){
-
-      validName = false
-    }
       else{
         validName = true
       }
     
     if(!inputEmail) {
       campoVazio()
+      validEmail = false;
     }
-    else if(inputEmail.indexOf('@') == -1 || inputEmail.indexOf('.') == -1 || inputEmail.indexOf('.') - inputEmail.indexOf('@') == 1){
-      alert("email invalido")
+    else if( inputEmail > 0 && inputEmail.indexOf('@') == -1 || inputEmail.indexOf('.') == -1 || inputEmail.indexOf('.') - inputEmail.indexOf('@') == 1){
+      setErroEmail("flex")
+      setTimeout(() => {
+        setErroEmail("none")
+      }, "3000");
+      validEmail = false;
     }
       else{
+        validEmail = true;
       }
 
     if(!inputCpf){
       campoVazio()
-    }else if(inputCpf.length < 14){
-      alert("menor que 6")
+      validCpf = false;
+    }
+    else if(inputCpf.length < 14){
+      setErroCpf("flex")
+      setTimeout(() => {
+        setErroCpf("none")
+      }, "3000");
+      validCpf = false;
     }
       else{
+        validCpf = true;
       }
  
     if(!inputDate){
       campoVazio()
     }
       else{
+        validDate = true;
       }
 
     if(!inputPassword){
       campoVazio()
-    }else if(inputPassword.length < 6){
-      alert("menor que 6")
     }
       else{
+        validPassword = true;
       }
+
+      const user = {
+        name: inputName,
+        email: inputEmail,
+        cpf: inputCpf,
+        date: inputDate,
+        password: inputPassword
+      }
+
+    if(validName && validEmail && validCpf && validDate && validPassword){
+      axios.post('https://localhost8080/user/register', user)
+      .then(response => {
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
+      });
+    }
   }
   
   return(
@@ -113,6 +151,12 @@ const CardBottom = (props) => {
         aoAlterado={value => setInputEmail(value)}
         />
 
+      <ErrorMessage 
+      classError={'erroEmail'}
+      textError={'Insira um formato de email válido'}
+      displayState={erroEmail}
+      />
+
       <Textfield
         forLabel="labelCpf"
         label="Qual é o seu CPF?"
@@ -125,6 +169,12 @@ const CardBottom = (props) => {
         value={inputCpf}
         aoAlterado={value => setInputCpf(value)}
         />
+
+      <ErrorMessage 
+      classError={'erroCpf'}
+      textError={'Insira um formato de CPF válido'}
+      displayState={erroCpf}
+      />
 
       <Textfield
         forLabel="labelDate"
@@ -142,10 +192,12 @@ const CardBottom = (props) => {
         imagem={senha}
       />
 
-      <div style={{ display: erroCamposVazios }} className='mensagemErro'>
-      <span>Parece que existem campos não preenchidos!</span>
-      <FontAwesomeIcon icon={faTimesCircle} />
-      </div>
+      <ErrorMessage 
+      classError={'erroCamposVazios'}
+      textError={'Parece que existem campos não preenchidos!'}
+      displayState={erroCamposVazios}
+      />
+    
 
       <input id="submit" type="submit" value="Criar conta"></input>
 
