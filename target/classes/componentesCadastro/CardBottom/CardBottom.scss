@@ -3,7 +3,6 @@
 
 #card-bottom{
 @include cardFormato;
-padding-top: 5vh;
 }
 
 #submit{
@@ -71,6 +70,12 @@ form{
   border: none;
   border-radius: 100px;
   cursor: pointer;
+  transition: 0.5s;
+
+  &:hover{
+    background-color: var(--dark-main);
+    transition: 1s;
+  }
 }
 
 .swalTitle{
@@ -82,7 +87,13 @@ form{
 .swalText{
   color: var(--main-color);
   font-size: 1vw;
-  font-family: 'Poppins',sans-serif;
+  font-family: var(--main-font);
+  font-weight: 700;
+}
+
+.swalFooter > a{
+  font-family: var(--main-font);
+  font-weight: 700;
 }
 
 
@@ -173,6 +184,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .erroCamposVazios{
+  @include flexCenter(row);
+  @include erroClasse();
+}
+
+.erroCpf{
+  @include flexCenter(row);
+  @include erroClasse();
+}
+
+.erroEmail{
   @include flexCenter(row);
   @include erroClasse();
 }
