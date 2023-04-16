@@ -52,7 +52,7 @@ const CardBottom = ({ displayState }) => {
       }
 
     if(validEmail && validPassword){
-      axios.get('http://localhost:8080/user/login', user)
+      axios.post('http://localhost:8080/user/login', user)
       .then(response => {
         Swal.fire(
           'Good job!',
