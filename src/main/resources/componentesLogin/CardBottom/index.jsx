@@ -4,18 +4,20 @@ import TextfieldSenha from './TextfieldSenha'
 import email from '../../img/vetores/email.png'
 import senha from '../../img/vetores/senha.png'
 import { useState } from 'react'
+import React from 'react'
 import Swal from 'sweetalert2'
 import ErrorMessage from '../../componentesCadastro/CardBottom/ErrorMessage'
 import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 
 
 
-const CardBottom = ({ displayState }) => {
+const CardBottom = ({ }) => {
   const[inputEmail, setInputEmail]= useState('')
   const[inputPassword, setInputPassword]= useState('')
   const[erroCamposVazios, setErroCamposVazios] = useState("none")
 
-
+ 
   function campoVazio() {
       setErroCamposVazios("flex")
       setTimeout(() => {
@@ -37,7 +39,6 @@ const CardBottom = ({ displayState }) => {
     else{
       validEmail = true;
     }
-     
  
     if(!inputPassword){
       campoVazio()
@@ -59,7 +60,12 @@ const CardBottom = ({ displayState }) => {
           'You clicked the button!',
           'success'
         )
-      })
+        setTimeout(() => {
+          Navigate('/inicio')
+        }, "2000");
+      }
+    )
+      
       .catch(error => {
         Swal.fire({
           icon: 'error',
