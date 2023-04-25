@@ -60,9 +60,6 @@ const CardBottom = ({ }) => {
           'You clicked the button!',
           'success'
         )
-        setTimeout(() => {
-          Navigate('/inicio')
-        }, "2000");
       }
     )
       
