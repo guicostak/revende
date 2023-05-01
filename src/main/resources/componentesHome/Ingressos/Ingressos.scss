@@ -29,12 +29,15 @@
 
     .parIngressos{
       @include flexCenter(row);
+      gap: 2vw;
+      height: 40vh;
+      
     }
 
     .navButton{
       cursor: pointer;
-      width: 3vw;
-      height: 6vh;
+      width: 10vw;
+      height: 8vh;
 
       display: flex;
       align-items: center;
@@ -43,6 +46,7 @@
       background-color: white;
       border: 1px solid var(--main-color);
       border-radius: 50px;
+      margin-inline: 3vw;
 
       color: var(--main-color);
       font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
