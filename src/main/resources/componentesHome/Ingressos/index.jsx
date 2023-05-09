@@ -7,8 +7,8 @@ import 'swiper/css/navigation'
 import Ingresso from './Ingresso'
 import axios from 'axios'
 
-SwiperCore.use([Navigation])
 
+SwiperCore.use([Navigation])
 
 
 const Ingressos = () => {
@@ -18,72 +18,82 @@ const Ingressos = () => {
       titulo: 'Ingresso 1',
       data: '28/04',
       preco: 'R$' + 10,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 1
     },
     {
       img: 2,
       titulo: 'Ingresso 2',
       data: '28/04',
       preco: 'R$' + 15,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 2
     },
     {
       img: 3,
       titulo: 'Ingresso 3',
       data: '28/04',
       preco: 'R$' + 20,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 3
     },
     {
       img: 4,
       titulo: 'Ingresso 4',
       data: '29/04',
       preco: 'R$' + 25,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 4
     },
     {
       img: 5,
       titulo: 'Ingresso 5',
       data: '30/04',
       preco: 'R$' + 30,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 5
     },
     {
       img: 6,
       titulo: 'Ingresso 6',
       data: '01/05',
       preco: 'R$' + 35,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 6
     },
     {
       img: 7,
       titulo: 'Ingresso 7',
       data: '02/05',
       preco: 'R$' + 40,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 7
     },
     {
       img: 8,
       titulo: 'Ingresso 8',
       data: '03/05',
       preco: 'R$' + 45,
-      tipo: 'digital'
+      tipo: 'digital', 
+      id: 8
     },
     {
       img: 9,
       titulo: 'Ingresso 9',
       data: '04/05',
       preco: 'R$' + 50,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 9
     },
     {
       img: 10,
       titulo: 'Ingresso 10',
       data: '05/05',
       preco: 'R$' + 55,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 10
     }
-  ])
+  ]) 
 
   useEffect(() => {
     axios
@@ -116,6 +126,7 @@ const Ingressos = () => {
             <SwiperSlide>
               <div className="parIngressos">
                 <Ingresso
+                  id={dezMaisRecentes[0].id} 
                   imgIngresso={dezMaisRecentes[0].img}
                   tituloIngresso={dezMaisRecentes[0].titulo}
                   dataIngresso={dezMaisRecentes[0].data}
@@ -123,6 +134,7 @@ const Ingressos = () => {
                   tipoIngresso={dezMaisRecentes[0].tipo}
                 />
                 <Ingresso
+                  id={dezMaisRecentes[1].id} 
                   imgIngresso={dezMaisRecentes[1].img}
                   tituloIngresso={dezMaisRecentes[1].titulo}
                   dataIngresso={dezMaisRecentes[1].data}
@@ -134,6 +146,7 @@ const Ingressos = () => {
             <SwiperSlide>
               <div className="parIngressos">
                 <Ingresso
+                  id={dezMaisRecentes[2].id} 
                   imgIngresso={dezMaisRecentes[2].img}
                   tituloIngresso={dezMaisRecentes[2].titulo}
                   dataIngresso={dezMaisRecentes[2].data}
@@ -141,6 +154,7 @@ const Ingressos = () => {
                   tipoIngresso={dezMaisRecentes[2].tipo}
                 />
                 <Ingresso
+                  id={dezMaisRecentes[3].id} 
                   imgIngresso={dezMaisRecentes[3].img}
                   tituloIngresso={dezMaisRecentes[3].titulo}
                   dataIngresso={dezMaisRecentes[3].data}
@@ -152,6 +166,7 @@ const Ingressos = () => {
             <SwiperSlide>
               <div className="parIngressos">
                 <Ingresso
+                  id={dezMaisRecentes[4].id} 
                   imgIngresso={dezMaisRecentes[4].img}
                   tituloIngresso={dezMaisRecentes[4].titulo}
                   dataIngresso={dezMaisRecentes[4].data}
@@ -159,6 +174,7 @@ const Ingressos = () => {
                   tipoIngresso={dezMaisRecentes[4].tipo}
                 />
                 <Ingresso
+                  id={dezMaisRecentes[5].id} 
                   imgIngresso={dezMaisRecentes[5].img}
                   tituloIngresso={dezMaisRecentes[5].titulo}
                   dataIngresso={dezMaisRecentes[5].data}
@@ -170,6 +186,7 @@ const Ingressos = () => {
             <SwiperSlide>
               <div className="parIngressos">
                 <Ingresso
+                  id={dezMaisRecentes[6].id} 
                   imgIngresso={dezMaisRecentes[6].img}
                   tituloIngresso={dezMaisRecentes[6].titulo}
                   dataIngresso={dezMaisRecentes[6].data}
@@ -177,6 +194,7 @@ const Ingressos = () => {
                   tipoIngresso={dezMaisRecentes[6].tipo}
                 />
                 <Ingresso
+                  id={dezMaisRecentes[7].id} 
                   imgIngresso={dezMaisRecentes[7].img}
                   tituloIngresso={dezMaisRecentes[7].titulo}
                   dataIngresso={dezMaisRecentes[7].data}
@@ -188,6 +206,7 @@ const Ingressos = () => {
             <SwiperSlide>
               <div className="parIngressos">
                 <Ingresso
+                  id={dezMaisRecentes[8].id} 
                   imgIngresso={dezMaisRecentes[8].img}
                   tituloIngresso={dezMaisRecentes[8].titulo}
                   dataIngresso={dezMaisRecentes[8].data}
@@ -195,6 +214,7 @@ const Ingressos = () => {
                   tipoIngresso={dezMaisRecentes[8].tipo}
                 />
                 <Ingresso
+                  id={dezMaisRecentes[9].id} 
                   imgIngresso={dezMaisRecentes[9].img}
                   tituloIngresso={dezMaisRecentes[9].titulo}
                   dataIngresso={dezMaisRecentes[9].data}
