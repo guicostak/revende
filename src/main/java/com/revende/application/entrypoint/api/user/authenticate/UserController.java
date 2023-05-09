@@ -1,4 +1,4 @@
-package com.revende.application.entrypoint.api;
+package com.revende.application.entrypoint.api.user.authenticate;
 
 import com.revende.application.entrypoint.dto.user.LoginDTO;
 import com.revende.model.entities.User;
@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @CrossOrigin(origins = "http://localhost:3002")
 @RestController
@@ -35,14 +37,20 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO, HttpSession session) {
         User existingUser = userRepository.findByEmail(loginDTO.getEmail());
-        System.out.println(existingUser);
 
         if (existingUser != null && passwordEncoder.matches(loginDTO.getPassword(), existingUser.getPassword())) {
+            session.setAttribute("id", existingUser.getId());
             return ResponseEntity.ok("Login successful");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.ok().build();
     }
 }

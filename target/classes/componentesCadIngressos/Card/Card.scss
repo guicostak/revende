@@ -1,0 +1,116 @@
+@import '../../index.scss';
+
+.cadIngressos-card{
+    width: 100vw;
+    padding-block: 4vh;
+    @include flexCenter(column);
+
+    h1{
+      font-size: 2.5vw;
+      color: var(--navbar);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+      sans-serif;
+      font-weight: 600;
+      animation: pop-up 1s linear;
+    }
+    .card{
+      width: 70vw;
+      height: auto;
+
+      flex-direction: row;
+      justify-content: left;
+    
+      border: 1px solid var(--navbar);
+      border-radius: 5px;
+      animation: pop-up 1s linear;
+      
+      .categorias{
+        flex-direction: column;
+        justify-content: left;
+    
+        h2{
+          width: 18vw;
+          height: auto;
+          
+          position: relative;
+          left: -0.05vw;
+      
+          padding-left: 2vw;
+          padding-bottom: 4vh;
+          padding-top: 3vh;
+
+          border-right: 1px solid var(--navbar);
+
+          font-size: 1.3vw;
+          color: var(--navbar);
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+          sans-serif;
+        }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+
+          list-style: none;
+
+          position: relative;
+          left: -1px;
+
+          li{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            width: 18vw;
+            padding-block: 1.5vh;
+
+            color: var(--navbar);
+            font-size: 1.1vw;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+            Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+            sans-serif;
+            
+            border-top: 1px solid var(--navbar);
+            border-left: 1px solid var(--navbar);
+            border-right: 1px solid var(--navbar);
+            
+
+            padding-left: 2vw;
+            cursor: pointer;
+            transition: 0.2s;
+
+            &:hover{
+              background-color: #e82c4f2f;
+              transition: 0.2s;
+            }
+
+            img {
+              width: 1.4vw;
+              margin-right: 1vw;
+            }
+
+            .seta{
+              padding-left: 1vw;
+              width: 2vw;
+
+              color: var(--main-color);
+              font-family: var(--main-font);
+              font-size: 1.3vw;
+            }
+          }
+          .selecionado{
+            background-color: #e82c4f2f;
+          }
+        }
+      }
+
+      .outros-campos{
+        width: 52vw;
+        background-color: black;
+        animation: pop-up 1s linear;
+      }
+
+    }
+}

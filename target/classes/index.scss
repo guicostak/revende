@@ -18,7 +18,7 @@ body {
   --dark-main: #d4304e;
   --main-background: #ffffff;
   --second-background: rgb(247, 245, 245);
-  --navbar: #686767;
+  --navbar: #575555;
   --main-font:  'Poppins', sans-serif;
 }
 
@@ -108,3 +108,11 @@ body {
   100%   { opacity: 0; }
 }
 
+@keyframes pop-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -172,6 +172,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
+.erroCamposVazios{
+  @include flexCenter(row);
+  @include erroClasse();
+}
+
 @media only screen and (max-width: 950px){
   #card-bottom{
     width: 90vw;
