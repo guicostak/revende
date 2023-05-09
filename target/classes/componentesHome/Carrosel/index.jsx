@@ -1,5 +1,5 @@
 import React from 'react';
-import Slide from '../Slide'
+import Slide from './Slide'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 import 'swiper/css';
@@ -7,19 +7,16 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay'
 import sotrack from '../../img/eventos/sotrack.png'
 import coldplay from '../../img/eventos/coldplay.png'
-import './Carrosel.css'
+import './Carrosel.scss'
 
-
-
-
-SwiperCore.use([ Pagination, Autoplay]);
+SwiperCore.use([ Pagination, Autoplay ]);
 
 function Carrosel() {
-
-  
+ 
   return (
     <div className='slider'>
       <h2>Eventos em destaque</h2>
+
       <Swiper
         modules = {[ Pagination ]}
         pagination={{clickable: true,
