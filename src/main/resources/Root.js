@@ -5,10 +5,12 @@ import Login from './paginas/Login'
 import HomeLogado from './paginas/HomeLogado'
 import CadIngressos from './paginas/CadIngressos'
 import VerDetalhes from './paginas/VerDetalhes'
+import ScrollReset from './ScrollReset'
 
 const Root = () => {
   return (
     <Router>
+      <ScrollReset />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/inicio" element={<HomeLogado />} />

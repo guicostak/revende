@@ -12,7 +12,7 @@
       Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
       sans-serif;
     font-weight: 600;
-    animation: pop-up 1s linear;
+    animation: pop-up 0.5s linear;
     margin-bottom: 5vh;
   }
   .card {
@@ -22,9 +22,10 @@
     flex-direction: row;
     justify-content: left;
 
-    border: 1px solid var(--navbar);
+    border: 1px solid var(--main-color);
     border-radius: 5px;
-    animation: pop-up 1s linear;
+    box-shadow: 4px 4px 4px 4px rgba(211, 209, 209, 0.349);
+    animation: pop-up 0.5s linear;
 
     .categorias {
       flex-direction: column;
@@ -41,7 +42,7 @@
         padding-bottom: 4vh;
         padding-top: 3vh;
 
-        border-right: 1px solid var(--navbar);
+        border-right: 1px solid var(--main-color);
 
         font-size: 1.3vw;
         color: var(--navbar);
@@ -73,9 +74,9 @@
             Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
             sans-serif;
 
-          border-top: 1px solid var(--navbar);
-          border-left: 1px solid var(--navbar);
-          border-right: 1px solid var(--navbar);
+          border-top: 1px solid var(--main-color);
+          border-left: 1px solid var(--main-color);
+          border-right: 1px solid var(--main-color);
 
           padding-left: 2vw;
           cursor: pointer;
@@ -235,7 +236,7 @@
           }
 
           label {
-            color: var(--text-color);
+            color: var(--navbar);
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1.1vw;
             font-weight: bold;

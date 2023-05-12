@@ -51,7 +51,6 @@ const Card = () => {
       if (reader.readyState === 2) {
         setImage(reader.result);
         setRemoveStatus('flex')
-        console.log(reader.result)
       }
     }
     reader.readAsDataURL(e.target.files[0])

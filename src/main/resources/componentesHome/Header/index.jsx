@@ -27,7 +27,7 @@ const Header = () => {
               entrar
             </Link>
           </li>
-          <Link to="/cadastro">
+          <Link to="/ingressos/cadastro">
             <button>quero vender</button>
           </Link>
         </ul>

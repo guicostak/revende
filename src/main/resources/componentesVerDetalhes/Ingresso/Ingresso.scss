@@ -2,52 +2,136 @@
 
 .container{
 width: 100vw;
-height: 100vh;
-padding-top: 10vh;
+height: 200vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: top;
+padding-top: 2vh;
+gap: 5vh;
 
-.detalhes{
-  @include flexCenter(column);
-  
-  padding-inline: 2vw;
-  padding-block: 2vh;
-  width: 60vw;
-  margin-left: 5vw;
-  background-color: white;
-  img{width: 20vw;
-  }
-  h1{
-    font-size: 2.5vw;
-    margin-bottom: 2vh;
-  }
-
-  label{
-    font-size: 1vw;
-    font-family: var(--main-font);
-    color: var(--main-color);
-    margin-bottom: 1vh;
-  }
-
-  h2{
-    font-size: 1.1vw;
-    font-family: var(--main-font);
-  
-  }
-
-  .row{
-    @include  flexCenter(row);
-    gap: 5vw;
-    padding-block: 5vh;
-  }
-
-  .campo{
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: center;
-  }
-
-  p{
-    font-size: 1.2vw;
-  }
+label{
+  font-size: 1vw;
+  font-family: var(--main-font);
+  color: var(--main-color);
+  margin-bottom: 1vh;
 }
+
+h2{
+  font-size: 1.1vw;
+  font-family: var(--main-font);
+  color: var(--navbar);
+}
+
+  .detalhes{
+    @include flexCenter(row);
+
+    width: 85vw;
+    height: calc(0.5625* 45vw);
+
+    border-radius: 15px;
+    background-color: var(--second-background);
+
+    .column{
+      display: flex; 
+      width: 45vw;
+      height: calc(0.5625* 45vw);
+      padding-top: 3vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: top;
+      margin-left: -2px;
+    }
+
+    #imgEvento{
+      width: 45vw;
+      height: calc(0.5625* 45vw);
+    }
+
+    .vetor{
+      width: 1.4vw;
+      height: auto;
+    }
+
+    h1{
+      font-size: 2vw;
+      margin-top: 0vh;
+      margin-bottom: 2vh;
+      color: white;
+      height: 8vh;
+      padding-block: 1vh;
+      width: 40vw; 
+      background-color: var(--main-color);
+    }
+
+    .row{
+      @include  flexCenter(row);
+      gap: 2.5vw;
+      padding-block: 4vh;
+    }
+
+    .campo{
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      justify-content: center;
+    }
+    .campo#descricao{
+      width: 40vw;
+      margin-bottom: 0vh;
+    }
+
+    p{
+      font-size: 1.2vw;
+      color: var(--navbar);
+      padding-inline: 2vw;
+      text-align: left;
+    }
+  }
+  .contato{
+    width: 85vw; 
+    height: 13vh;
+    padding-inline: 1vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3vw;
+    background-color: var(--second-background);
+    border-radius: 20px;
+      .usuario{
+        width: 3.5vw;
+      }
+      .vetores{
+      width: 2vw;
+      height: auto;
+      margin-bottom: 2vh;
+      margin-right: 0.2vw;
+    }
+    label{
+      display: flex;
+      align-items: center;
+      font-size: 1.2vw;
+    }
+    .row{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1vw;
+    }
+    h2{
+      margin-bottom: 1vh;
+    }
+    .column{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h3{
+      font-size: 0.9vw;
+      font-family: var(--main-font);
+      color: var(--main-color);
+    }
+  }
 }
