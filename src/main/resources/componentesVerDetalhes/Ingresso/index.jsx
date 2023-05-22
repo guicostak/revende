@@ -73,14 +73,10 @@ const Ingresso = ({ match }) => {
         </div>
       </div>
       <div className="contato">
-        <div className='column'>
+        <div className='row' id='user'>
           <img src={perfil} className='usuario' />  
-          <h3>anunciante</h3>
+            <h3>Joaquim da Silva Campos</h3>
         </div>
-        <div className="row">
-              <label>Nome:</label>
-              <h2>Joaquim da Silva Campos</h2>
-            </div>
             <div className="row">
               <label> <img src={email} className='vetores' />  Email:</label>
               <h2>joaquimsc@gmail.com</h2>
@@ -90,6 +86,7 @@ const Ingresso = ({ match }) => {
               <h2>(31)99678-2323</h2>
             </div>
       </div>
+      
     </div>
   )
 }

@@ -89,18 +89,32 @@ h2{
     }
   }
   .contato{
-    width: 85vw; 
-    height: 13vh;
-    padding-inline: 1vw;
+    width: 80vw; 
+    height: 10vh;
+    padding-left: 2vw;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 3vw;
+    justify-content: left;
+    gap: 5vw;
     background-color: var(--second-background);
     border-radius: 20px;
+
+    .row#user{
+      @include  flexCenter(row);
+      gap: 1vw;
+      padding-block: 4vh;
+      background-color: var(--second-background);
+      height: 10vh;
+      border-radius: 15px;
+      h3{
+      color: var(--main-colorc);
+      font-size: 1.3vw;
+      }
+      padding-inline: 2vw;
+    }
       .usuario{
-        width: 3.5vw;
+        width: 4vw;
       }
       .vetores{
       width: 2vw;
