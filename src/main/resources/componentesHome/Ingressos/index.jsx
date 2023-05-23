@@ -1,15 +1,15 @@
+import React, { useEffect, useState } from 'react'
 import './Ingressos.scss'
-import React, { useEffect, useRef, useState } from 'react'
-import { useSwiper, Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation } from 'swiper'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation, Pagination } from 'swiper/core'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import Ingresso from './Ingresso'
-import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
-SwiperCore.use([Navigation])
-
-
+SwiperCore.use([Navigation, Pagination])
 
 const Ingressos = () => {
   const [vetorIngressos, setVetorIngressos] = useState([
@@ -18,204 +18,197 @@ const Ingressos = () => {
       titulo: 'Ingresso 1',
       data: '28/04',
       preco: 'R$' + 10,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 1
     },
     {
       img: 2,
       titulo: 'Ingresso 2',
       data: '28/04',
       preco: 'R$' + 15,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 2
     },
     {
       img: 3,
       titulo: 'Ingresso 3',
       data: '28/04',
       preco: 'R$' + 20,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 3
     },
     {
       img: 4,
       titulo: 'Ingresso 4',
       data: '29/04',
       preco: 'R$' + 25,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 4
     },
     {
       img: 5,
       titulo: 'Ingresso 5',
       data: '30/04',
       preco: 'R$' + 30,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 5
     },
     {
       img: 6,
       titulo: 'Ingresso 6',
       data: '01/05',
       preco: 'R$' + 35,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 6
     },
     {
       img: 7,
       titulo: 'Ingresso 7',
       data: '02/05',
       preco: 'R$' + 40,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 7
     },
     {
       img: 8,
       titulo: 'Ingresso 8',
       data: '03/05',
       preco: 'R$' + 45,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 8
     },
     {
       img: 9,
       titulo: 'Ingresso 9',
       data: '04/05',
       preco: 'R$' + 50,
-      tipo: 'fisico'
+      tipo: 'fisico',
+      id: 9
     },
     {
       img: 10,
       titulo: 'Ingresso 10',
       data: '05/05',
       preco: 'R$' + 55,
-      tipo: 'digital'
+      tipo: 'digital',
+      id: 10
     }
   ])
+  const [swiper, setSwiper] = useState(null)
+  const [slideAtual, setSlideAtual] = useState(0)
+  const [verMais, setVerMais] = useState(false)
+  const navigate = useNavigate();
+
+  const navegar = () => {
+    navigate("/ingressos/recentes")
+  }
+
+  const handlePreviousSlide = () => {
+    if (slideAtual > 0) {
+      swiper.slidePrev()
+      setVerMais(false); 
+    }
+  }
+
+  const handleNextSlide = () => {
+    if(slideAtual < 4){
+    swiper.slideNext()
+    if(slideAtual === 3){
+      const timeout = setTimeout(() => {
+        setVerMais(true); 
+      }, 100);
+    }
+    }
+  }
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/inicio/ingressos')
+      .get('http://localhost:8080/ticket/lastest')
       .then(response => setVetorIngressos(response.data))
       .catch(error => console.log(error))
   }, [])
 
-  const swiper = useSwiper()
-  const sliderRef = useRef(null)
-
   const dezMaisRecentes = vetorIngressos.slice(-10).reverse()
 
+  
   return (
     <div className="ingressos">
-      <h1>Anuncios recentes</h1>
+      <h1 onClick={navegar}>Anúncios recentes</h1>
       {vetorIngressos.length > 0 ? (
-        <div className="listaIngressos" ref={sliderRef}>
-          <button id='prev'className="navButton" onClick={() => swiper.slidePrev()}>
-            &lt;
+        <div className="listaIngressos">
+          <button
+            className="navButton"
+            onClick={handlePreviousSlide}
+            style={{
+              visibility: slideAtual === 0 ? 'hidden' : 'visible',
+              opacity: slideAtual === 0 ? 0 : 1
+            }}
+          >
+            {'<'}
           </button>
           <Swiper
-            modules={[Navigation]}
-            loop
-            onSwiper={swiper => swiper.update()}
-            navigation={{
-              prevEl: '#prev',
-              nextEl: '#next'
-            }}>
-            <SwiperSlide>
-              <div className="parIngressos">
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[0].img}
-                  tituloIngresso={dezMaisRecentes[0].titulo}
-                  dataIngresso={dezMaisRecentes[0].data}
-                  precoIngresso={dezMaisRecentes[0].preco}
-                  tipoIngresso={dezMaisRecentes[0].tipo}
-                />
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[1].img}
-                  tituloIngresso={dezMaisRecentes[1].titulo}
-                  dataIngresso={dezMaisRecentes[1].data}
-                  precoIngresso={dezMaisRecentes[1].preco}
-                  tipoIngresso={dezMaisRecentes[1].tipo}
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="parIngressos">
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[2].img}
-                  tituloIngresso={dezMaisRecentes[2].titulo}
-                  dataIngresso={dezMaisRecentes[2].data}
-                  precoIngresso={dezMaisRecentes[2].preco}
-                  tipoIngresso={dezMaisRecentes[2].tipo}
-                />
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[3].img}
-                  tituloIngresso={dezMaisRecentes[3].titulo}
-                  dataIngresso={dezMaisRecentes[3].data}
-                  precoIngresso={dezMaisRecentes[3].preco}
-                  tipoIngresso={dezMaisRecentes[3].tipo}
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="parIngressos">
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[4].img}
-                  tituloIngresso={dezMaisRecentes[4].titulo}
-                  dataIngresso={dezMaisRecentes[4].data}
-                  precoIngresso={dezMaisRecentes[4].preco}
-                  tipoIngresso={dezMaisRecentes[4].tipo}
-                />
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[5].img}
-                  tituloIngresso={dezMaisRecentes[5].titulo}
-                  dataIngresso={dezMaisRecentes[5].data}
-                  precoIngresso={dezMaisRecentes[5].preco}
-                  tipoIngresso={dezMaisRecentes[5].tipo}
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="parIngressos">
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[6].img}
-                  tituloIngresso={dezMaisRecentes[6].titulo}
-                  dataIngresso={dezMaisRecentes[6].data}
-                  precoIngresso={dezMaisRecentes[6].preco}
-                  tipoIngresso={dezMaisRecentes[6].tipo}
-                />
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[7].img}
-                  tituloIngresso={dezMaisRecentes[7].titulo}
-                  dataIngresso={dezMaisRecentes[7].data}
-                  precoIngresso={dezMaisRecentes[7].preco}
-                  tipoIngresso={dezMaisRecentes[7].tipo}
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="parIngressos">
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[8].img}
-                  tituloIngresso={dezMaisRecentes[8].titulo}
-                  dataIngresso={dezMaisRecentes[8].data}
-                  precoIngresso={dezMaisRecentes[8].preco}
-                  tipoIngresso={dezMaisRecentes[8].tipo}
-                />
-                <Ingresso
-                  imgIngresso={dezMaisRecentes[9].img}
-                  tituloIngresso={dezMaisRecentes[9].titulo}
-                  dataIngresso={dezMaisRecentes[9].data}
-                  precoIngresso={dezMaisRecentes[9].preco}
-                  tipoIngresso={dezMaisRecentes[9].tipo}
-                />
-              </div>
-            </SwiperSlide>
+  slidesPerView={1}
+  loop
+  onSwiper={setSwiper}
+  onSlideChange={swiper => setSlideAtual(swiper.activeIndex)}
+  initialSlide={slideAtual}
+  speed={200}
+  pagination={{
+    type: 'bullets',
+    clickable: true
+  }}
+>
+            {[...Array(5)].map((_, index) => (
+              <SwiperSlide key={index}>
+                <div className="parIngressos">
+                  <Ingresso
+                    id={dezMaisRecentes[index * 2].id}
+                    imgIngresso={dezMaisRecentes[index * 2].img}
+                    tituloIngresso={dezMaisRecentes[index * 2].titulo}
+                    dataIngresso={dezMaisRecentes[index * 2].data}
+                    precoIngresso={dezMaisRecentes[index * 2].preco}
+                    tipoIngresso={dezMaisRecentes[index * 2].tipo}
+                  />
+                  <Ingresso
+                    id={dezMaisRecentes[index * 2 + 1].id}
+                    imgIngresso={dezMaisRecentes[index * 2 + 1].img}
+                    tituloIngresso={dezMaisRecentes[index * 2 + 1].titulo}
+                    dataIngresso={dezMaisRecentes[index * 2 + 1].data}
+                    precoIngresso={dezMaisRecentes[index * 2 + 1].preco}
+                    tipoIngresso={dezMaisRecentes[index * 2 + 1].tipo}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
           </Swiper>
-
-          <button id='next' className="navButton" onClick={() => swiper.slideNext()}>
-            &gt;
+          <button
+            className="navButton"
+            onClick={handleNextSlide}
+            style={{
+              visibility: slideAtual < 4 ? 'visible' : 'hidden',
+              opacity: slideAtual < 4 ? 1 : 0
+            }}
+          >
+            {'>'}
           </button>
         </div>
       ) : (
         <div className="ingressos">
           <div className="sem-ingressos">
             <h1></h1>
-            <p>Não existem ingressos disponíveis nessa sessão.</p>
+            <p>Não existem ingressos disponíveis nesta sessão.</p>
           </div>
         </div>
+      )}
+      {vetorIngressos.length > 0 && (
+        <h5 onClick={navegar}
+        className='ver-mais' style={{
+          display: verMais === true ?  'flex' : 'none'
+        }}>
+          ver mais
+        </h5>
+
+        
       )}
     </div>
   )

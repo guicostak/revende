@@ -1,12 +1,11 @@
 import Header from '../../componentesCadastro/Header'
 import Rodape from '../../componentesCadastro/Rodape'
-import './Login.scss'
 import CardTop from '../../componentesCadastro/CardTop'
 import CardBottom from '../../componentesLogin/CardBottom'
 
 const Login = () =>{
   return (
-    <body className="body">
+    <body>
       <Header />
       <CardTop 
       label={"Entrar"}
