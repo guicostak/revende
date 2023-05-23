@@ -2,8 +2,8 @@
 
 @keyframes surgir {
   from {
-    width: 2vw;
-    height: 8vh;
+    width: 0vw;
+    height: 0vh;
     font-size: 0.2vw;
   }
   to {
@@ -32,21 +32,67 @@
   display: flex;
   flex-direction: column;
 
-  h5{
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--navbar);
-    font-size: 1.1vw;
-    margin-left: 30vw;
-    b{
-  font-size: 1.1vw;
-  width: 5.5vw;
-  font-family: var(--main-font);
-  color: var(--main-color);
-  cursor: pointer;
-  &:hover{
-    border-bottom: 2px solid var(--main-color);
-  }}
+  .swiper-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5vw;
+    margin-top: 0;
   }
+  
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background-color: #ccc;
+    opacity: 0.8;
+  
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: var(--main-color);
+    opacity: 1;
+  }
+
+  .ver-mais{
+    font-size: 1.1vw;
+    margin-top: 26.5vh;
+    margin-left: 92vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation: pop-up 0.5s ease;
+    position: absolute;
+    z-index: 9999;
+    width: 5.0vw;
+    font-family: var(--main-font);
+    color: var(--main-color);
+    cursor: pointer;
+    width: 6vw;
+    height: 6vh;
+
+    background-color: white;
+
+    border: none;
+    border-radius: 50px;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.9vw;
+
+    transition: 0.35s;  
+    border: 1px solid var(--main-color);
+
+    &:hover {
+      transition: 0.35s;
+      background-color: var(--main-color);
+      color: white;
+      border: 1px solid var(--main-color);
+  }}
 
   .sem-ingressos{
     padding-block: 12vh;
@@ -57,8 +103,18 @@
     font-family: 'Ubuntu', sans-serif;
     font-size: 2.2vw;
     text-align: left;
+    cursor: pointer;
+  
+    width: 18vw;
+    height: 7vh;
+    transition: 0.5s;
 
     margin: 3vh 0vw 0vh 12vw;
+    border-bottom: 2px solid var(--main-color);
+    &:hover{
+      border-bottom: 2px solid var(--navbar);
+      transition: 0.5s;
+    }
   }
 
   .listaIngressos {
@@ -74,35 +130,9 @@
       @include flexCenter(row);
       width: 82vw;
       padding-inline: 1vw;
-      gap: 2vw;
+      gap: 3vw;
       height: 40vh;
     }
-
-    .ver-mais {
-      cursor: pointer;
-      width: 6vw;
-      height: 6vh;
-      margin-right: 2vw;
-  
-      background-color: white;
-      animation: surgir 1s alternate;
-      
-      border: none;
-      border-radius: 30px;
-  
-      font-family: 'Poppins', sans-serif;
-      color: var(--main-color);
-      font-weight: 700;
-      font-size: 0.7vw;
-      border: 1px solid var(--main-color);
-  
-      transition: 0.7s;
-  
-      &:hover {
-        transition: 0.7s;
-        background-color: var(--main-color);
-        color: white;
-      }}
 
     .navButton{
       cursor: pointer;
@@ -123,11 +153,12 @@
       font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
       font-size: 2vw;
 
-      transition: 0.7s;
+      transition: 0.35s;
 
       &:hover{
         background-color: var(--main-color);
         color: white;
+        transition: 0.35s;
       }
     }
 
