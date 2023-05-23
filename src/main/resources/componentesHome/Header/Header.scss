@@ -48,7 +48,6 @@
     outline: none;
 
     &::placeholder {
-      font-family: 'Poppins', sans-serif;
       font-size: 1.2vw;
       color: var(--navbar);
     }
@@ -68,6 +67,7 @@
     gap: 2vw;
 
     li {
+      height: 4vh;
       .link {
         text-decoration: none;
         height: 13vh;
