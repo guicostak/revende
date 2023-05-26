@@ -2,13 +2,15 @@
 
 .container{
 width: 100vw;
-height: 200vh;
+height: 85vh;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: top;
-padding-top: 2vh;
+padding-top: 5vh;
 gap: 5vh;
+margin-bottom: 3vh;
+border-bottom: 1px solid var(--main-color);
 
 label{
   font-size: 1vw;
@@ -21,6 +23,7 @@ h2{
   font-size: 1.1vw;
   font-family: var(--main-font);
   color: var(--navbar);
+  
 }
 
   .detalhes{
@@ -29,8 +32,9 @@ h2{
     width: 85vw;
     height: calc(0.5625* 45vw);
 
-    border-radius: 15px;
+  
     background-color: var(--second-background);
+    box-shadow: 1px 1px 1px 1px var(--box-shadow);
 
     .column{
       display: flex; 
@@ -62,6 +66,8 @@ h2{
       padding-block: 1vh;
       width: 40vw; 
       background-color: var(--main-color);
+      box-shadow: 1px 1px 1px 1px var(--dark-main);
+      
     }
 
     .row{
@@ -90,31 +96,33 @@ h2{
   }
   .contato{
     width: 80vw; 
-    height: 10vh;
-    padding-left: 2vw;
+    height: 8vh;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: left;
     gap: 5vw;
     background-color: var(--second-background);
-    border-radius: 20px;
+   
+    box-shadow: 1px 1px 1px 1px var(--box-shadow);
 
     .row#user{
       @include  flexCenter(row);
       gap: 1vw;
       padding-block: 4vh;
-      background-color: var(--second-background);
-      height: 10vh;
-      border-radius: 15px;
+      background-color: var(--main-color);
+      box-shadow: 1px 1px 1px 1px var(--dark-main);
+      height: 9vh;
+     
+
       h3{
-      color: var(--main-colorc);
-      font-size: 1.3vw;
+      color: white;
+      font-size: 1.1vw;
       }
       padding-inline: 2vw;
     }
       .usuario{
-        width: 4vw;
+        width: 3.6vw;
       }
       .vetores{
       width: 2vw;

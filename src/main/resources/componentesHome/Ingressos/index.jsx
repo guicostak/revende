@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './Ingressos.scss'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation, Pagination } from 'swiper/core'
@@ -11,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 SwiperCore.use([Navigation, Pagination])
 
-const Ingressos = () => {
+const Ingressos = ({api, titulo, tituloTamanho}) => {
   const [vetorIngressos, setVetorIngressos] = useState([
     {
       img: 1,
@@ -123,7 +122,7 @@ const Ingressos = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/ticket/lastest')
+      .get({api})
       .then(response => setVetorIngressos(response.data))
       .catch(error => console.log(error))
   }, [])
@@ -133,7 +132,7 @@ const Ingressos = () => {
   
   return (
     <div className="ingressos">
-      <h1 onClick={navegar}>Anúncios recentes</h1>
+      <h1 style={{width: tituloTamanho}} onClick={navegar}>{titulo}</h1>
       {vetorIngressos.length > 0 ? (
         <div className="listaIngressos">
           <button

@@ -1,18 +1,5 @@
 @import '../../index.scss';
 
-@keyframes surgir {
-  from {
-    width: 0vw;
-    height: 0vh;
-    font-size: 0.2vw;
-  }
-  to {
-    width: 6vw;
-    height: 6vh;
-    font-size: 0.7vw;
-  }
-}
-
 @keyframes sumir {
   from {
     width: 6vw;
@@ -105,15 +92,14 @@
     text-align: left;
     cursor: pointer;
   
-    width: 18vw;
     height: 7vh;
-    transition: 0.5s;
+    transition: 0.7s;
 
     margin: 3vh 0vw 0vh 12vw;
     border-bottom: 2px solid var(--main-color);
     &:hover{
       border-bottom: 2px solid var(--navbar);
-      transition: 0.5s;
+      transition: 0.7s;
     }
   }
 

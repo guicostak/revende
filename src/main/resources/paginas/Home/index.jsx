@@ -14,7 +14,7 @@ const Home = () =>{
       <Categorias />
       <Carrosel />
       <Quebra />
-      <Ingressos/>
+      <Ingressos api={'http://localhost:8080/ticket/lastest'} titulo={"Anúncios recentes"} tituloTamanho={'18vw'}/>
       <Rodape />
     </body>
   )

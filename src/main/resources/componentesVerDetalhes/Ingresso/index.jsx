@@ -4,7 +4,7 @@ import axios from 'axios'
 import imagem from '../../img/eventos/coldplay.png'
 import email from '../../img/vetores/email.png'
 import telefone from '../../img/vetores/telefone.png'
-import perfil from '../../img/vetores/usuario.png'
+import perfil from '../../img/vetores/usuarioBranco.png'
 
 const Ingresso = ({ match }) => {
   /*const [ingresso, setIngresso] = useState(null);
