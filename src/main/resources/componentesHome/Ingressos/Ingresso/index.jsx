@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Ingresso = ({
+  id,
   imgIngresso,
   tituloIngresso,
   dataIngresso,
   precoIngresso,
-  tipoIngresso
+  tipoIngresso,
 }) => {
   return (
     <div className="item">
@@ -18,9 +20,9 @@ const Ingresso = ({
         <h4>{precoIngresso}</h4>
         <p>{tipoIngresso}</p>
       </div>
-      <button className="infoButton">ver detalhes</button>
+      <Link to={`/ingressos/detalhes/${id}`}><button className='infoButton'>ver detalhes</button></Link>
     </div>
-  )
-}
+  );
+};
 
-export default Ingresso
+export default Ingresso;

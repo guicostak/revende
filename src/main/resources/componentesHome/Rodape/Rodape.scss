@@ -37,6 +37,12 @@ footer {
       text-align: left;
 
       margin-block: 3vh;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover{
+        color: rgb(207, 205, 205);
+        transition: 0.2s;
+      }
     }
   }
 
