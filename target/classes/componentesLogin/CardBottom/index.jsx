@@ -4,90 +4,74 @@ import TextfieldSenha from './TextfieldSenha'
 import email from '../../img/vetores/email.png'
 import senha from '../../img/vetores/senha.png'
 import { useState } from 'react'
+import React from 'react'
 import Swal from 'sweetalert2'
+import ErrorMessage from '../../componentesCadastro/CardBottom/ErrorMessage'
+import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 
 
 
-const CardBottom = (props) => {
-
-  const[inputName, setInputName]= useState('')
+const CardBottom = ({ }) => {
   const[inputEmail, setInputEmail]= useState('')
-  const[inputCpf, setInputCpf]= useState('')
-  const[inputDate, setInputDate]= useState('')
   const[inputPassword, setInputPassword]= useState('')
+  const[erroCamposVazios, setErroCamposVazios] = useState("none")
 
-
+ 
   function campoVazio() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Opa...',
-      text: 'Parece que existem campos vazios!',
-      footer: '<a href="">Preciso de ajuda</a>',
-      cssClass: 'my-dialog-class',
-      buttonsStyling: false,
-        customClass: {
-        confirmButton: 'swalButton',
-        title: 'swalTitle',
-        text: 'swalText'
-      }
-    })
+      setErroCamposVazios("flex")
+      setTimeout(() => {
+        setErroCamposVazios("none")
+      }, "3000");
   }
 
-  const efetuarLogin = (e) => {
-
-    let validName = false
+  const efetuarLogin= (e) => {
+  
     let validEmail = false
-    let validCpf = false
-    let validDate = false
     let validPassword = false
 
     e.preventDefault()
-
-    if(!inputName){
-      campoVazio()
-    }else if(inputName.length < 6){
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>',
-        cssClass: 'my-dialog-class',
-        buttonsStyling: false
-      })
-    }
-    else{
-      validName = true
-    }
     
     if(!inputEmail) {
       campoVazio()
-    }
-    else if(inputEmail.indexOf('@') == -1 || inputEmail.indexOf('.') == -1 || inputEmail.indexOf('.') - inputEmail.indexOf('@') == 1){
-      alert("email invalido")
+      validEmail = false;
     }
     else{
-    }
-
-    if(!inputCpf){
-      campoVazio()
-    }else if(inputCpf.length < 14){
-      alert("menor que 6")
-    }
-    else{
+      validEmail = true;
     }
  
-    if(!inputDate){
-      campoVazio()
-    }
-    else{
-    }
-
     if(!inputPassword){
       campoVazio()
-    }else if(inputPassword.length < 6){
-      alert("menor que 6")
     }
-    else{
+      else{
+        validPassword = true;
+      }
+
+      const user = {
+        email: inputEmail,
+        password: inputPassword,
+      }
+
+    if(validEmail && validPassword){
+      axios.post('http://localhost:8080/user/login', user)
+      .then(response => {
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
+        
+      }
+    )
+      
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
+      });
     }
   }
   
@@ -107,6 +91,12 @@ const CardBottom = (props) => {
       <TextfieldSenha
         aoAlterado={value => setInputPassword(value)}
         imagem={senha}
+      />
+      
+       <ErrorMessage 
+      classError={'erroCamposVazios'}
+      textError={'Parece que existem campos não preenchidos!'}
+      displayState={erroCamposVazios}
       />
 
       <input id="submit" type="submit" value="Entrar"></input>

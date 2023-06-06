@@ -8,17 +8,29 @@
 }
 
 body {
+  width: auto;
+  height: auto;
   overflow-x: hidden; 
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+                       
+  justify-content: top;
+  align-items: center;
+  animation: pop-up 0.3s alternate;
 }
 
 :root{
   --main-color: #E82C4F;
   --text-color: rgb(43, 42, 42);
-  --light-main: #eb4d6a;
+  --light-main: #ff2f55c7;
   --dark-main: #d4304e;
   --main-background: #ffffff;
   --second-background: rgb(247, 245, 245);
-  --navbar: #686767;
+  --box-shadow: #aaa6a671;
+  --navbar: #575555;
   --main-font:  'Poppins', sans-serif;
 }
 
@@ -72,19 +84,6 @@ body {
   align-items: center;
 }
 
-@mixin body(){
-  width: auto;
-  height: auto;
-
-  background-color: white;
-
-  display: flex;
-  flex-direction: column;
-                       
-  justify-content: top;
-  align-items: center;
-}
-
 @mixin erroClasse {   
   font-family:Arial, Helvetica, sans-serif;
   font-weight: 600;
@@ -108,3 +107,43 @@ body {
   100%   { opacity: 0; }
 }
 
+@keyframes pop-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-down {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes grow-up {
+  from {
+    width: 10vw;
+    opacity: 0;
+  }
+  to {
+    width: 20vw;
+    opacity: 1;
+  }
+}
+
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-25%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

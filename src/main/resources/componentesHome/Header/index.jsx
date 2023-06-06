@@ -5,6 +5,7 @@ import logo from '../../img/logos/logo.png';
 import lupa from '../../img/vetores/lupaPesquisar.png';
 import ajuda from '../../img/vetores/ajuda.png';
 
+
 const Header = () => {
   const [typedText, setTypedText] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
