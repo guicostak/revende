@@ -1,4 +1,4 @@
-package com.revende.application.entrypoint.dto.user;
+package com.revende.rest.endpoints.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

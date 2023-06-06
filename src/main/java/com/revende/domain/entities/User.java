@@ -1,4 +1,4 @@
-package com.revende.model.entities;
+package com.revende.domain.entities;
 
 
 import lombok.AllArgsConstructor;
@@ -25,11 +25,9 @@ public class User {
     private String name;
     @Column(name="email", nullable = false)
     private String email;
-
     @Column(name ="senha", nullable = false)
     private String password;
-
-    @Column(name="cpf", nullable = false)
+    @Column(name="cpf", nullable = false, unique = true)
     private String cpf;
     @Column(name="birthday", nullable = false)
     private LocalDate birthday;
