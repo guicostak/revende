@@ -1,5 +1,6 @@
 import './Quebra.scss'
 import imagem from '../../img/vetores/Questions.gif'
+import { Link } from 'react-router-dom'
 
 const Quebra = () => {
   return (
@@ -9,7 +10,7 @@ const Quebra = () => {
         <h2>Procurando o que fazer com a galera ? </h2>
         <p>Cadastre-se e veja o que recomendamos para você</p>
       </div>
-      <button>cadastrar</button>
+      <Link to='/cadastro'><button>cadastrar</button></Link>
     </div>
   )
 }

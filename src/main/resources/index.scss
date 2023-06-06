@@ -29,6 +29,7 @@ body {
   --dark-main: #d4304e;
   --main-background: #ffffff;
   --second-background: rgb(247, 245, 245);
+  --box-shadow: #aaa6a671;
   --navbar: #575555;
   --main-font:  'Poppins', sans-serif;
 }
@@ -111,6 +112,38 @@ body {
     opacity: 0;
   }
   to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-down {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes grow-up {
+  from {
+    width: 10vw;
+    opacity: 0;
+  }
+  to {
+    width: 20vw;
+    opacity: 1;
+  }
+}
+
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-25%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
     opacity: 1;
   }
 }

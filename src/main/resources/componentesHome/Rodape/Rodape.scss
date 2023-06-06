@@ -40,8 +40,17 @@ footer {
       cursor: pointer;
       transition: 0.2s;
       &:hover{
-        color: rgb(207, 205, 205);
+        filter: brightness(0.90);
         transition: 0.2s;
+      }
+      img{
+        width: 2vw;
+        margin-left: 3vw;
+        transition: 0.2s;
+        &:hover{
+          filter: brightness(0.90);
+          transition: 0.2s;
+        }
       }
     }
   }

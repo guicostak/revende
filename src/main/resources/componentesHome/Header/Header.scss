@@ -10,13 +10,15 @@
 
   padding-inline: 3vw;
   background-color: var(--main-background);
+  margin-bottom: 0vh;
+  border-bottom: 1px solid var(--main-color);
 
   #headerHomeLogo {
     width: 12vw;
   }
 
   #busca {
-    width: 18vw;
+    width: 22vw;
     height: 5vh;
 
     display: flex;
@@ -39,7 +41,7 @@
   #txtBusca {
     border: none;
     height: 3vh;
-    width: 15vw;
+    width: 19vw;
 
     font-family: var(--main-font);
     font-size: 1.2vw;

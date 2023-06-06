@@ -1,5 +1,7 @@
 import './Rodape.scss'
 import logo from '../../img/logos/logo2.png'
+import instagram from '../../img/logos/insta.png'
+import facebook from '../../img/logos/faceRodape.png'
 
 const Rodape = () => {
   return (
@@ -44,8 +46,8 @@ const Rodape = () => {
 
         <ul>
           <h3>redes sociais</h3>
-          <li>instagram</li>
-          <li>facebook</li>
+          <li><img src={instagram}/></li>
+          <li><img src={facebook}/></li>
         </ul>
       </div>
       <div className="sobre">

@@ -1,280 +1,369 @@
 @import '../../index.scss';
 
-.cadIngressos-card {
-  width: 100vw;
-  padding-block: 2vh;
+.card {
+  width: 80vw;
+  padding-top: 3vh;
+
   @include flexCenter(column);
 
-  h1 {
-    font-size: 2vw;
-    color: var(--navbar);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-      sans-serif;
-    font-weight: 600;
-    animation: pop-up 0.5s linear;
-    margin-bottom: 5vh;
+  .titulo-none {
+    opacity: 0;
   }
-  .card {
-    width: 70vw;
-    height: auto;
 
-    flex-direction: row;
-    justify-content: left;
+  .titulo {
+    font-size: 1.6vw;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    color: var(--navbar);
+    margin-left: 0vw;
 
-    border: 1px solid var(--main-color);
-    border-radius: 5px;
-    box-shadow: 4px 4px 4px 4px rgba(211, 209, 209, 0.349);
-    animation: pop-up 0.5s linear;
+    margin-bottom: 2vh;
 
-    .categorias {
+    animation: pop-up 1s ease-in-out;
+  }
+
+  .categorias-hidden {
+    display: none;
+  }
+
+  .categorias {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3vh;
+
+    border-left: 1px solid var(--navbar);
+
+    padding-bottom: 2vh;
+
+    .categorias-elementos {
+      display: flex;
       flex-direction: column;
-      justify-content: left;
+      
+      gap: 3vh;
+    
+    .categoria {
+      width: 20vw;
+      padding-left: 2vw;
+      padding-block: 1vh;
+      gap: 1vw; 
 
-      h2 {
-        width: 18vw;
-        height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
 
-        position: relative;
-        left: -0.05vw;
+      font-size: 0.8vw;
+      font-family: var(--main-font);
+      color: var(--navbar);
 
-        padding-left: 2vw;
-        padding-bottom: 4vh;
-        padding-top: 3vh;
+      cursor: pointer;
+      transition: 0.2s;
 
-        border-right: 1px solid var(--main-color);
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
 
-        font-size: 1.3vw;
-        color: var(--navbar);
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-          Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-          sans-serif;
+      &:hover {
+        transition: 0.2s;
+        background-color: #e82c4f3d;
       }
+      img {
+        width: 2vw;
+        height: fit-content;
+      }
+    }
+    }
+  }
 
-      ul {
-        display: flex;
-        flex-direction: column;
+  .dados-hidden {
+    display: none;
+  }
 
-        list-style: none;
+  .dados {
+    flex-direction: column;
+    animation: pop-up 1s alternate;
+    border-left: 1px solid var(--navbar);
 
-        position: relative;
-        left: -1px;
+    padding-left: 2vw;
+    padding-bottom: 3vh;
 
-        li {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
+    button {
+      cursor: pointer;
+      width: 20vw;
+      height: 6vh;
+      margin-top: 3vh;
 
-          width: 18vw;
-          padding-block: 2vh;
+      animation: grow-up 1.5s ease-in-out;
 
-          color: var(--navbar);
-          font-size: 1.1vw;
-          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-            Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-            sans-serif;
+      background-color: var(--main-color);
 
-          border-top: 1px solid var(--main-color);
-          border-left: 1px solid var(--main-color);
-          border-right: 1px solid var(--main-color);
+      border: none;
+      border-radius: 50px;
 
-          padding-left: 2vw;
-          cursor: pointer;
-          transition: 0.2s;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.9vw;
 
-          &:hover {
-            background-color: #e82c4f2f;
-            transition: 0.2s;
-          }
+      transition: 0.7s;
 
-          img {
-            width: 1.4vw;
-            margin-right: 1vw;
-          }
-
-          .seta {
-            padding-left: 1vw;
-            width: 2vw;
-
-            color: var(--main-color);
-            font-family: var(--main-font);
-            font-size: 1.3vw;
-          }
-        }
-        .selecionado {
-          background-color: #e82c4f2f;
-        }
+      &:hover {
+        transition: 0.7s;
+        background-color: white;
+        color: var(--main-color);
+        border: 1px solid var(--main-color);
       }
     }
 
-    .outros-campos {
-      width: 52vw;
-      animation: pop-up 1s linear;
+    .textfield-hidden {
+      display: none;
+    }
+
+    .textfield {
+      width: 28vw;
+
       display: flex;
       flex-direction: column;
+      align-items: left;
+      justify-content: center;
+      margin-block: 7vh;
+
+      label {
+        font-family: var(--main-font);
+        color: var(--main-color);
+        margin-top: 0;
+
+        margin-left: 0;
+      }
 
       .row {
-        width: 52vw;
+        @include flexCenter(row);
+        gap: 1vw;
+      }
+
+      .checkbox {
+        width: 10vw;
+
+        animation: none;
+        background-color: white;
+        color: var(--main-color);
+        border: 1px solid var(--main-color);
+
+        &:hover {
+          color: white;
+          background-color: var(--main-color);
+          transform: scale(1.06);
+        }
+      }
+
+      .checkbox-checked {
+        width: 10vw;
+
+        animation: none;
+        transform: scale(1.06);
+        &:hover {
+          color: white;
+          background-color: var(--main-color);
+          transform: scale(1.06);
+        }
+      }
+
+      .aviso-card {
+        position: fixed;
+
+        top: 25vh;
+        left: 60vw;
+        background-color: var(--main-color);
+        z-index: 9999;
+        padding: 1vw;
+        animation: pop-up 0.5s ease;
+
+        p {
+          color: white;
+          font-size: 0.9vw;
+          margin-bottom: 0;
+        }
+      }
+
+      .aviso {
+        width: 1.3vw;
+        margin-left: 0.5vw;
+
+        cursor: pointer;
+      }
+
+      #campoImagem {
+        width: 24vw;
+        padding-top: 0;
+        margin-top: 0;
+
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: left;
-        padding-right: 4vw;
-        padding-left: 2vw;
-        padding-top: 2vh;
-        gap: 2vw;
 
-        #submitIngresso {
-          background-color: var(--main-color);
-          color: white;
-          font-family: var(--main-font);
-          font-size: 1vw;
-          border: none;
-          border-radius: 100px;
-          height: 8vh;
-          width: 15vw;
-          margin-left: 5vw;
+        .upload-btn-wrapper {
+          position: relative;
+          display: inline-block;
           cursor: pointer;
-          transition: 1s;
-          outline: none;
-          margin-top: 0vh;
-        }
-        #submitIngresso:hover {
-          transition: 0.5s;
-          background-color: var(--dark-main);
         }
 
-        .textfield#tipo {
-          margin-left: 10vw;
+        .btn {
+          width: calc(1.777777 * 16vh);
+          height: 16vh;
 
-          select {
-            height: 5vh;
-            width: 15vw;
-            border: 1px solid var(--main-color);
-            outline: none;
-          }
-          #telefone {
-            width: 15vw;
-            padding-right: 5vw;
-          }
+          border: 1px dashed var(--main-color);
+          padding: 0.5vw;
+          border-radius: 4px;
+
+          cursor: pointer;
         }
 
-        .textfield#campoImagem {
-          width: 24vw;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          padding-top: 0;
-          margin-top: 0;
+        #imagemCarregada {
+          width: calc(1.777777 * height);
+          height: 14vh;
+          margin-left: 1vw;
+          margin-bottom: 1vh;
 
-          .upload-btn-wrapper {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-          }
-
-          .btn {
-            width: calc(1.777777 * 15vh);
-            height: 15vh;
-            border: 1px dashed var(--main-color);
-            padding: 0.5vw;
-            border-radius: 4px;
-            cursor: pointer;
-          }
-
-          #imagemCarregada {
-            width: calc(1.777777 * height);
-            height: 14vh;
-            margin-left: 1vw;
-            margin-bottom: 1vh;
-            animation: pop-up 0.5s linear;
-          }
-
-          input[type='file'] {
-            font-size: 20px;
-            position: absolute;
-            width: calc(1.777777 * 15vh);
-            height: 15vh;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-          }
-
-          .remover-imagem {
-            width: 0.8vw;
-            cursor: pointer;
-            margin-bottom: 14vh;
-            animation: pop-up 0.5s linear;
-          }
+          animation: pop-up 0.5s linear;
         }
 
-        .textfield {
-          width: 20vw;
+        input[type='file'] {
+          width: calc(1.777777 * 15vh);
+          height: 15vh;
 
-          display: flex;
-          flex-direction: column;
-          align-items: left;
-          justify-content: left;
+          position: absolute;
+          left: 0;
+          top: 0;
 
-          gap: 1vh;
-          padding-left: 1vw;
+          opacity: 0;
+          cursor: pointer;
+        }
 
+        .remover-imagem {
+          width: 0.8vw;
+          margin-bottom: 14vh;
+          margin-left: 0.5vw;
+
+          cursor: pointer;
+          animation: pop-up 0.5s linear;
+        }
+      }
+
+      textarea {
+        width: 30vw;
+        height: 20vh;
+        padding: 0.5vw;
+
+        outline: none;
+        border: none;
+        border: 1px solid var(--main-color);
+        border-radius: 10px;
+
+        font-size: 1.1vw;
+        font-family: Arial, Helvetica, sans-serif;
+
+        resize: none;
+
+        ::placeholder {
+          font-size: 1.1vw;
           font-family: Arial, Helvetica, sans-serif;
+        }
+      }
+      .contador {
+        font-size: 0.9vw;
+        font-family: Arial, Helvetica, sans-serif;
 
-          p {
-            text-align: center;
-            font-size: 0.9vw;
-            padding-left: 5.5vw;
-            margin-top: 0vh;
-            margin-bottom: 1.5vh;
-          }
-          .contador {
-            font-size: 0.9vw;
-            font-family: Arial, Helvetica, sans-serif;
-            padding-left: 27vw;
-          }
+        margin-top: 1vh;
+        padding-left: 27vw;
+      }
 
-          label {
-            color: var(--navbar);
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.1vw;
-            font-weight: bold;
+      input {
+        width: 19vw;
+        padding: 0.5vw;
 
-            margin-top: 0vh;
-            margin-bottom: 0vh;
-            margin-left: 0vw;
-          }
+        outline: none;
+        border: none;
+        border-bottom: 1px solid var(--main-color);
 
-          .input {
-            width: 20vw;
+        font-size: 1.1vw;
+        font-family: Arial, Helvetica, sans-serif;
 
-            border-radius: 8px;
-            border: 1px solid var(--main-color);
-            padding: 5px;
-            outline: none;
+        ::placeholder {
+          font-size: 1.1vw;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+      }
+    }
+  }
 
-            color: var(--text-color);
-            font-size: 1rem;
+  #dadosSegundo-hidden {
+    display: none;
+  }
 
-            &::placeholder {
-              font-size: 1vw;
-            }
-          }
+  #dadosSegundo {
+    display: flex;
+    .textfield{
+      margin-block: 4vh;
+    }
+  }
 
-          .input#data {
-            width: 10vw;
-          }
+  #dadosTerceiro-hidden {
+    display: none;
+  }
 
-          .input#preco {
-            width: 10vw;
-          }
+  #dadosTerceiro {
+    display: flex;
+    .textfield{
+      margin-block: 1.5vh;
+    }
+  }
 
-          .input#descricao {
-            width: 30vw;
-            height: 15vh;
+  #dadosQuarto-hidden {
+    display: none;
+  }
+
+  #dadosQuarto {
+    display: flex;
+     .textfield{
+      margin-block: 1.9vh;
+    }
+  }
+
+  #dadosQuinto-hidden {
+    display: none;
+  }
+
+  #dadosQuinto {
+    display: flex;
+    .textfield{
+      #termosIngresso{
+        padding-top: 3vh;
+        padding-left: 0.5vw;
+        display: flex;
+        flex-direction: row;
+        align-items: left;
+        justify-content: left;
+        gap: 1vw;
+        h5{
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+          sans-serif;
+          color: var(--navbar);
+          font-weight: 300;
+          b{
+            color: var(--main-color);
+            cursor: pointer;
           }
         }
+        input{
+          width: 1vw;
+          cursor: pointer;
+        }
+      }
+      margin-block: 2vh;
+    }
+    .textfield:first-of-type {
+      input{
+        font-size: 2vw;
       }
     }
   }

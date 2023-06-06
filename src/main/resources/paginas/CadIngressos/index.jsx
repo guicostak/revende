@@ -1,5 +1,5 @@
 import Card from "../../componentesCadIngressos/Card"
-import Header from "../../componentesCadIngressos/Header"
+import Header from "../../componentesCadIngressos/HeaderVermelho"
 
 const CadIngressos = () => {
   return(
