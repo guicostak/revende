@@ -11,6 +11,8 @@ import camera from '../../img/vetores/camera.png'
 import remove from '../../img/vetores/remove.png'
 import exclamacao from '../../img/vetores/excalamacaoVermelha.png'
 import axios from 'axios'
+import xBranco from '../../img/vetores/xBranco.png'
+import xVermelho from '../../img/vetores/xVermelho.png'
 
 const images = {
   SHOWS_E_FESTAS: shows,
@@ -33,22 +35,22 @@ const Card = () => {
   const [dadosQuintoDisplay, setDadosQuintoDisplay] = useState(false)
   const [primeiroInput, setPrimeiroInput] = useState(false)
   const [segundoInput, setSegundoInput] = useState(false)
+  const [terceiroInput, setTerceiroInput] = useState(false)
   const [removeStatusImage, setRemoveStatusImage] = useState('none')
   const [avisoDisplay, setAvisoDisplay] = useState(false)
-  
 
   const [erros, setErros] = useState({
-    nome: '',
-    data: '',
-    horario: '',
-    categoria: '',
-    tipo: '',
-    cep: '',
-    logradouro: '',
-    cidade: '',
-    estado: '',
-    preco: '',
-  });
+    camposVazios: false,
+    data: false,
+    horario: false,
+    categoria: false,
+    tipo: false,
+    cep: false,
+    logradouro: false,
+    cidade: false,
+    estado: false,
+    preco: false
+  })
 
   const [campoValido, setCampoValido] = useState({
     nome: false,
@@ -60,8 +62,8 @@ const Card = () => {
     logradouro: false,
     cidade: false,
     estado: false,
-    preco: false,
-  });
+    preco: false
+  })
 
   const [fisico, setFisico] = useState(false)
   const [digital, setDigital] = useState(false)
@@ -69,7 +71,7 @@ const Card = () => {
 
   const [borderColor, setBorderColor] = useState('var(--main-color)')
 
-//VARIÁVEIS REFERENTES AOS CAMPOS DO FORMULÁRIO
+  //VARIÁVEIS REFERENTES AOS CAMPOS DO FORMULÁRIO
 
   const [inputCategoria, setInputCategoria] = useState('')
   const [inputNome, setInputNome] = useState('')
@@ -86,61 +88,140 @@ const Card = () => {
   const [inputCidade, setInputCidade] = useState('')
   const [inputPreco, setInputPreco] = useState('')
   const [inputLote, setInputLote] = useState('')
+  const [inputTermos, setInputTermos] = useState('')
 
-  const HandleFocus = (event) => {
-    event.target.style.borderColor = 'var(--text-color)';
+  const HandleFocus = event => {
+    event.target.style.borderColor = 'var(--text-color)'
   }
 
-  const BlurFocus = (event) => {
-    event.target.style.borderColor = 'var(--main-color)';
+  const BlurFocus = event => {
+    event.target.style.borderColor = 'var(--main-color)'
   }
 
-  const selecionaCategoria = (event) => {
-    setInputCategoria(event.target.id)
+  const voltarAoDisplayCategorias = () => {
+    setAnimationStatus(false)
 
-   
-  }
-
-  const avancar = (etapa) => {
-    setAnimationStatus(false);
-  
     setTimeout(() => {
-      setPrimeiroInput(false);
-      setSegundoInput(false);
-  
+      setSegundoInput(false)
+      setPrimeiroInput(false)
+      setDadosDisplay(false)
+      setAnimationStatus(true)
+      setCategoriasDisplay(true)
+    }, 380)
+  }
+
+  const aoSelecionarEstado = event => {
+    const estadoSelecionado = event.target.value
+    setInputEstado(estadoSelecionado)
+  }
+
+  const selecionaCategoria = event => {
+    setAnimationStatus(false)
+    setInputCategoria(event.target.classList.item(1))
+    Promise.resolve()
+      .then(() => new Promise(resolve => setTimeout(resolve, 380)))
+      .then(() => {
+        setCategoriasDisplay(false)
+        setAnimationStatus(true)
+      })
+      .then(() => new Promise(resolve => setTimeout(resolve, 200)))
+      .then(() => {
+        setDadosDisplay(true)
+        setPrimeiroInput(true)
+      })
+      .then(() => new Promise(resolve => setTimeout(resolve, 200)))
+      .then(() => setSegundoInput(true))
+  }
+
+  const avancar = etapa => {
+    setAnimationStatus(false)
+
+    setTimeout(() => {
+      setPrimeiroInput(false)
+      setSegundoInput(false)
+      setTerceiroInput(false)
+
       switch (etapa) {
         case 1:
-          setDadosDisplay(false);
-          setAnimationStatus(true);
-          setDadosSegundoDisplay(true);
-          break;
+          setDadosDisplay(false)
+          setAnimationStatus(true)
+          setDadosSegundoDisplay(true)
+          break
         case 2:
-          setDadosSegundoDisplay(false);
-          setAnimationStatus(true);
-          setDadosTerceiroDisplay(true);
-          break;
+          setDadosSegundoDisplay(false)
+          setAnimationStatus(true)
+          setDadosTerceiroDisplay(true)
+          break
         case 3:
-          setDadosTerceiroDisplay(false);
-          setAnimationStatus(true);
-          setDadosQuartoDisplay(true);
-          break;
+          setDadosTerceiroDisplay(false)
+          setAnimationStatus(true)
+          setDadosQuartoDisplay(true)
+          break
         case 4:
-          setDadosQuartoDisplay(false);
-          setAnimationStatus(true);
-          setDadosQuintoDisplay(true);
-          break;
+          setDadosQuartoDisplay(false)
+          setAnimationStatus(true)
+          setDadosQuintoDisplay(true)
+          break
         default:
-          break;
+          break
       }
-  
+
       setTimeout(() => {
-        setPrimeiroInput(true);
+        setPrimeiroInput(true)
         setTimeout(() => {
-          setSegundoInput(true);
-        }, 200);
-      }, 200);
-    }, 380);
-  };
+          setSegundoInput(true)
+          setTimeout(() => {
+            setTerceiroInput(true)
+          }, 200)
+        }, 200)
+      }, 200)
+    }, 380)
+  }
+
+  const voltar = etapa => {
+    setAnimationStatus(false)
+
+    setTimeout(() => {
+      setPrimeiroInput(false)
+      setSegundoInput(false)
+      setTerceiroInput(false)
+
+      switch (etapa) {
+        case 1:
+          setDadosDisplay(true)
+          setAnimationStatus(true)
+          setDadosSegundoDisplay(false)
+          break
+        case 2:
+          setDadosSegundoDisplay(true)
+          setAnimationStatus(true)
+          setDadosTerceiroDisplay(false)
+          break
+        case 3:
+          setDadosTerceiroDisplay(true)
+          setAnimationStatus(true)
+          setDadosQuartoDisplay(false)
+          break
+        case 4:
+          setDadosQuartoDisplay(true)
+          setAnimationStatus(true)
+          setDadosQuintoDisplay(false)
+          break
+        default:
+          break
+      }
+
+      setTimeout(() => {
+        setPrimeiroInput(true)
+        setTimeout(() => {
+          setSegundoInput(true)
+          setTimeout(() => {
+            setTerceiroInput(true)
+          }, 200)
+        }, 200)
+      }, 200)
+    }, 380)
+  }
 
   useEffect(() => {
     setTimeout(() => setAbrePagina(true), 500)
@@ -186,57 +267,57 @@ const Card = () => {
   }
 
   const aoDigitado = async ({ target }) => {
-    const { name, value } = target;
-    
+    const { name, value } = target
+
     if (name === 'cep') {
-      const formattedCep = value.replace(/\D/g, ''); // Remove caracteres não numéricos
-      const cepWithMask = formattedCep.replace(/(\d{5})(\d)/, '$1-$2'); // Adiciona o hífen na posição correta
-      setInputCep(cepWithMask);
-      
+      const formattedCep = value.replace(/\D/g, '') // Remove caracteres não numéricos
+      const cepWithMask = formattedCep.replace(/(\d{5})(\d)/, '$1-$2') // Adiciona o hífen na posição correta
+      setInputCep(cepWithMask)
+
       if (formattedCep.length === 8) {
         try {
           const response = await axios.get(
             `https://viacep.com.br/ws/${formattedCep}/json/`
-          );
-          
-          setInputCidade(response.data.localidade);
-          setInputEstado(response.data.uf);
-          setInputLogradouro(response.data.logradouro);
+          )
+
+          setInputCidade(response.data.localidade)
+          setInputEstado(response.data.uf)
+          setInputLogradouro(response.data.logradouro)
         } catch (error) {
-          console.log(error);
+          console.log(error)
         }
       }
     } else if (name === 'descricao') {
-      setInputDescricao(value);
+      setInputDescricao(value)
     } else if (name === 'logradouro') {
-      setInputLogradouro(value);
+      setInputLogradouro(value)
     } else if (name === 'cidade') {
-      setInputCidade(value);
-    } else if (name === 'estado') {
-      setInputCidade(value);
+      setInputCidade(value.replace(/[0-9]/g, ''))
     } else if (name === 'lote') {
-      setInputLote(value);
+      setInputLote(value)
     } else if (name === 'setor') {
-      setInputSetor(value);
+      setInputSetor(value)
     } else if (name === 'quantidade') {
-      setInputQuantidade(value);
+      setInputQuantidade(value)
     } else if (name === 'nome') {
-      setInputNome(value);
+      setInputNome(value)
     } else if (name === 'horario') {
-      setInputHorario(value);
+      setInputHorario(value)
     } else if (name === 'data') {
-      setInputData(value);
+      setInputData(value)
+    } else if (name === 'termos') {
+      setInputTermos(value)
     } else if (name === 'preco') {
-      const newPreco = formatarPreco(value);
-      setInputPreco(newPreco);
-      
+      const newPreco = formatarPreco(value)
+      setInputPreco(newPreco)
+
       if (newPreco === '') {
-        target.value = ''; // campo vazio se o novo preço for uma string vazia
+        target.value = '' // campo vazio se o novo preço for uma string vazia
       } else {
-        inputPreco(newPreco); // exibir o novo preço formatado
+        inputPreco(newPreco) // exibir o novo preço formatado
       }
     }
-  };
+  }
 
   function formatarPreco(preco) {
     preco = preco.toString().replace(/\D/g, '') // remove todos os caracteres não numéricos
@@ -258,145 +339,176 @@ const Card = () => {
   }
 
   const submitFormulario = () => {
-   
+    if (!inputCategoria) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        categoria: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        categoria: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: true
+      }))
+    }
 
-  if (!inputCategoria) {
-  setCampoValido((prevState) => ({
-    ...prevState,
-    categoria: false
-  }));
-} else {
-  setCampoValido((prevState) => ({
-    ...prevState,
-    categoria: true
-  }))}
+    if (!inputNome) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        nome: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        nome: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputNome) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      nome: false
-      
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      nome: true
-    }));
-  }
+    if (!inputData) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        data: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        data: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputData) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      data: false
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      data: true
-    }));
-  }
+    if (!inputHorario) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        horario: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        horario: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputHorario) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      horario: false
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      horario: true
-    }));
-  }
+    if (!inputTipo) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        tipo: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        tipo: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputTipo) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      tipo: false
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      tipo: true
-    }));
-  }
+    if (!inputCep) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        cep: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        cep: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputCep) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      cep: false
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      cep: true
-    }));
-  }
+    if (!inputLogradouro) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        logradouro: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        logradouro: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputLogradouro) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      logradouro: false
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      logradouro: true
-    }));
-  }
+    if (!inputCidade) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        cidade: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        cidade: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputCidade) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      cidade: false
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      cidade: true
-    }));
-  }
+    if (!inputEstado) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        estado: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        estado: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputEstado) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      estado: false
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      estado: true
-    }));
-  }
+    if (!inputPreco) {
+      setCampoValido(prevState => ({
+        ...prevState,
+        preco: false
+      }))
+    } else {
+      setCampoValido(prevState => ({
+        ...prevState,
+        preco: true
+      }))
+      setErros(prevState => ({
+        ...prevState,
+        camposVazios: false
+      }))
+    }
 
-  if (!inputPreco) {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      preco: false
-    }));
-  } else {
-    setCampoValido((prevState) => ({
-      ...prevState,
-      preco: true
-    }));
-  }
-
-  if(Object.values(campoValido).every((valor) => valor === true)){
-    
-  }
-
-
-
-
-
-
-
-
+    if (Object.values(campoValido).every(valor => valor === true)) {
+    }
   }
 
   return (
     <div className="card">
       <div
-        className={categoriasDisplay ? 'categorias' : 'categorias-hidden'}
+        className={
+          categoriasDisplay ? 'categorias-cadastro' : 'categorias-hidden'
+        }
         style={{
           animation: animationStatus
             ? 'pop-up 0.7s ease-in-out'
@@ -422,73 +534,121 @@ const Card = () => {
           }}
         >
           <div
-            id="SHOWS_E_FESTAS"
-             style={{ backgroundColor: inputCategoria === "SHOWS_E_FESTAS" ? '#e82c4f3d' : '' }}
-            className="categoria"
-            onClick={selecionaCategoria}
-          >
-            <img src={images.SHOWS_E_FESTAS} alt="Shows e festas" />
-            <h2>Shows e festas</h2>
-          </div>
-          <div
-            id="ESPETACULOS_E_TEATROS"
-            style={{ backgroundColor: inputCategoria === "ESPETACULOS_E_TEATROS" ? '#e82c4f3d' : '' }}
-            className="categoria"
+            style={{
+              backgroundColor:
+                inputCategoria === 'SHOWS_E_FESTAS' ? '#e82c4f3d' : ''
+            }}
+            className="categoria-elemento SHOWS_E_FESTAS"
             onClick={selecionaCategoria}
           >
             <img
+              className="imagem-categoria SHOWS_E_FESTAS"
+              src={images.SHOWS_E_FESTAS}
+              alt="Shows e festas"
+            />
+            <h2 className="titulo-categoria SHOWS_E_FESTAS">Shows e festas</h2>
+          </div>
+
+          <div
+            style={{
+              backgroundColor:
+                inputCategoria === 'ESPETACULOS_E_TEATROS' ? '#e82c4f3d' : ''
+            }}
+            className="categoria-elemento ESPETACULOS_E_TEATROS"
+            onClick={selecionaCategoria}
+          >
+            <img
+              className="imagem-categoria ESPETACULOS_E_TEATROS"
               src={images.ESPETACULOS_E_TEATROS}
-              alt="Espetáculos e teatro"
             />
-            <h2>Espetáculos e teatro</h2>
+            <h2 className="titulo-categoria ESPETACULOS_E_TEATROS">
+              Espetaculos e teatros
+            </h2>
           </div>
+
           <div
-            id="EVENTOS_ESPORTIVOS"
-            style={{ backgroundColor: inputCategoria === "EVENTOS_ESPORTIVOS" ? '#e82c4f3d' : '' }}
-            className="categoria"
-            onClick={selecionaCategoria}
-          >
-            <img src={images.EVENTOS_ESPORTIVOS} alt="Eventos esportivos" />
-            <h2>Eventos esportivos</h2>
-          </div>
-          <div
-            id="STANDUP_E_COMEDIA"
-            style={{ backgroundColor: inputCategoria === "STANDUP_E_COMEDIA" ? '#e82c4f3d' : '' }}
-            className="categoria"
-            onClick={selecionaCategoria}
-          >
-            <img src={images.STANDUP_E_COMEDIA} alt="Stand Up e Comédia" />
-            <h2>Stand Up e Comédia</h2>
-          </div>
-          <div
-            id="PALESTRAS_E_SEMINARIOS"
-            style={{ backgroundColor: inputCategoria === "PALESTRAS_E_SEMINARIOS" ? '#e82c4f3d' : '' }}
-            className="categoria"
+            style={{
+              backgroundColor:
+                inputCategoria === 'EVENTOS_ESPORTIVOS' ? '#e82c4f3d' : ''
+            }}
+            className="categoria-elemento EVENTOS_ESPORTIVOS"
             onClick={selecionaCategoria}
           >
             <img
-              src={images.PALESTRAS_E_SEMINARIOS}
-              alt="Palestras e seminários"
+              className="imagem-categoria EVENTOS_ESPORTIVOS"
+              src={images.EVENTOS_ESPORTIVOS}
             />
-            <h2>Palestras e seminários</h2>
+            <h2 className="titulo-categoria EVENTOS_ESPORTIVOS">
+              Eventos esportivos
+            </h2>
           </div>
+
           <div
-            id="EVENTOS_INFANTIS"
-            style={{ backgroundColor: inputCategoria === "EVENTOS_INFANTIS" ? '#e82c4f3d' : '' }}
-            className="categoria"
+            style={{
+              backgroundColor:
+                inputCategoria === 'STANDUP_E_COMEDIA' ? '#e82c4f3d' : ''
+            }}
+            className="categoria-elemento STANDUP_E_COMEDIA"
             onClick={selecionaCategoria}
           >
-            <img src={images.EVENTOS_INFANTIS} alt="Eventos infantis" />
-            <h2>Eventos infantis</h2>
+            <img
+              className="imagem-categoria STANDUP_E_COMEDIA"
+              src={images.STANDUP_E_COMEDIA}
+            />
+            <h2 className="titulo-categoria STANDUP_E_COMEDIA">
+              Stand up e comédia
+            </h2>
           </div>
+
           <div
-            id="OUTRAS_CATEGORIAS"
-            style={{ backgroundColor: inputCategoria === "OUTRAS_CATEGORIAS" ? '#e82c4f3d' : '' }}
-            className="categoria"
+            style={{
+              backgroundColor:
+                inputCategoria === 'PALESTRAS_E_SEMINARIOS' ? '#e82c4f3d' : ''
+            }}
+            className="categoria-elemento PALESTRAS_E_SEMINARIOS"
             onClick={selecionaCategoria}
           >
-            <img src={images.OUTRAS_CATEGORIAS} alt="Outras categorias" />
-            <h2>Outras categorias</h2>
+            <img
+              className="imagem-categoria PALESTRAS_E_SEMINARIOS"
+              src={images.PALESTRAS_E_SEMINARIOS}
+            />
+            <h2 className="titulo-categoria PALESTRAS_E_SEMINARIOS">
+              Palestras e seminários
+            </h2>
+          </div>
+
+          <div
+            style={{
+              backgroundColor:
+                inputCategoria === 'EVENTOS_INFANTIS' ? '#e82c4f3d' : ''
+            }}
+            className="categoria-elemento EVENTOS_INFANTIS"
+            onClick={selecionaCategoria}
+          >
+            <img
+              className="imagem-categoria EVENTOS_INFANTIS"
+              src={images.EVENTOS_INFANTIS}
+            />
+            <h2 className="titulo-categoria EVENTOS_INFANTIS">
+              Eventos infantis
+            </h2>
+          </div>
+
+          <div
+            style={{
+              backgroundColor:
+                inputCategoria === 'OUTRAS_CATEGORIAS' ? '#e82c4f3d' : ''
+            }}
+            className="categoria-elemento OUTRAS_CATEGORIAS"
+            onClick={selecionaCategoria}
+          >
+            <img
+              className="imagem-categoria OUTRAS_CATEGORIAS"
+              src={images.OUTRAS_CATEGORIAS}
+            />
+            <h2 className="titulo-categoria OUTRAS_CATEGORIAS">
+              Outras categorias
+            </h2>
           </div>
         </div>
       </div>
@@ -509,6 +669,13 @@ const Card = () => {
           }}
           className="titulo"
         >
+          <button
+            onClick={voltarAoDisplayCategorias}
+            style={{ display: primeiroInput ? 'flex' : 'none' }}
+            className="botao-voltar"
+          >
+            {'<'}
+          </button>
           Fala para gente um pouco sobre esse evento...
         </h1>
         <div
@@ -519,16 +686,15 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>*Nome do evento</label>
+          <label>Nome do evento*</label>
           <input
-           onFocus={(event)=> HandleFocus(event)}
-           onBlur={(event)=> BlurFocus(event)}
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
             type="text"
-            maxLength={24}
-            name='nome'
+            maxLength={25}
+            name="nome"
             value={inputNome}
-            onChange={(event) => aoDigitado(event)}
-            
+            onChange={event => aoDigitado(event)}
             placeholder="Digite o nome do evento"
           ></input>
         </div>
@@ -541,9 +707,14 @@ const Card = () => {
           }}
         >
           <label>*Dia do evento</label>
-          <input onFocus={(event)=> HandleFocus(event)}
-          onBlur={(event)=> BlurFocus(event)}
-           type="date" value={inputData} name='data' onChange={(event) => aoDigitado(event)}></input>
+          <input
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
+            type="date"
+            value={inputData}
+            name="data"
+            onChange={event => aoDigitado(event)}
+          ></input>
         </div>
         <div
           className={segundoInput ? 'textfield' : 'textfield-hidden'}
@@ -553,10 +724,15 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>*Horário do evento</label>
-          <input onFocus={(event)=> HandleFocus(event)}
-          onBlur={(event)=> BlurFocus(event)}
-          type="time" name='horario' value={inputHorario} onChange={(event) => aoDigitado(event)} ></input>
+          <label>Horário do evento*</label>
+          <input
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
+            type="time"
+            name="horario"
+            value={inputHorario}
+            onChange={event => aoDigitado(event)}
+          ></input>
         </div>
         <button
           onClick={() => avancar(1)}
@@ -583,6 +759,13 @@ const Card = () => {
           }}
           className="titulo"
         >
+          <button
+            onClick={() => voltar(1)}
+            style={{ display: primeiroInput ? 'flex' : 'none' }}
+            className="botao-voltar"
+          >
+            {'<'}
+          </button>{' '}
           Fala mais um pouquinho para gente...
         </h1>
 
@@ -594,7 +777,7 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>*Tipo de ingresso</label>
+          <label>Tipo de ingresso*</label>
           <div className="row">
             <button
               id="fisico"
@@ -629,13 +812,14 @@ const Card = () => {
         >
           <label>Setor do ingresso(se houver)</label>
           <input
-            onFocus={(event)=> HandleFocus(event)}
-            onBlur={(event)=> BlurFocus(event)}
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
+            maxLength={10}
             type="text"
             placeholder="Digite o setor referente ao ingresso"
-            name='setor'
+            name="setor"
             value={inputSetor}
-            onChange={(event) => aoDigitado(event)}
+            onChange={event => aoDigitado(event)}
           ></input>
         </div>
         <div
@@ -647,8 +831,16 @@ const Card = () => {
           }}
         >
           <label>Quantidade de ingressos</label>
-          <input onFocus={(event)=> HandleFocus(event)}
-          onBlur={(event)=> BlurFocus(event)} type="number" min="1" name='quantidade' value={inputQuantidade} placeholder="1" onChange={(event) => aoDigitado(event)}></input>
+          <input
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
+            type="number"
+            min="1"
+            name="quantidade"
+            value={inputQuantidade}
+            placeholder="1"
+            onChange={event => aoDigitado(event)}
+          ></input>
         </div>
         <button
           onClick={() => avancar(2)}
@@ -675,6 +867,13 @@ const Card = () => {
           }}
           className="titulo"
         >
+          <button
+            onClick={() => voltar(2)}
+            style={{ display: primeiroInput ? 'flex' : 'none' }}
+            className="botao-voltar"
+          >
+            {'<'}
+          </button>
           Está quase lá, só mais algumas informações...
         </h1>
 
@@ -735,8 +934,13 @@ const Card = () => {
           }}
         >
           <label>Descrição do evento</label>
-          <textarea onFocus={(event)=> HandleFocus(event)}
-          onBlur={(event)=> BlurFocus(event)} maxLength={280} onChange={(event) => aoDigitado(event)} name='descricao'></textarea>
+          <textarea
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
+            maxLength={280}
+            onChange={event => aoDigitado(event)}
+            name="descricao"
+          ></textarea>
           <div className="contador">({inputDescricao.length}/280)</div>
         </div>
 
@@ -765,6 +969,13 @@ const Card = () => {
           }}
           className="titulo"
         >
+          <button
+            onClick={() => voltar(3)}
+            style={{ display: primeiroInput ? 'flex' : 'none' }}
+            className="botao-voltar"
+          >
+            {'<'}
+          </button>
           Diz para gente onde fica esse evento...
         </h1>
 
@@ -776,11 +987,12 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>*CEP</label>
+          <label>CEP*</label>
           <input
-            onFocus={(event)=> HandleFocus(event)}
-            onBlur={(event)=> BlurFocus(event)}
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
             type="text"
+            name="cep"
             value={inputCep}
             onChange={aoDigitado}
             placeholder="Digite o CEP"
@@ -795,19 +1007,19 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>*Logradouro </label>
+          <label>Logradouro*</label>
           <input
-            onFocus={(event)=> HandleFocus(event)}
-            onBlur={(event)=> BlurFocus(event)}
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
             type="text"
+            maxLength={55}
             onChange={aoDigitado}
             placeholder="Digite o logradouro do evento"
-            name='logradouro'
+            name="logradouro"
             value={`${inputLogradouro}`}
           />
         </div>
 
-     
         <div
           className={segundoInput ? 'textfield' : 'textfield-hidden'}
           style={{
@@ -816,42 +1028,70 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>*Cidade</label>
+          <label>Cidade*</label>
           <input
-            onFocus={(event)=> HandleFocus(event)}
-            onBlur={(event)=> BlurFocus(event)}
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
             type="text"
+            maxLength={40}
             onChange={aoDigitado}
             placeholder="Digite a cidade do evento"
-            name='cidade'
+            name="cidade"
             value={`${inputCidade}`}
           />
         </div>
 
         <div
-          className={segundoInput ? 'textfield' : 'textfield-hidden'}
+          className={terceiroInput ? 'textfield' : 'textfield-hidden'}
           style={{
             animation: animationStatus
               ? 'slide-in 0.6s ease-in-out'
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>*Estado(UF)</label>
-          <input
-            onFocus={(event)=> HandleFocus(event)}
-            onBlur={(event)=> BlurFocus(event)}
-            type="text"
-            onChange={aoDigitado}
-            placeholder="Digite o estado do evento"
-            name='estado'
-            value={`${inputEstado}`}
-          />
+          <label>Estado(UF)*</label>
+          <select
+            className="select-estado"
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
+            onChange={aoSelecionarEstado}
+            name="estado"
+            value={inputEstado}
+          >
+            <option value="">Selecione o estado do evento</option>
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+          </select>
         </div>
-
 
         <button
           onClick={() => avancar(4)}
-          style={{ display: segundoInput ? 'block' : 'none' }}
+          style={{ display: terceiroInput ? 'block' : 'none' }}
         >
           avançar
         </button>
@@ -874,6 +1114,13 @@ const Card = () => {
           }}
           className="titulo"
         >
+          <button
+            onClick={() => voltar(4)}
+            style={{ display: dadosQuintoDisplay ? 'flex' : 'none' }}
+            className="botao-voltar"
+          >
+            {'<'}
+          </button>
           Para finalizar os dados do seu anúncio...
         </h1>
 
@@ -885,15 +1132,15 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>*Preço</label>
+          <label>Preço*</label>
           <input
-            onFocus={(event)=> HandleFocus(event)}
-            onBlur={(event)=> BlurFocus(event)}
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
             value={inputPreco}
             onChange={event => aoDigitado(event)}
             type="text"
             placeholder="R$0,00"
-            name='preco'
+            name="preco"
           />
         </div>
 
@@ -907,12 +1154,13 @@ const Card = () => {
         >
           <label>Lote do ingresso (se houver) </label>
           <input
-            onFocus={(event)=> HandleFocus(event)}
-            onBlur={(event)=> BlurFocus(event)}
-            name='lote'
+            onFocus={event => HandleFocus(event)}
+            onBlur={event => BlurFocus(event)}
+            name="lote"
+            maxLength={20}
             value={inputLote}
             onChange={event => aoDigitado(event)}
-            placeholder='Digite o lote do ingresso'
+            placeholder="Digite o lote do ingresso"
             type="text"
           />
         </div>
@@ -925,12 +1173,12 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <div id='termosIngresso'>
-          <input
-
-            type="checkbox"
-          /><h5>declaro que li e aceito os <b>termos e condições</b></h5>
-        </div>
+          <div id="termosIngresso">
+            <input value={inputTermos} type="checkbox" name="termos" />
+            <h5>
+              declaro que li e aceito os <b>termos e condições</b>
+            </h5>
+          </div>
         </div>
 
         <button
@@ -939,6 +1187,22 @@ const Card = () => {
         >
           cadastrar
         </button>
+        <h5 id="campos-obrigatorios">Os campos com (*) são obrigatórios</h5>
+
+        <div
+          style={{
+            animation: erros.camposVazios
+              ? 'pop-up 0.7s ease-in-out'
+              : 'pop-down 0.4s alternate'
+          }}
+          className="erro"
+          id={erros.camposVazios ? 'erro-campos-vazios' : 'erro-campos-vazios-hidden'}
+        >
+          
+           <h4><img src={xVermelho}/>Existem campos obrigatórios (*) vazios.</h4> 
+           </div>
+
+
       </div>
     </div>
   )

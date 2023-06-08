@@ -136,6 +136,18 @@ body {
   }
 }
 
+@keyframes grow-up-2 {
+  from {
+    font-size: 0;
+    opacity: 0;
+  }
+  to {
+    font-size: 3.5vw;
+    opacity: 1;
+  }
+}
+
+
 
 @keyframes slide-in {
   from {
