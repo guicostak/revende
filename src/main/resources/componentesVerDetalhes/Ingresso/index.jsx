@@ -14,9 +14,12 @@ import escudo from '../../img/vetores/escudo.png'
 import joinha from '../../img/vetores/joinha.png'
 import cifrao from '../../img/vetores/cifrao.png'
 import calendario from '../../img/vetores/calendário.png'
+import coracaoBranco from '../../img/vetores/coracaoBranco.png'
+import coracaoVermelho from '../../img/vetores/coracaoVermelho.png'
 
 const Ingresso = ({ match }) => {
   const [chatStatus, setChatStatus] = useState(false)
+  const [coracaoStatus, setCoracaoStatus] = useState(false)
 
   const chatImage = () => 
   {
@@ -25,6 +28,16 @@ const Ingresso = ({ match }) => {
     }
     else{
       setChatStatus(false)
+    }
+  }
+
+  const coracaoImage = () => 
+  {
+    if(coracaoStatus === false){
+    setCoracaoStatus(true)
+    }
+    else{
+      setCoracaoStatus(false)
     }
   }
 
@@ -59,7 +72,7 @@ const Ingresso = ({ match }) => {
     <div className="container">
       <div className="verDetalhes-card">
         <div className="column">
-          <div id='data'>23/05</div>
+          <div id='data'><span>23/05</span><span>22:00 hrs</span></div>
           <h2>
             Minas Gerais {'>'}&nbsp; Nova lima {'>'}&nbsp; Shows e festas
           </h2>
@@ -76,8 +89,8 @@ const Ingresso = ({ match }) => {
               <h5>físico</h5>
             </div>
             <div className='detalhe'>
-              <label>Categoria</label>
-              <h5>Shows e festas</h5>
+              <label>Lote</label>
+              <h5>último lote</h5>
             </div>
             <div className='detalhe'>
               <label>Setor</label>
@@ -118,14 +131,14 @@ const Ingresso = ({ match }) => {
             <h1>Rogerin da Silva Lobo</h1>
             <div className='avaliacao'><img id='estrelas' src={estrelas}></img><h2>(8 avaliações)</h2></div>
             <h2 className='since'>Na Revende desde 22/09/2021</h2>
-            <label>
+            <label id='telefone'>
               <img className="vetores" src={telefone} />
               (31) 99505-4078
             </label>
             <label id='email'><img className="vetores" src={email} />guilhermecosta.barros@gmail.com</label>
             <h2>Quantidade disponível: 1 ingresso &nbsp;</h2>
             <button id="chat" onMouseEnter={chatImage} onMouseOut={chatImage}><img src={chatStatus ? chat : chatBranco}/>Chat</button>
-            <button id="lista">Adicionar à lista</button>
+            <button id="lista" onMouseEnter={coracaoImage} onMouseOut={coracaoImage}><img  src={coracaoStatus ?coracaoVermelho : coracaoBranco}/>Adicionar aos favoritos</button>
             <p>Ver perfil do vendedor</p>
           </div>
           <div className='dicas'>
