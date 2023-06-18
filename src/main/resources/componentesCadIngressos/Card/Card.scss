@@ -1,5 +1,7 @@
 @import '../../index.scss';
 
+
+
 .card {
   width: 80vw;
   padding-top: 3vh;
@@ -26,9 +28,12 @@
     display: none;
   }
 
-  .categorias {
+  .categorias-cadastro {
     display: flex;
     flex-direction: column;
+    left: 35vw;
+    top: 18vh;
+    position: absolute;
 
     gap: 3vh;
 
@@ -42,11 +47,11 @@
       
       gap: 3vh;
     
-    .categoria {
+    .categoria-elemento {
       width: 20vw;
       padding-left: 2vw;
       padding-block: 1vh;
-      gap: 1vw; 
+      gap: 1vw;
 
       display: flex;
       flex-direction: row;
@@ -61,12 +66,15 @@
 
       border-top-right-radius: 50px;
       border-bottom-right-radius: 50px;
+      .titulo-categoria{
+        font-size: 1.2vw;
+      }
 
       &:hover {
         transition: 0.2s;
         background-color: #e82c4f3d;
       }
-      img {
+      .imagem-categoria {
         width: 2vw;
         height: fit-content;
       }
@@ -85,6 +93,66 @@
 
     padding-left: 2vw;
     padding-bottom: 3vh;
+
+    left: 35vw;
+    top: 18vh;
+    position: absolute;
+
+    #erro-campos-vazios-hidden{
+      display: none;
+    }
+
+    #erro-campos-vazios{
+      display: flex;
+    }
+
+    .erro{
+      width: 24vw;
+      height: 7vh;
+
+      @include flexCenter(row);
+
+
+      border-left: 4px solid var(--main-color);
+      padding-left: 1vw;
+      margin-left: -2.1vw;
+
+      color: var(--main-color);
+      font-size: 1vw;
+      font-family: Arial, Helvetica, sans-serif;
+      img{
+        margin-bottom: -1vh;
+        margin-right: 0.5vw;
+        width: 1.5vw;
+      }
+    }
+
+
+    .botao-voltar{
+      width: 2vw;
+      height: 4vh;
+      margin: 0;
+      margin-left: -5vw;
+      margin-right: 2vw;
+      left: 2vw;
+      top: 0vh;
+      position: absolute;
+
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5vw;
+
+      background-color: white;
+      color: var(--main-color);
+
+      animation: grow-up-2 0.7s ease-in-out;
+      &:hover{
+        border: none;
+        color: var(--dark-main);
+      }
+    }
+
+    
 
     button {
       cursor: pointer;
@@ -125,7 +193,7 @@
       flex-direction: column;
       align-items: left;
       justify-content: center;
-      margin-block: 7vh;
+      margin-block: 8vh;
 
       label {
         font-family: var(--main-font);
@@ -171,7 +239,7 @@
         position: fixed;
 
         top: 25vh;
-        left: 60vw;
+        left: 52vw;
         background-color: var(--main-color);
         z-index: 9999;
         padding: 1vw;
@@ -187,6 +255,7 @@
       .aviso {
         width: 1.3vw;
         margin-left: 0.5vw;
+        margin-bottom: -0.5vh;
 
         cursor: pointer;
       }
@@ -276,6 +345,20 @@
         padding-left: 27vw;
       }
 
+      .select-estado{
+        width: 20vw;
+        height: 6vh;
+        border-radius: 5px;
+        gap: 1vh;
+        outline: none;
+        border: 1px solid var(--main-color);
+        option{
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 1vw;
+          cursor: pointer;
+        }
+      }
+
       input {
         width: 19vw;
         padding: 0.5vw;
@@ -324,7 +407,7 @@
   #dadosQuarto {
     display: flex;
      .textfield{
-      margin-block: 1.9vh;
+      margin-block: 2.2vh;
     }
   }
 
@@ -334,26 +417,30 @@
 
   #dadosQuinto {
     display: flex;
+    #campos-obrigatorios{
+      margin-left: 2.5vw;
+      margin-block: 3vh;
+    }
+    h5{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+      sans-serif;
+      color: var(--navbar);
+      font-weight: 500;
+      b{
+        color: var(--main-color);
+        cursor: pointer;
+      }
+    }
+
     .textfield{
       #termosIngresso{
-        padding-top: 3vh;
         padding-left: 0.5vw;
         display: flex;
         flex-direction: row;
         align-items: left;
         justify-content: left;
         gap: 1vw;
-        h5{
-          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-          Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-          sans-serif;
-          color: var(--navbar);
-          font-weight: 300;
-          b{
-            color: var(--main-color);
-            cursor: pointer;
-          }
-        }
         input{
           width: 1vw;
           cursor: pointer;
