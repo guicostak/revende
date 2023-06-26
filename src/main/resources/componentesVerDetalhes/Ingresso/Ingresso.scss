@@ -5,11 +5,11 @@
   padding-block: 10vh;
   
   @include flexCenter(row);
-
+  
   .verDetalhes-card {
     background-color: white;
     border-inline: 1px solid var(--main-color);
-    width: 72vw;
+    width: 70vw;
     padding-inline: 3vw; 
     box-shadow: 1px 1px 1px 1px var(box-shadow);
     display: flex;
@@ -26,17 +26,15 @@
       gap: 1vw;
       margin-top: 2vh;
     }
-
-    .column:first-of-type{
-      padding-right: 3vw;
-    }
-
     .column:first-of-type{
       border-right: 2px dashed var(--main-color);
+          padding-right: 2vw;
+      padding-top: 4vh;
+
     }
     .column:last-of-type{
-      width: 26vw;
-      padding-left: 3vw;
+      width: 24vw;
+      padding-left: 1.8vw;
     }
 
     .column {
@@ -46,7 +44,7 @@
       justify-content: top;
       margin-block: -4vh; 
       border-block: 1px solid var(--main-color);
-
+      
       padding-top: 6vh;
 
       .dicas{
@@ -114,33 +112,48 @@
       align-items: center;
       justify-content: center;
       position: absolute;
-      margin-left: 31vw;
-      margin-top: -6vh;
-      background-color: var(--main-color);
+      margin-left: 26vw;
+      margin-top: -4vh;
+
+      font-size: 1.1vw;
       font-family: var(--main-font);
       color: white;
-      width: 5vw;
-      height: 13vh;
-      border-bottom-left-radius: 50px;
+      background-color: var(--main-color);
 
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      width: 13vw;
+      height: 6vh;
+      gap: 1vw;
       box-shadow: 3px 3px 1px 1px #e82c4f49;
+      span:first-of-type{
+        border-right: 1px solid white;
+        padding-right: 1vw;
+      }
       } 
+
+      h2:first-of-type{
+        margin-bottom: 3vh;
+      }
 
       h2 {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
           Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
           sans-serif;
         color: var(--navbar);
+        
         font-weight: 500;
-        font-size: 0.9vw;
+        font-size: 1vw;
         margin-bottom: 3vh;
       }
+
+    
       h1 {
         color: var(--navbar);
         font-family: var(--main-font);
         font-size: 2vw;
         text-align: left;
-        margin-bottom: 2vh;
+        margin-bottom: 1vh;
       }
       h3 {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -152,9 +165,10 @@
         margin-bottom: 4vh;
       }
       #evento {
-        width: 36vw;
-        height: calc(0.5625 * 36vw);
+        width: 39vw;
+        height: calc(0.5625 * 39vw);
         margin-bottom: 4vh;
+        margin-top: 0vh;
       }
       h5{
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -238,7 +252,7 @@
         padding-right: 3vw;
         border-top-right-radius: 50px;
         border-bottom-right-radius: 50px;
-        margin-left: -3vw;
+        margin-left: -2.5vw;
         margin-bottom: 6vh;
         box-shadow: 3px 3px 1px 1px #e82c4f49;
         h4 {
@@ -256,7 +270,7 @@
 
         margin-bottom: 3vh;
         margin-top: -3vh;
-        width: 26vw;
+        width: 24vw;
 
    
 
@@ -296,6 +310,7 @@
         gap: 2vw;
         margin-top: 3vh;
         margin-bottom: 5vh;
+        margin-left: 2vw;
         .botao{
           width: 16vw;
           height: 6vh;
@@ -341,19 +356,21 @@
         border-bottom: 1px solid var(--main-color);
 
         h2{
-          font-size: 0.9vw;
+          font-size: 1vw;
         }
 
         h1 {
           font-size: 1.6vw;
-          margin-top: 2vh;  
+          margin-top: 3vh;  
         }
         #user {
           width: 5vw;
           height: 5vw;
           border-radius: 100%;
+          margin-top: -1vh;
         }
         .since{
+          font-size: 1vw;
           margin-bottom: 6vh;
         }
 
@@ -378,7 +395,8 @@
 
         label#email{
           margin-top: -3vh;
-          margin-bottom: 6vh;
+          margin-bottom: 7vh;
+          font-size: 1.2vw;
           .vetores {
             width: 1.7vw;
             height: auto;
@@ -386,14 +404,20 @@
             margin-right: 0.5vw;
           }
         }
+
+        label#telefone{
+          font-size: 1.2vw;
+        }
+
         .avaliacao{
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: center;
           gap: 1vw;
-          margin-bottom: 2vh;
+          margin-bottom: 3vh;
           h2{
+            font-size: 1vw;
             margin-bottom: 0;
           }
         
@@ -430,14 +454,12 @@
           }
 
           &:hover {
-            background-color: white;
-            color: var(--main-color);
-            border: 1px solid var(--main-color);
+            background-color: var(--dark-main);
             transition: 0.3s;
           }
         }
         p{
-          font-size: 0.9vw;
+          font-size: 1vw;
           margin-bottom: 4vh;
           color: var(--main-color);
           cursor: pointer;
@@ -450,7 +472,7 @@
           width: 18vw;
           height: 6vh;
           margin-top: 2vh;
-          margin-bottom: 7vh;
+          margin-bottom: 8vh;
           display: flex;
           flex-direction: row;
           align-items: center;
@@ -472,13 +494,10 @@
 
           img {
             width: 1.6vw;
-            animation: pop-up 1s alternate;
           }
 
           &:hover {
-            background-color: white;
-            color: var(--main-color);
-            border: 1px solid var(--main-color);
+            background-color: var(--dark-main);
             transition: 0.3s;
           }
         }
