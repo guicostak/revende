@@ -6,6 +6,7 @@ import HomeLogado from './paginas/HomeLogado'
 import CadIngressos from './paginas/CadIngressos'
 import VerDetalhes from './paginas/VerDetalhes'
 import ScrollReset from './ScrollReset'
+import Lista from './paginas/Lista'
 
 const Root = () => {
   return (
@@ -18,6 +19,7 @@ const Root = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/ingressos/cadastro" element={<CadIngressos />} />
         <Route path="/ingressos/detalhes" element={<VerDetalhes />} />
+        <Route path="/ingressos/lista" element={<Lista />} />
       </Routes>
     </Router>
   )
