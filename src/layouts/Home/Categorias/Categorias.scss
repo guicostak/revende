@@ -1,0 +1,33 @@
+.categorias{
+    margin-top: 2vh;
+
+    .categoria-block{
+        margin: 0.8rem;
+        cursor: pointer;
+        transition: 0.1s;
+        &:hover{
+            transition: 0.1s;
+            filter: brightness(0.9);
+        }
+    }
+    .icone{ 
+        font-size: 1.8em;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .categorias{
+        width: 100vw;
+        margin-top: 2vh;
+    }
+    .row{
+        padding-left: 0;
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        
+    }
+    .categoria-block {
+        width: 8rem;
+    }
+}

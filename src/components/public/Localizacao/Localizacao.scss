@@ -1,0 +1,18 @@
+.localizacao {
+    cursor: pointer;
+    
+    span{
+        font-family: var(--main-font);
+        font-size: 0.9rem;
+    };
+
+    .localizacao-texto{
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .localizacao{
+        display: none;
+    }
+}

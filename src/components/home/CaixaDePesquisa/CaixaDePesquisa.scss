@@ -1,0 +1,47 @@
+#busca {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+  margin-left: 1vw;
+
+    border: 1px solid rgb(188, 187, 187);
+    border-radius: 10px;
+
+    padding: 0.3rem 0.7rem;
+
+    box-shadow: 1px 1px  rgba(188, 187, 187, 0.638);
+   
+
+    img {
+      width: 1rem;
+      cursor: pointer;
+    }
+  }
+
+  #txt-busca {
+    border: none;
+    height: 2rem;
+    width: 28rem;
+    padding-left: 1rem;
+
+    font-family: var(--main-font);
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--navbar);
+
+    outline: none;
+
+    &::placeholder {
+      font-size: 1rem;
+      color: var(--navbar);
+    }
+  }
+
+
+  @media only screen and (max-width: 600px) {
+    #busca{ 
+      width: 92vw;
+    }
+}

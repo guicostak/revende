@@ -1,0 +1,18 @@
+#navbar {
+   padding-block: 1rem;
+}
+
+@media only screen and (max-width: 950px){
+ 
+}
+
+
+@media only screen and (max-width: 600px) {
+   .navItens{
+      display: flex;
+      position: absolute;
+      right:0;
+      top: 2rem;
+   }
+   
+}

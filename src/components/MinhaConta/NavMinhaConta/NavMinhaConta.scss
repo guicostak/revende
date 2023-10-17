@@ -1,0 +1,21 @@
+.nav-meu-perfil{
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+    height: 30rem;
+    .nav-meu-perfil-opcao {
+        cursor: pointer;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: black;
+        gap: 1vw;
+        padding: 1rem 4rem 1rem 1rem;
+    }
+    .nav-meu-perfil-opcao-selecionado {
+        border-right: 5px solid var(--main-color);
+        background-color: var(--selected);
+    }
+}

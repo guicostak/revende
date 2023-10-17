@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+:root{
+  --main-color: #E82C4F;
+  --text-color: rgb(43, 42, 42);
+  --light-main: #ff2f55c7;
+  --dark-main: #d4304e;
+  --selected: #e82c4f21;
+  --main-background: #ffffff;
+  --second-background: rgb(247, 245, 245);
+  --border-color: rgba(0, 0, 0, 0.17);
+  --background-input: rgba(128, 128, 128, 0.251);
+  --box-shadow: #aaa6a671;
+  --navbar: #575555;
+  --main-font:  Arial, Helvetica, sans-serif;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.titulo{
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--navbar);
+  margin-left: 5vw;
+  margin-block: 1.3rem ;
+}
+
+h3{
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-color);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+
+.ancoras{
+  color: var(--main-color);   
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.avisos {
+  color: red;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+/* MIXIN */
+
+
+@mixin flexCenter($flex-direction){
+  display: flex;
+  flex-direction: $flex-direction;
+
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*KEYFRAMES */
+
+@keyframes aparecer{
+  0%    { opacity: 0; }
+  50%   { opacity: 1; }
+  100%   { opacity: 0; }
+}
+
+@keyframes pop-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-down {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes grow-up {
+  from {
+    width: 10vw;
+    opacity: 0;
+  }
+  to {
+    width: 20vw;
+    opacity: 1;
+  }
+}
+
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-25%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

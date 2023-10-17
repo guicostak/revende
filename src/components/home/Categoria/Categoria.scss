@@ -1,0 +1,35 @@
+.categoria{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-decoration: none;
+
+    .categoria-img {
+        width: 4em;
+        height: 4em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--second-background);
+        border-radius: 100px;
+        
+    }
+
+    .categoria-texto {
+        Link{
+            text-decoration: none;
+        }
+        span{
+        color: var(--navbar);
+        font-family: var(--main-font);
+        font-size: 0.8em;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .categoria-texto {
+        font-size: 0.8em;
+    }
+}

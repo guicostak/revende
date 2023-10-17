@@ -1,0 +1,88 @@
+.container-modal{
+    width: fill;
+    height: fill; 
+    position: absolute;
+    top: 0%; 
+    left: 0%;  
+    background-color: rgba(0, 0, 0, 0.325);
+    backdrop-filter: blur(2px); 
+    z-index: 9999;
+}
+
+.modal { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3vh;
+
+
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+
+    max-width: 25rem;
+    height: auto;
+
+    z-index: 1000; 
+
+    background-color: var(--main-background);
+    padding: 2rem 2rem 0 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+
+
+    .sair{
+        font-size: 1.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        position: absolute;
+        top: 4%; 
+        left: 93%;
+        transform: translate(-50%, -50%); 
+    }
+
+    button{
+        font-size: 1.1rem;
+
+        height: 3rem;
+        width: fill;
+    }
+
+    .manter-logado{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    width: fill; 
+    
+    padding-left: 1rem;
+    margin-block: 0.2rem;
+    }
+
+    .ancoras-modal{
+        color: var(--main-color);   
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .modal-nav{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        width: 25rem;
+        padding-block: 1.4rem;
+
+        border-top: 1px solid rgba(128, 128, 128, 0.264);
+        font-size: 1rem;
+        font-weight: 600;
+        background-color: var(--second-background);
+      
+    }
+
+    .adicional{
+        font-size: 0.85rem;
+    }
+}
+
