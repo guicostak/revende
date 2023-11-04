@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 .confirm-titulo {
     font-size: 1.8rem;
     font-weight: 800;
@@ -8,12 +10,19 @@
     width: 17rem;
 }
 
-
-
+.icone {
+color: var(--main-color);
+font-size: 1rem;
+margin-left: 0.2rem;
+}
 .confirm-body {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100vw;
     height: 100vh;
+}
+
+.confirm-card {
+    animation: 1s pop-up ease-in-out;
 }

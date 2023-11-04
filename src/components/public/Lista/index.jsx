@@ -7,7 +7,7 @@ const Lista = ({ lstItens, clickItemList }) => {
   
   return (
     <div className="row">
-    <ul className="lista-nao-ordenada row justify-content-center align-items-center col-sm-12">       
+    <ul className="lista-nao-ordenada row col-sm-12">       
         {lstItens.map((item, index) => (
             <ItemLista
             key={index} 

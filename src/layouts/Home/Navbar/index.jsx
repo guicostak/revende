@@ -6,14 +6,19 @@ import Botao from "../../../components/public/Botao";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import Localizacao from "../../../components/public/Localizacao";
-import Lista from "../../../components/public/Lista";
 import { useState } from "react";
 import Login from '../../public/Login'
+import DropdownPerfil from "../../../components/MinhaConta/DropdownPerfil";
+import '../../../components/public/ItemLista/ItemLista.scss'
+import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const Navbar = ({}) => {
 
     const [modalIsOpen, setModalIsOpen] = useState('none');
     const [isLogin, setIsLogin] = useState()
+    const [isAuthenticated, setIsAthenticated] = useState(Cookies.get('isAthenticated'))
+    const [name, setName] = useState(Cookies.get('name'))
 
     const openModal = (login) => {
         setIsLogin(login)
@@ -32,21 +37,6 @@ const Navbar = ({}) => {
             setIsLogin(true)
         }
     } 
-
-    const itens = [
-        {
-          path: '',
-          text: '',
-          clickable: false,
-          img: <FontAwesomeIcon className='icone' icon={faCircleQuestion} style={{ color: '#E82C4F' , fontSize: '1.1rem'}} />,
-        },
-        {
-          path: '',
-          text: 'entrar',
-          clickable: true,
-          img: '',
-        },
-    ]
       
     return (  
         <>    
@@ -71,11 +61,28 @@ const Navbar = ({}) => {
                     <div className="col-md-4 text-center col-sm-5">
                             <Localizacao />
                         </div>
-                        <div  className="col-md-2 text-center align-items-center col-sm-3">
-                            <Lista 
-                            lstItens={itens}
-                            clickItemList={() => openModal(true)}      
-                            />
+                        <div style={{display: isAuthenticated ? 'flex' : 'none', justifyContent: 'right'}} className="col-md-5 text-center align-items-center col-sm-3">
+                            <div className="item-lista col-md-1 col-sm-6">
+                                <Link className="link">
+                                    <FontAwesomeIcon className="icone" icon={faCircleQuestion} style={{ color: '#E82C4F' }} />
+                                </Link>
+                            </div>
+                            <div style={{marginLeft: '1rem'}} className="logado-nav col-md-8  col-sm-6">
+                                <DropdownPerfil />
+                                <span>Olá {name}!</span>
+                            </div> 
+                        </div>
+                        <div style={{display: !isAuthenticated ? 'flex' : 'none'}} className="col-md-2 text-center align-items-center col-sm-3">
+                            <div className="item-lista col-md-6 col-sm-6">
+                                <Link className="link">
+                                    <FontAwesomeIcon className="icone" icon={faCircleQuestion} style={{ color: '#E82C4F' }} />
+                                </Link>
+                            </div>
+                            <div onClick={() => openModal(true)} className="item-lista col-md-6 col-sm-6">
+                                <div className="link">
+                                    <span>entrar</span> 
+                                </div>
+                            </div>
                         </div>
                         <div className="col-md-2 text-center align-items-center col-sm-3">
                             <Botao

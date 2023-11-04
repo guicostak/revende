@@ -12,6 +12,10 @@
     height: 3rem;
 }
 
+.dropdown-menu{
+    padding-block: 0;
+}
+
 .profile .icone {
     width: 1rem;
     margin-right: 1rem;
@@ -21,4 +25,14 @@
     display: flex;
     align-items: center;
     justify-content: left;
+    height: 3rem;
+
+    &:active {
+        background-color: var(--selected);
+    }
+    .link {
+        text-decoration: none;
+        color: black;
+    }
 }
+

@@ -2,6 +2,14 @@
    padding-block: 1rem;
 }
 
+.logado-nav {
+   display: flex;
+   flex-direction: row;
+   gap: 3rem;
+   align-items: center;
+   justify-content: center;
+}
+
 @media only screen and (max-width: 950px){
  
 }

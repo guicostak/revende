@@ -16,7 +16,7 @@
   --dark-main: #d4304e;
   --selected: #e82c4f21;
   --main-background: #ffffff;
-  --second-background: rgb(247, 245, 245);
+  --second-background: rgb(239, 239, 239);
   --border-color: rgba(0, 0, 0, 0.17);
   --background-input: rgba(128, 128, 128, 0.251);
   --box-shadow: #aaa6a671;
@@ -80,10 +80,10 @@ input[type="date"]::-webkit-outer-spin-button {
 
 /*KEYFRAMES */
 
-@keyframes aparecer{
-  0%    { opacity: 0; }
-  50%   { opacity: 1; }
-  100%   { opacity: 0; }
+@keyframes reload{
+  0%    { opacity: 1; }
+  50%   { opacity: 0; }
+  100%   { opacity: 1; }
 }
 
 @keyframes pop-up {

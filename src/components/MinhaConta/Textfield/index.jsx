@@ -4,12 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import '../../../layouts/public/Login/Login.scss';
 import Botao from '../../public/Botao';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import LoadingDots from '../../../utils/LoadingDots';
+import SuccessfullyChangeMessage from '../../public/SuccessfullyChangeMessage';
 
-const Textfield = ({ labelText, inputValue, inputType, inputsModal, modalTitle, isAlterable, onBlur, resetFormMessage }) => {
+
+const Textfield = ({ labelText, inputValue, inputType, modalTitle, isAlterable, onBlur, inputName, mensagemCampo, aoDigitado, cancelar, valorInicial, mensagensDeErro, validaCampos}) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [activeAnimation, setActiveAnimation] = useState('pop-up 0.2s ease-in-out');
-    const [inputValues, setInputValues] = useState(inputsModal.map(input => input.inputValue));
-
+    const id = Cookies.get('id');
+    const token = Cookies.get('access_token');
+    const [isLoading, setIsLoading] = useState(false)
+    const [successfullyChangeMessage, setSuccesfullyChangeMessage] = useState(false)
+   
+    
     const inputBlur = (e) => {
       onBlur(e)
     }
@@ -18,49 +27,68 @@ const Textfield = ({ labelText, inputValue, inputType, inputsModal, modalTitle, 
         setModalOpen(true);
     }
     
-    const showPassword = (type) => {
-      console.log(type)
-      if (type === 'text') {
-          type = 'password';
-      } else {
-          type = 'text';
-      }
-  }
-
     const closeModal = () => {
+        
         setActiveAnimation('pop-down 0.2s ease-in-out');
         setTimeout(() => {
             setActiveAnimation('pop-up 0.2s ease-in-out');
             setModalOpen(false);
-            resetInputValues();
+            cancelar(valorInicial, inputName)
         }, 170);
+    }
+
+    const validaAlteracao = () => {    
+        if(!mensagensDeErro.name && !mensagensDeErro.email ) {
+            return true
+        }
+        return false
     }
 
     const saveChanges = () => {
-        const updatedInputsModal = inputsModal.map((input, index) => ({
-            ...input,
-            inputValue: inputValues[index]
-        }));
-        
-
-        setActiveAnimation('pop-down 0.2s ease-in-out');
-        setTimeout(() => {
-            setActiveAnimation('pop-up 0.2s ease-in-out');
-            setModalOpen(false);
-        }, 170);
-    }
-
-    const resetInputValues = () => {
-        const initialInputValues = inputsModal.map(input => input.inputValue);
-        resetFormMessage()
-        setInputValues(initialInputValues);
+        if(valorInicial === inputValue) {
+            closeModal()
+            return;
+        }
+        if(validaAlteracao()) {
+        setIsLoading(true);
+        const apiUrl = `http://localhost:8080/api/users/${id}`;
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+        const data = {
+          'name': inputValue,
+        };
+      
+        axios.patch(apiUrl, data, { headers })
+          .then(response => {
+           
+            setTimeout(() => {
+                setIsLoading(false);
+                setSuccesfullyChangeMessage(true);
+                    setTimeout(() => {  
+                    window.location.reload();    
+                    }, 600);
+            }, 700);
+          })
+          .catch(error => {
+            setIsLoading(false);
+            console.error('Erro na requisição PATCH:', error);
+          });
+        }
+      };
+      
+      
+      function handleKeyPress(e) {
+            if (e.key === 'Enter' && validaCampos(e)) {
+                saveChanges();
+            }   
     }
 
     return (
         <div className='textfield-info'>
             <label>{labelText}</label>
             <div className='textfield-row'>
-                <input type={inputType} value={inputValue}></input>
+                <input type={inputType} value={valorInicial}></input>
                 <FontAwesomeIcon
                     className="icone-info"
                     icon={faPencil}
@@ -70,31 +98,35 @@ const Textfield = ({ labelText, inputValue, inputType, inputsModal, modalTitle, 
             </div>
 
             {isModalOpen && (
-                <div style={{ animation: activeAnimation }} className="container-modal">
+                <div style={{ animation: activeAnimation }} className="fundo-modal">
                     <div className="modal container-fluid modal-edit">
                         <p className='sair' onClick={closeModal}>x</p>
+                        <SuccessfullyChangeMessage 
+                        displayStatus={successfullyChangeMessage}
+                        message={'Alteração realizada com sucesso!'}
+                        />
+                        <LoadingDots
+                        displayStatus={isLoading}
+                        />
                         <h1 className='titulo-edit'>{modalTitle}</h1>
-                        {inputsModal.map((input, index) => (
-                            <div key={index}>
-                                <label>{input.labelText}</label>
+                     
+                            <div >
+                                <label>{labelText}</label>
                                 <div className='input-edit'>
                                 <input
-                                    type={input.inputName.substring(0, input.inputName.length - 1) === 'password' ? input.inputType : inputType}
-                                    value={inputValues[index]}
-                                    name={input.inputName}
+                                    type={inputType}
+                                    value={inputValue}
+                                    name={inputName}
                                     onBlur={inputBlur}
+                                    onKeyDown={handleKeyPress}
                                     onChange={(e) => {
-                                        const updatedValue = e.target.value;
-                                        const newInputValues = [...inputValues];
-                                        newInputValues[index] = updatedValue;
-                                        setInputValues(newInputValues);
+                                        aoDigitado(e, inputName)
                                     }}
                                 />
-                                  <FontAwesomeIcon className='icone' onClick={() => showPassword(input.inputType)} icon={input.icone} style={{display: input.inputName.substring(0, input.inputName.length - 1) === 'password' ? 'flex' : 'none', cursor: 'pointer', fontSize: '0.9rem'}} />
                                 </ div>
-                                    <span className='avisos'>{input.mensagemCampo}</span>
+                                <span className='avisos'>{mensagemCampo}</span>
                             </div>
-                        ))}
+        
                         <div className='botoes-edit'>
                             <span onClick={closeModal}>Cancelar</span>
                             <Botao

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-const Textfield = ({ displayTextfield, icone, typeInput, placeholderInput, nameInput, valueInput, onChangeInput, mensagemCampo, onBlur, maxLength }) =>{
+const Textfield = ({ displayTextfield, icone, typeInput, placeholderInput, nameInput, valueInput, onChangeInput, mensagemCampo, onBlur, maxLength, onKeyPress }) =>{
   
   const[type, setType] = useState(typeInput)
   const[passwordIcon, setPasswordIcon] = useState(faEyeSlash)
@@ -30,6 +30,10 @@ const Textfield = ({ displayTextfield, icone, typeInput, placeholderInput, nameI
           setType('text')
         }
       }
+
+      function handleKeyPress (e) {
+        onKeyPress(e);
+      }
     
     return(
         <div style={{display: displayTextfield }} className='textfield col-md-12'>
@@ -45,6 +49,7 @@ const Textfield = ({ displayTextfield, icone, typeInput, placeholderInput, nameI
                 onFocus={inputFocus}
                 onBlur={inputBlur}
                 maxLength={maxLength}
+                onKeyDown={handleKeyPress}
             />
             <FontAwesomeIcon className='icone' onClick={showPassword} icon={passwordIcon} style={{display: nameInput === 'password' ? 'flex' : 'none', cursor: 'pointer', fontSize: '0.9rem'}} />
             </div>

@@ -1,8 +1,10 @@
 import './CardMeuPerfil.scss'
 import NavMinhaConta from '../../../components/MinhaConta/NavMinhaConta'
 import Textfield from '../../../components/MinhaConta/Textfield'
-import React, { useState } from 'react';
-import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import TextfieldSenha from '../../../components/MinhaConta/TextfieldSenha';
 
 const Card = () => {
     const [formMensagem, setFormMensagem] = useState({});
@@ -14,10 +16,17 @@ const Card = () => {
         'email': 'E-mail inválido*',
         'passwordSize': 'Sua senha deve conter ao menos 8 caracteres*',
         'passwordWeek': 'Sua senha deve conter uma combinação de letras maiúsculas, letras minúsculas, números e caracteres especiais (por exemplo, !, @, #, $, %, ^, &).*',
+        'differentPasswords': 'O campo "Nova senha" e ""Confirmação da nova senha" devem ser iguais'
       };
-      const[passwordIcon1, setPasswordIcon1] = useState(faEyeSlash)
-      const[passwordIcon2, setPasswordIcon2] = useState(faEyeSlash)
-      const[passwordIcon3, setPasswordIcon3] = useState(faEyeSlash)
+
+      const [cpf, setCpf] = useState('');
+      const [email, setEmail] = useState('');
+      const [passwords, setPasswords] = useState(['', '', '']);
+      const [name, setName] = useState('');
+      const [initialCpf, setInitialCpf] = useState('');
+      const [initialEmail, setInitialEmail] = useState('');
+      const [initialName, setInitialName] = useState('');
+    
 
       function validaEmail(email) {
         const trimmedEmail = email.trim(); 
@@ -40,7 +49,7 @@ const Card = () => {
       }
       
       const showPassword = () => {
-        alert('opa')
+  
       }
 
       const validaCampos = (e) => {
@@ -51,7 +60,7 @@ const Card = () => {
               ...formMensagem,
               [name]: mensagensDeErro.empty,
             });
-            return;
+            return false;
           }
           else{
             switch (name) {
@@ -61,7 +70,7 @@ const Card = () => {
                     ...formMensagem,
                     [name]: mensagensDeErro.name,
                   });
-                  return;
+                  return false;
                 } 
                 break;
               case 'cpf':
@@ -70,7 +79,7 @@ const Card = () => {
                     ...formMensagem,
                     [name]: mensagensDeErro.cpf,
                   });
-                  return;
+                  return false;
                 }        
                 break;
               case 'email':
@@ -79,31 +88,16 @@ const Card = () => {
                     ...formMensagem,
                     [name]: mensagensDeErro.email,
                   });
-                  return;
+                  return false;
                 } 
                 break;
-                    case 'password2':
-                    case 'password3':
-                      if (value.length < 8) {
-                        setFormMensagem({
-                          ...formMensagem,
-                          [name]: mensagensDeErro.passwordSize,
-                        });
-                        return;
-                      } else if (!validaSenha(value)) {
-                        setFormMensagem({
-                          ...formMensagem,
-                          [name]: mensagensDeErro.passwordWeek,
-                        });
-                        return;
-                      }
-                      break;
             }
             setFormMensagem({
               ...formMensagem,
-              [name]: mensagensDeErro.none,
+              [name]: mensagensDeErro.passwordWeek,
             });
           }  
+          return true;
       }    
     
       const resetFormMessage = () => {
@@ -113,86 +107,202 @@ const Card = () => {
         }
         setFormMensagem(initialFormMessage);
       }
+
+      const validaCampoSenha = (e) => {
+        const { name, value } = e.target;
       
+        if(value === '') {
+          setFormMensagem({
+            ...formMensagem,
+            [name]: mensagensDeErro.empty,
+          });
+          return false;
+        } else{
+          switch (name) {
+            case 'password2':
+              if (value.length < 8) {
+                setFormMensagem({
+                  ...formMensagem,
+                  [name]: mensagensDeErro.passwordSize,
+                });
+              } else if (!validaSenha(value)) {
+                setFormMensagem({
+                  ...formMensagem,
+                  [name]: mensagensDeErro.passwordWeek,
+                });
+              }
+              
+              break;
+              case 'password3':
+                if(passwords[1] !== passwords[2]){
+                  setFormMensagem({
+                    ...formMensagem,
+                    password3: mensagensDeErro.differentPasswords,
+                  });
+                }
+
+              break;  
+          }
+        }
+      }
+      
+      useEffect(() => {
+        const id = Cookies.get('id');
+        const token = Cookies.get('access_token');
+        const apiUrl = `http://localhost:8080/api/users/${id}`;
+    
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+    
+        axios
+          .get(apiUrl, { headers })
+          .then((response) => {
+            const userData = response.data;
+            setCpf(userData.cpf);
+            setEmail(userData.email);
+            setName(userData.name);
+            setInitialCpf(userData.cpf);
+            setInitialEmail(userData.email);
+            setInitialName(userData.name);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      }, []); 
+
+      function aoDigitado(e, inputName) {
+        const { value } = e.target;
+        setFormMensagem({
+          ...formMensagem,
+          [inputName]: mensagensDeErro.none,
+        });
+
+        switch (inputName) {
+          case 'name':
+           setName(value)
+          break;
+          case 'email':
+            setEmail(value)
+           break;
+           case 'password1':
+            const updatedPasswords = [...passwords];
+            updatedPasswords[0] = value;
+            setPasswords(updatedPasswords);
+            break;
+          case 'password2':
+            const updatedPasswords2 = [...passwords];
+            updatedPasswords2[1] = value;
+            setPasswords(updatedPasswords2);
+            break;
+          case 'password3':
+            const updatedPasswords3 = [...passwords];
+            updatedPasswords3[2] = value;
+            setPasswords(updatedPasswords3);
+            break;
+        }
+      }
+
+      function cancelar(inputValue, inputName) {
+        switch (inputName) {
+          case 'name':
+            setName(inputValue);
+            break;
+          case 'email':
+            setEmail(inputValue);
+            break;
+          case 'password':
+            const updatedPasswords = ['', '', ''];
+            setPasswords(updatedPasswords);
+            break;
+        }
+        emptyForm();
+      }
+           
+      const emptyForm = () => {
+       const emptyObject = {}
+       setFormMensagem(emptyObject)
+      }
+
+      const validarTodos = () => {
+        let isValid = true; 
+      
+        const campos = [
+          { name: 'password1', value: passwords[0] },
+          { name: 'password2', value: passwords[1] },
+          { name: 'password3', value: passwords[2] },
+        ];
+      
+        campos.forEach((campo) => {
+          const { name, value } = campo;
+          if (value === '') {
+            setFormMensagem({
+              ...formMensagem,
+              [name]: mensagensDeErro.empty,
+            });
+            isValid = false; 
+          } else {
+            switch (name) {
+              case 'password2':
+                if (value.length < 8) {
+                  setFormMensagem({
+                    ...formMensagem,
+                    [name]: mensagensDeErro.passwordSize,
+                  });
+                  isValid = false; 
+                } else if (!validaSenha(value)) {
+                  setFormMensagem({
+                    ...formMensagem,
+                    [name]: mensagensDeErro.passwordWeek,
+                  });
+                  isValid = false; 
+                }
+                break;
+              case 'password3':
+                if (passwords[1] !== value) {
+                  setFormMensagem({
+                    ...formMensagem,
+                    password3: mensagensDeErro.differentPasswords,
+                  });
+                  isValid = false; 
+                }
+                break;
+            }
+          }
+        });
+      
+        return isValid; 
+      };
+      
+
     const textfieldsData = [
         {
             labelText: 'Nome completo',
-            inputValue: 'Guilherme Costa',
+            inputValue: name,
             modalTitle: 'Alterar nome',
             isAlterable: true,
-            inputsModal: [
-                {
-                    labelText: 'Nome completo',
-                    inputType: 'text',
-                    inputValue: 'Guilherme Costa' ,
-                    inputName: 'name',
-                    mensagemCampo: formMensagem.name
-                }
-            ]
+            inputName: 'name',
+            mensagemCampo: formMensagem.name,
+            valorInicial: initialName
         },
         {
             labelText: 'Email',
-            inputValue: 'guilhermecosta.barros@gmail.com',
+            inputValue: email,
             modalTitle: 'Alterar email',
             isAlterable: true,
-            inputsModal: [
-                {
-                    labelText: 'Email',
-                    inputType: 'email',
-                    inputValue: 'guilhermecosta.barros@gmail.com' ,
-                    inputName: 'email',
-                    mensagemCampo: formMensagem.email
-                }
-            ]
+            inputName: 'email',
+            mensagemCampo: formMensagem.email,
+            valorInicial: initialEmail
         },
         {
             labelText: 'CPF',
-            inputValue: '113.478.616-61',
+            inputValue: cpf,
             modalTitle: 'Alterar CPF',
             isAlterable: false,
-            inputsModal: [
-                {
-                    labelText: 'CPF',
-                    inputType: 'text',
-                    inputValue: '113.478.616-61' ,
-                    inputName: 'cpf',
-                    mensagemCampo: formMensagem.cpf
-                }
-            ]
+            inputName: 'cpf',
+            mensagemCampo: formMensagem.cpf,
+           valorInicial: initialCpf
         },
-        {
-            labelText: 'Senha',
-            inputType: 'password',
-            inputValue: '123456',
-            modalTitle: 'Alterar senha',
-            isAlterable: true,
-            inputsModal: [
-                {
-                    labelText: 'Senha atual',
-                    inputType: 'password',
-                    inputValue: '' ,
-                    inputName: 'password1',
-                    mensagemCampo: formMensagem.password1,
-                    icone: passwordIcon1
-                },
-                {
-                    labelText: 'Nova senha',
-                    inputType: 'password',
-                    inputValue: '' ,
-                    inputName: 'password2',
-                    mensagemCampo: formMensagem.password2,
-                    icone: passwordIcon2
-                },
-                {
-                    labelText: 'Confirmar nova senha',
-                    inputType: 'password',
-                    inputValue: '' ,
-                    inputName: 'password3',
-                    mensagemCampo: formMensagem.password3,
-                    icone: passwordIcon3
-                }
-            ]
-        }
     ];
 
     return (
@@ -209,12 +319,30 @@ const Card = () => {
                             inputValue={field.inputValue}
                             isAlterable={field.isAlterable}
                             modalTitle={field.modalTitle}
-                            inputsModal={field.inputsModal} 
+                            inputName={field.inputName}
                             showPassword={(() => showPassword())}
                             resetFormMessage={() => resetFormMessage()}
                             onBlur={validaCampos}
+                            aoDigitado={(e, inputName) => aoDigitado(e, inputName)}
+                            mensagemCampo={field.mensagemCampo}
+                            cancelar={(value, name) => cancelar(value, name)}
+                            valorInicial={field.valorInicial}
+                            mensagensDeErro={formMensagem}
+                            validaCampos={validaCampos}
                         />
                     ))}
+                    <TextfieldSenha
+                    inputType={'password'}
+                    inputValue={passwords}          
+                    onBlur={validaCampoSenha} 
+                    cancelar={(value, name) => cancelar(value, name)}
+                    valorInicial={'xxxxxxxxxxxxxxxxxxx'}
+                    modalTitle={'Alterar senha'} 
+                    aoDigitado={(e, inputName) => aoDigitado(e, inputName)}  
+                    mensagemCampo={formMensagem.password}
+                    mensagensDeErro={formMensagem}     
+                    validarTodos={validarTodos}
+                    />
                 </div>
             </div>
         </div>
