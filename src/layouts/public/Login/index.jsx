@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import './Login.scss';
 import axios from 'axios';
 import Botao from '../../../components/public/Botao';
-import { faLock, faUser, faIdCard, faEnvelope, faCircleCheck, faCircleXmark} from '@fortawesome/free-solid-svg-icons';
+import { faLock, faUser, faIdCard, faEnvelope, faCircleCheck, faCircleXmark, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 import ReCAPTCHA from "react-google-recaptcha";
 import Textfield from '../../../components/home/Textfield';
 import Cookies from 'js-cookie';
@@ -376,7 +376,10 @@ const handleChange = (e) => {
       <LoadingDots
         displayStatus={isLoading}
         />
-      
+         <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  style={{ color: '#E82C4F', fontSize: '5rem'}}
+                />
         <h3>Email de verificação enviado!</h3>
         <p>Por favor verifique sua caixa de entrada ou sua caixa de spam. E-mail enviado para:</p>
         <p style={{color: 'var(--main-color)'}}>{emailUsuario}</p>

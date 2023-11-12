@@ -3,7 +3,6 @@ import Categoria from '../../../components/home/Categoria';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBasketball,
-  faLaugh,
   faMusic,
   faTheaterMasks,
   faLaughSquint,
