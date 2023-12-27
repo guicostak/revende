@@ -48,7 +48,7 @@
     .categoria-elemento {
       width: 20vw;
       padding-left: 2vw;
-      padding-block: 1vh;
+      padding-block: 2vh;
       gap: 1vw;
 
       display: flex;
@@ -88,6 +88,7 @@
     animation: pop-up 1s alternate;
     border-left: 1px solid var(--navbar);
     width: 40vw;
+    height: 90vh;
 
     padding-left: 2vw;
     padding-bottom: 3vh;
@@ -95,36 +96,6 @@
 
     justify-content: center;
     align-items: left;
-
-    #erro-campos-vazios-hidden{
-      display: none;
-    }
-
-    #erro-campos-vazios{
-      display: flex;
-    }
-
-    .erro{
-      width: 24vw;
-      height: 7vh;
-
-      @include flexCenter(row);
-
-
-      border-left: 4px solid var(--main-color);
-      padding-left: 1vw;
-      margin-left: -2.1vw;
-
-      color: var(--main-color);
-      font-size: 1vw;
-      font-family: Arial, Helvetica, sans-serif;
-      img{
-        margin-bottom: -1vh;
-        margin-right: 0.5vw;
-        width: 1.5vw;
-      }
-    }
-
 
     .botao-voltar{
       width: 2vw;
@@ -222,7 +193,8 @@
       }
 
       .checkbox-checked {
-        width: 10vw;
+        width: 10.3vw;
+        height: 5.2vh;
 
         animation: none;
         transform: scale(1.06);
@@ -230,23 +202,6 @@
           color: white;
           background-color: var(--main-color);
           transform: scale(1.06);
-        }
-      }
-
-      .aviso-card {
-        position: fixed;
-
-        top: 25vh;
-        left: 52vw;
-        background-color: var(--main-color);
-        z-index: 9999;
-        padding: 1vw;
-        animation: pop-up 0.5s ease;
-
-        p {
-          color: white;
-          font-size: 0.9vw;
-          margin-bottom: 0;
         }
       }
 
@@ -411,20 +366,14 @@
     display: none;
   }
 
-  #dadosQuarto {
-    display: flex;
-     .textfield{
-      margin-block: 2.2vh;
-    }
-  }
-
   #dadosQuinto-hidden {
     display: none;
   }
 
-  #dadosQuinto {
+  #dadosQuarto{
     display: flex;
     #campos-obrigatorios{
+      font-size: 0.9rem;
       margin-left: 2.5vw;
       margin-block: 3vh;
     }
@@ -445,12 +394,15 @@
         padding-left: 0.5vw;
         display: flex;
         flex-direction: row;
-        align-items: left;
-        justify-content: left;
+        align-items: center;
+        justify-content: leftche;
         gap: 1vw;
         input{
-          width: 1vw;
+          width: 1rem;
           cursor: pointer;
+        }
+        h5{
+          font-size: 1rem;
         }
       }
       margin-block: 2vh;

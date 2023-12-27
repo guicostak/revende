@@ -14,6 +14,7 @@ const Card = () => {
         'name': 'Tem certeza que digitou o seu nome corretamente ?',
         'cpf': 'CPF inválido*',
         'email': 'E-mail inválido*',
+        'phoneNumber': 'Número de telefone inválido',
         'passwordSize': 'Sua senha deve conter ao menos 8 caracteres*',
         'passwordWeek': 'Sua senha deve conter uma combinação de letras maiúsculas, letras minúsculas, números e caracteres especiais (por exemplo, !, @, #, $, %, ^, &).*',
         'differentPasswords': 'O campo "Nova senha" e ""Confirmação da nova senha" devem ser iguais'
@@ -21,12 +22,27 @@ const Card = () => {
 
       const [cpf, setCpf] = useState('');
       const [email, setEmail] = useState('');
+      const [phone_number, setPhoneNumber] = useState('');
       const [passwords, setPasswords] = useState(['', '', '']);
       const [name, setName] = useState('');
+      const [initialPhoneNumber, setInitialPhoneNumber] = useState('')
       const [initialCpf, setInitialCpf] = useState('');
       const [initialEmail, setInitialEmail] = useState('');
       const [initialName, setInitialName] = useState('');
     
+      function formatPhoneNumber(phoneNumber) {
+        phoneNumber = phoneNumber.replace(/\D/g, '');
+      
+        if (phoneNumber.length === 10) {
+          phoneNumber = phoneNumber.replace(/(\d{2})(\d{4})(\d{3})/, '($1) $2-$3');
+        } else if (phoneNumber.length === 11) {
+          phoneNumber = phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        } else {  
+          return phoneNumber;
+        }
+      
+        return phoneNumber;
+      }
 
       function validaEmail(email) {
         const trimmedEmail = email.trim(); 
@@ -47,14 +63,9 @@ const Card = () => {
         const possuiCaractereEspecial = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(senha);
         return possuiNumero && possuiMaiuscula && possuiMinuscula && possuiCaractereEspecial;
       }
-      
-      const showPassword = () => {
-  
-      }
 
       const validaCampos = (e) => {
         const { name, value } = e.target; 
-
           if(value === '') {
             setFormMensagem({
               ...formMensagem,
@@ -84,6 +95,7 @@ const Card = () => {
                 break;
               case 'email':
                 if (!validaEmail(value)) {
+                  console.log('opa')
                   setFormMensagem({
                     ...formMensagem,
                     [name]: mensagensDeErro.email,
@@ -91,10 +103,19 @@ const Card = () => {
                   return false;
                 } 
                 break;
+              case 'phone_number':
+                if (value.length < 14) {
+                  setFormMensagem({
+                    ...formMensagem,
+                    [name]: mensagensDeErro.phoneNumber,
+                  });
+                  return false;
+                } 
+                break;
             }
             setFormMensagem({
               ...formMensagem,
-              [name]: mensagensDeErro.passwordWeek,
+              [name]: mensagensDeErro.none,
             });
           }  
           return true;
@@ -162,8 +183,10 @@ const Card = () => {
             setCpf(userData.cpf);
             setEmail(userData.email);
             setName(userData.name);
+            setPhoneNumber(userData.phone_number)
             setInitialCpf(userData.cpf);
             setInitialEmail(userData.email);
+            setInitialPhoneNumber(userData.phone_number)
             setInitialName(userData.name);
           })
           .catch((error) => {
@@ -199,6 +222,9 @@ const Card = () => {
             const updatedPasswords3 = [...passwords];
             updatedPasswords3[2] = value;
             setPasswords(updatedPasswords3);
+            break;
+          case 'phone_number':
+            setPhoneNumber(formatPhoneNumber(value));
             break;
         }
       }
@@ -295,6 +321,15 @@ const Card = () => {
             valorInicial: initialEmail
         },
         {
+          labelText: 'Telefone',
+          inputValue: phone_number,
+          modalTitle: 'Alterar telefone',
+          isAlterable: true,
+          inputName: 'phone_number',
+          mensagemCampo: formMensagem.phoneNumber,
+          valorInicial: initialPhoneNumber
+      },
+        {
             labelText: 'CPF',
             inputValue: cpf,
             modalTitle: 'Alterar CPF',
@@ -320,7 +355,6 @@ const Card = () => {
                             isAlterable={field.isAlterable}
                             modalTitle={field.modalTitle}
                             inputName={field.inputName}
-                            showPassword={(() => showPassword())}
                             resetFormMessage={() => resetFormMessage()}
                             onBlur={validaCampos}
                             aoDigitado={(e, inputName) => aoDigitado(e, inputName)}

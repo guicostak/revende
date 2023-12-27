@@ -8,16 +8,20 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import LoadingDots from '../../../utils/LoadingDots';
 import SuccessfullyChangeMessage from '../../public/SuccessfullyChangeMessage';
-
+import { useNavigate } from 'react-router-dom';
+import ModalConfirmar from '../ModalConfirmar';
 
 const Textfield = ({ labelText, inputValue, inputType, modalTitle, isAlterable, onBlur, inputName, mensagemCampo, aoDigitado, cancelar, valorInicial, mensagensDeErro, validaCampos}) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [activeAnimation, setActiveAnimation] = useState('pop-up 0.2s ease-in-out');
     const id = Cookies.get('id');
     const token = Cookies.get('access_token');
-    const [isLoading, setIsLoading] = useState(false)
-    const [successfullyChangeMessage, setSuccesfullyChangeMessage] = useState(false)
-   
+    const [isLoading, setIsLoading] = useState(false);
+    const [successfullyChangeMessage, setSuccesfullyChangeMessage] = useState(false);
+    const navigate = useNavigate();
+    const [confirmationDisplay, setConfirmationDisplay] = useState(false);
+    
+
     
     const inputBlur = (e) => {
       onBlur(e)
@@ -44,11 +48,65 @@ const Textfield = ({ labelText, inputValue, inputType, modalTitle, isAlterable, 
         return false
     }
 
+    const logout = () => {
+        const cookies = Object.keys(Cookies.get());
+    
+        cookies.forEach(cookieName => {
+          Cookies.remove(cookieName);
+        });
+
+      }
+
+    function avisarAlteracaoEmail() {
+        setConfirmationDisplay(true);      
+    }
+
+    function confirmarAlteracaoEmail() {
+        setConfirmationDisplay(false);
+        if(validaAlteracao()) {
+            setIsLoading(true);
+            const apiUrl = `http://localhost:8080/api/users/${id}`;
+            const headers = {
+              Authorization: `Bearer ${token}`,
+            };
+            const data = {
+              [inputName]: inputValue,
+            };
+          
+            axios.patch(apiUrl, data, { headers })
+              .then(response => {
+               
+                setTimeout(() => {
+                    setIsLoading(false);
+                    setSuccesfullyChangeMessage(true);
+                        setTimeout(() => {  
+                            logout();
+                            navigate('/');
+                        }, 600);
+                }, 700);
+              })
+              .catch(error => {
+                setIsLoading(false);
+                console.error('Erro na requisição PATCH:', error);
+              });
+            }   
+    }
+
+    function cancelarAlteracaoEmail() {
+        setConfirmationDisplay(false);
+    }
+
     const saveChanges = () => {
         if(valorInicial === inputValue) {
             closeModal()
             return;
         }
+
+        if(inputName === 'email'){
+            avisarAlteracaoEmail();
+            return;
+        }
+        
         if(validaAlteracao()) {
         setIsLoading(true);
         const apiUrl = `http://localhost:8080/api/users/${id}`;
@@ -56,7 +114,7 @@ const Textfield = ({ labelText, inputValue, inputType, modalTitle, isAlterable, 
           Authorization: `Bearer ${token}`,
         };
         const data = {
-          'name': inputValue,
+          [inputName]: inputValue,
         };
       
         axios.patch(apiUrl, data, { headers })
@@ -66,9 +124,9 @@ const Textfield = ({ labelText, inputValue, inputType, modalTitle, isAlterable, 
                 setIsLoading(false);
                 setSuccesfullyChangeMessage(true);
                     setTimeout(() => {  
-                    window.location.reload();    
-                    }, 600);
-            }, 700);
+                        window.location.reload();    
+                    }, 700);
+            }, 800);
           })
           .catch(error => {
             setIsLoading(false);
@@ -83,6 +141,7 @@ const Textfield = ({ labelText, inputValue, inputType, modalTitle, isAlterable, 
                 saveChanges();
             }   
     }
+
 
     return (
         <div className='textfield-info'>
@@ -99,6 +158,11 @@ const Textfield = ({ labelText, inputValue, inputType, modalTitle, isAlterable, 
 
             {isModalOpen && (
                 <div style={{ animation: activeAnimation }} className="fundo-modal">
+                    <ModalConfirmar
+                        display={confirmationDisplay}
+                        cancelar={cancelarAlteracaoEmail}
+                        confirmar={confirmarAlteracaoEmail}
+                    />
                     <div className="modal container-fluid modal-edit">
                         <p className='sair' onClick={closeModal}>x</p>
                         <SuccessfullyChangeMessage 
@@ -122,6 +186,7 @@ const Textfield = ({ labelText, inputValue, inputType, modalTitle, isAlterable, 
                                     onChange={(e) => {
                                         aoDigitado(e, inputName)
                                     }}
+                                    autoComplete='off'
                                 />
                                 </ div>
                                 <span className='avisos'>{mensagemCampo}</span>

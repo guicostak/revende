@@ -18,7 +18,7 @@ const Navbar = ({}) => {
     const [modalIsOpen, setModalIsOpen] = useState('none');
     const [isLogin, setIsLogin] = useState()
     const [isAuthenticated, setIsAthenticated] = useState(Cookies.get('isAthenticated'))
-    const [name, setName] = useState(Cookies.get('name'))
+    const [name, setName] = useState(Cookies.get('name') ? Cookies.get('name').split(' ')[0] : null)
 
     const openModal = (login) => {
         setIsLogin(login)

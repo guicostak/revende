@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import './Login.scss';
 import axios from 'axios';
 import Botao from '../../../components/public/Botao';
-import { faLock, faUser, faIdCard, faEnvelope, faCircleCheck, faCircleXmark, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
+import { faLock, faUser, faIdCard, faEnvelope, faCircleCheck, faCircleXmark, faCheckCircle, faPhone} from '@fortawesome/free-solid-svg-icons';
 import ReCAPTCHA from "react-google-recaptcha";
 import Textfield from '../../../components/home/Textfield';
 import Cookies from 'js-cookie';
@@ -18,6 +18,7 @@ const [displayConfirmarEmail, setDisplayConfirmarEmail] = useState('none')
 const listIcons = [
   faUser, 
   faIdCard,
+  faPhone,
   faEnvelope,
   faLock
 ];
@@ -27,6 +28,7 @@ const mensagensDeErro = {
   'name': 'Tem certeza que digitou o seu nome corretamente ?',
   'cpf': 'CPF inválido*',
   'email': 'E-mail inválido*',
+  'phoneNumber': 'Número de telefone inválido',
   'passwordSize': 'Sua senha deve conter ao menos 8 caracteres*',
   'passwordWeek': 'Sua senha deve conter uma combinação de letras maiúsculas, letras minúsculas, números e caracteres especiais (por exemplo, !, @, #, $, %, ^, &).*',
 };
@@ -44,6 +46,20 @@ function formatCPF(cpf) {
   cpf = cpf.replace(/(\d{3})(\d{1,2})/, '$1-$2');
 
   return cpf;
+}
+
+function formatPhoneNumber(phoneNumber) {
+  phoneNumber = phoneNumber.replace(/\D/g, '');
+
+  if (phoneNumber.length === 10) {
+    phoneNumber = phoneNumber.replace(/(\d{2})(\d{4})(\d{3})/, '($1) $2-$3');
+  } else if (phoneNumber.length === 11) {
+    phoneNumber = phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  } else {  
+    return phoneNumber;
+  }
+
+  return phoneNumber;
 }
 
 function validaEmail(email) {
@@ -71,8 +87,14 @@ const handleChange = (e) => {
   let updatedValue = value;
   setEmailNaoConfirmado(false)
 
-  if (name === 'cpf') {
-    updatedValue = formatCPF(value);
+  switch(name) {
+    case 'cpf':
+      updatedValue = formatCPF(value);
+    break;
+
+    case 'phone_number':
+      updatedValue = formatPhoneNumber(value)
+    break;
   }
 
   setFormData({
@@ -118,11 +140,20 @@ const handleChange = (e) => {
               return;
             }        
             break;
-          case 'email':
-            if (!validaEmail(value)) {
+            case 'email':
+              if (!validaEmail(value)) {
+                setFormMensagem({
+                  ...formMensagem,
+                  [name]: mensagensDeErro.email,
+                });
+                return;
+              } 
+              break;
+          case 'phone_number':
+            if (value.length < 14) {
               setFormMensagem({
                 ...formMensagem,
-                [name]: mensagensDeErro.email,
+                [name]: mensagensDeErro.phone_number,
               });
               return;
             } 
@@ -164,6 +195,7 @@ const handleChange = (e) => {
     campos = [
       { name: 'email', value: formData.email },
       { name: 'password', value: formData.password },
+      { name: 'phone_number', value: formData.phone_number },
       { name: 'cpf', value: formData.cpf },
       { name: 'name', value: formData.name }
     ];
@@ -257,7 +289,7 @@ const handleChange = (e) => {
   
   const register = async () => {
     setIsLoading(true)
-
+    console.log(formData)
     try {
       const response = await axios.post('http://localhost:8080/api/users/register', formData);
       const responseData = response.data.message;
@@ -397,7 +429,7 @@ const handleChange = (e) => {
 
         <AuthenticatedMessage
         displayStatus={authenticatedMessage} 
-        usuario={Cookies.get('name')}
+        firstName={Cookies.get('name') ? Cookies.get('name').split(' ')[0] : null}
         />
 
         <LoadingDots
@@ -434,9 +466,23 @@ const handleChange = (e) => {
         onKeyPress={(e) => handleKeyPress(e)}
         />
 
+      <Textfield
+        displayTextfield={!isLogin ? 'flex' : 'none'}
+        icone={listIcons[2]}
+        typeInput={'text'}
+        placeholderInput={'Telefone'}
+        nameInput={'phone_number'}
+        valueInput={formData.phone_number} 
+        onChangeInput={handleChange}
+        mensagemCampo={formMensagem.phone_number}
+        onBlur={validaCampos}    
+        maxLength={15}  
+        onKeyPress={(e) => handleKeyPress(e)}
+        />
+
         <Textfield
         displayTextfield={'flex'}
-        icone={listIcons[2]}
+        icone={listIcons[3]}
         typeInput={'text'}
         placeholderInput={'E-mail'}
         nameInput={'email'}
@@ -450,7 +496,7 @@ const handleChange = (e) => {
 
         <Textfield
         displayTextfield={'flex'}
-        icone={listIcons[3]}
+        icone={listIcons[4]}
         typeInput={'password'}
         placeholderInput={'Senha'}
         nameInput={'password'}

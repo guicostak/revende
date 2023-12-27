@@ -1,9 +1,9 @@
 import './AuthenticatedMessage.scss'
 
-const AuthenticatedMessage = ({displayStatus, usuario}) => {
+const AuthenticatedMessage = ({displayStatus, firstName}) => {
     return( 
         <div style={{display: displayStatus ? 'flex' : 'none'}} className="authenticated-message">
-            Bem vindo {usuario}!
+            Bem vindo {firstName}!
         </div>
     )
 }

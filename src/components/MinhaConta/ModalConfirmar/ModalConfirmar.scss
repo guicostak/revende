@@ -1,36 +1,10 @@
-.textfield-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
+@import url('../../../index.scss');
 
-    .textfield-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: left;
-        align-items: center;
-        gap: 1rem;
-        
-        
-        .icone-info{
-            cursor: pointer;
-        }
-
-        input { 
-            height: 3rem;
-            width: 25rem;
-            padding-left: 1rem;
-            background-color: var(--background-input);
-            border: none;
-            outline: none;
-
-            cursor: not-allowed;
-        }   
-    }
-}
-
-.modal-edit {
-    max-width: 35rem;
+.modal-confirmation {
+    max-width: 30rem;
     padding-bottom: 2rem;
+    z-index: 10000000;
+    animation: pop-up 0.3s alternate;
     .sair {
         top: 8%;
     }
@@ -57,7 +31,7 @@
         }
     }  
 
-    .titulo-edit {
+    .titulo-confirmation {
         font-size: 1.6rem;
         color: var(--navbar);
     }

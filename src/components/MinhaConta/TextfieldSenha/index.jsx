@@ -58,7 +58,8 @@ const TextfieldSenha = ({inputValue, onBlur, cancelar, valorInicial, mensagensDe
             Authorization: `Bearer ${token}`,
           };
           const data = {
-            'name': inputValue,
+            'current_password': inputValue[0],
+            'new_password': inputValue[2],
           };
         
           axios.patch(apiUrl, data, { headers })

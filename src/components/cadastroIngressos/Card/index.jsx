@@ -9,12 +9,12 @@ import {
   faEllipsis,
   faGraduationCap,
   faPuzzlePiece,
-  faUtensils,
-  faExclamation,
   faCamera,
   faXmarkCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'
+import ErrorMessageCadastroIngresso from '../ErrorMessageCadastroIngresso'
+import Cookies from 'js-cookie';
 
 const Card = () => {
   const [abrePagina, setAbrePagina] = useState(false)
@@ -24,63 +24,34 @@ const Card = () => {
   const [dadosSegundoDisplay, setDadosSegundoDisplay] = useState(false)
   const [dadosTerceiroDisplay, setDadosTerceiroDisplay] = useState(false)
   const [dadosQuartoDisplay, setDadosQuartoDisplay] = useState(false)
-  const [dadosQuintoDisplay, setDadosQuintoDisplay] = useState(false)
   const [primeiroInput, setPrimeiroInput] = useState(false)
   const [segundoInput, setSegundoInput] = useState(false)
-  const [terceiroInput, setTerceiroInput] = useState(false)
   const [removeStatusImage, setRemoveStatusImage] = useState('none')
-  const [avisoDisplay, setAvisoDisplay] = useState(false)
-
-  const [erros, setErros] = useState({
-    camposVazios: false,
-    data: false,
-    horario: false,
-    categoria: false,
-    tipo: false,
-    cep: false,
-    logradouro: false,
-    cidade: false,
-    estado: false,
-    preco: false
-  })
-
-  const [campoValido, setCampoValido] = useState({
-    nome: false,
-    data: false,
-    horario: false,
-    categoria: false,
-    tipo: false,
-    cep: false,
-    logradouro: false,
-    cidade: false,
-    estado: false,
-    preco: false
-  })
-
+  const [formMensagem, setFormMensagem] = useState({});
   const [fisico, setFisico] = useState(false)
   const [digital, setDigital] = useState(false)
   const [ambos, setAmbos] = useState(false)
 
-  const [borderColor, setBorderColor] = useState('var(--main-color)')
-
-  //VARIÁVEIS REFERENTES AOS CAMPOS DO FORMULÁRIO
-
   const [inputCategoria, setInputCategoria] = useState('')
   const [inputNome, setInputNome] = useState('')
   const [inputData, setInputData] = useState('')
-  const [inputHorario, setInputHorario] = useState('')
   const [inputTipo, setInputTipo] = useState('')
-  const [inputSetor, setInputSetor] = useState('')
-  const [inputQuantidade, setInputQuantidade] = useState('1')
   const [inputImage, setInputImage] = useState('')
   const [inputDescricao, setInputDescricao] = useState('')
-  const [inputCep, setInputCep] = useState('')
   const [inputLogradouro, setInputLogradouro] = useState('')
-  const [inputEstado, setInputEstado] = useState('')
-  const [inputCidade, setInputCidade] = useState('')
   const [inputPreco, setInputPreco] = useState('')
-  const [inputLote, setInputLote] = useState('')
   const [inputTermos, setInputTermos] = useState('')
+  const token = Cookies.get('access_token');
+
+  const mensagensDeErro = {
+    'none': '',
+    'empty': 'Campo obrigatório*',
+    'dataPassada': 'A data que você digitou já passou',
+    'termos': 'Você deve aceitar os termos e condições',
+    'preco':  'O valor mínimo do ingresso deve ser R$10,00',
+    'image': 'Por favor, selecione uma imagem JPG ou PNG',
+    'formulario': 'Houveram erros no formulário por favor'
+  }; 
 
   const HandleFocus = event => {
     event.target.style.borderColor = 'var(--text-color)'
@@ -88,6 +59,19 @@ const Card = () => {
 
   const BlurFocus = event => {
     event.target.style.borderColor = 'var(--main-color)'
+    validaCampos(event);
+  }
+
+  const validaCampos = (e) => {
+    const { name, value } = e.target; 
+
+    if(value === '') {
+      setFormMensagem({
+        ...formMensagem,
+        [name]: mensagensDeErro.empty,
+      });
+    }
+
   }
 
   const voltarAoDisplayCategorias = () => {
@@ -100,11 +84,6 @@ const Card = () => {
       setAnimationStatus(true)
       setCategoriasDisplay(true)
     }, 380)
-  }
-
-  const aoSelecionarEstado = event => {
-    const estadoSelecionado = event.target.value
-    setInputEstado(estadoSelecionado)
   }
 
   const selecionaCategoria = event => {
@@ -131,7 +110,6 @@ const Card = () => {
     setTimeout(() => {
       setPrimeiroInput(false)
       setSegundoInput(false)
-      setTerceiroInput(false)
 
       switch (etapa) {
         case 1:
@@ -149,11 +127,6 @@ const Card = () => {
           setAnimationStatus(true)
           setDadosQuartoDisplay(true)
           break
-        case 4:
-          setDadosQuartoDisplay(false)
-          setAnimationStatus(true)
-          setDadosQuintoDisplay(true)
-          break
         default:
           break
       }
@@ -162,9 +135,6 @@ const Card = () => {
         setPrimeiroInput(true)
         setTimeout(() => {
           setSegundoInput(true)
-          setTimeout(() => {
-            setTerceiroInput(true)
-          }, 200)
         }, 200)
       }, 200)
     }, 380)
@@ -176,7 +146,6 @@ const Card = () => {
     setTimeout(() => {
       setPrimeiroInput(false)
       setSegundoInput(false)
-      setTerceiroInput(false)
 
       switch (etapa) {
         case 1:
@@ -194,11 +163,6 @@ const Card = () => {
           setAnimationStatus(true)
           setDadosQuartoDisplay(false)
           break
-        case 4:
-          setDadosQuartoDisplay(true)
-          setAnimationStatus(true)
-          setDadosQuintoDisplay(false)
-          break
         default:
           break
       }
@@ -207,9 +171,6 @@ const Card = () => {
         setPrimeiroInput(true)
         setTimeout(() => {
           setSegundoInput(true)
-          setTimeout(() => {
-            setTerceiroInput(true)
-          }, 200)
         }, 200)
       }, 200)
     }, 380)
@@ -240,99 +201,188 @@ const Card = () => {
   }
 
   const handleImageChange = e => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setInputImage(reader.result)
-        setRemoveStatusImage('flex')
-      }
+    const file = e.target.files[0];
+
+    if (file) {
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        if (fileExtension === 'jpg' || fileExtension === 'png') {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setInputImage(reader.result);
+                    setRemoveStatusImage('flex');
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+          setFormMensagem((prevFormMensagem) => ({
+            ...prevFormMensagem,
+            image: mensagensDeErro.image,
+          }));
+            e.target.value = null;
+        }
     }
-    reader.readAsDataURL(e.target.files[0])
-  }
-
-  const aviso = () => {
-    setAvisoDisplay(true)
-  }
-
-  const avisoOff = () => {
-    setAvisoDisplay(false)
-  }
+};
 
   const aoDigitado = async ({ target }) => {
     const { name, value } = target
 
-    if (name === 'cep') {
-      const formattedCep = value.replace(/\D/g, '') // Remove caracteres não numéricos
-      const cepWithMask = formattedCep.replace(/(\d{5})(\d)/, '$1-$2') // Adiciona o hífen na posição correta
-      setInputCep(cepWithMask)
+    setFormMensagem({
+      ...formMensagem,
+      [name]: mensagensDeErro.none,
+    });
 
-      if (formattedCep.length === 8) {
-        try {
-          const response = await axios.get(
-            `https://viacep.com.br/ws/${formattedCep}/json/`
-          )
-
-          setInputCidade(response.data.localidade)
-          setInputEstado(response.data.uf)
-          setInputLogradouro(response.data.logradouro)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-    } else if (name === 'descricao') {
+     if (name === 'descricao') {
       setInputDescricao(value)
     } else if (name === 'logradouro') {
       setInputLogradouro(value)
-    } else if (name === 'cidade') {
-      setInputCidade(value.replace(/[0-9]/g, ''))
-    } else if (name === 'lote') {
-      setInputLote(value)
-    } else if (name === 'setor') {
-      setInputSetor(value)
-    } else if (name === 'quantidade') {
-      setInputQuantidade(value)
     } else if (name === 'nome') {
       setInputNome(value)
-    } else if (name === 'horario') {
-      setInputHorario(value)
     } else if (name === 'data') {
-      setInputData(value)
-    } else if (name === 'termos') {
+      const dataInserida = new Date(value);
+      const dataAtual = new Date();
+    
+
+      dataAtual.setHours(0, 0, 0, 0);
+   
+      if (dataInserida < dataAtual) {
+        
+        const novaData = new Date();
+        setInputData(novaData.toISOString().split('T')[0]); 
+      } else {
+        // Se não for, aceita a data inserida
+        setInputData(value);
+      }
+    }
+     else if (name === 'termos') {
       setInputTermos(value)
     } else if (name === 'preco') {
-      const newPreco = formatarPreco(value)
-      setInputPreco(newPreco)
-
-      if (newPreco === '') {
-        target.value = '' // campo vazio se o novo preço for uma string vazia
-      } else {
-        inputPreco(newPreco) // exibir o novo preço formatado
-      }
+      setInputPreco(formatarPreco(value))
     }
   }
 
   function formatarPreco(preco) {
-    preco = preco.toString().replace(/\D/g, '') // remove todos os caracteres não numéricos
-    const centavos = preco.slice(-2) // obtém os dois últimos dígitos do preço
-    preco = preco.slice(0, -2) // remove os dois últimos dígitos do preço
+    // Verifica se o preço é nulo ou vazio
+    if (!preco || preco === 'R$ ,') {
+      return '';
+    }
+  
+    preco = preco.toString().replace(/\D/g, '');
+    const centavos = preco.slice(-2);
+    preco = preco.slice(0, -2);
     preco = preco.replace(/(\d{1,})(?:\.(\d{0,2}))?/, function (match, p1, p2) {
-      // adiciona ponto como separador de milhar
-      p1 = p1.replace(/(\d)(?=(\d{3})+$)/g, '$1.')
-
-      // adiciona vírgula como separador decimal
+      p1 = p1.replace(/(\d)(?=(\d{3})+$)/g, '$1.');
       if (p2 !== undefined) {
-        return p1 + ',' + p2
+        return p1 + ',' + p2;
       } else {
-        return p1
+        return p1;
       }
-    })
-
-    return 'R$ ' + preco + ',' + centavos
+    });
+  
+    return 'R$ ' + preco + ',' + centavos;  
   }
+
+  const validaTodosCampos = () => {
+   const campos = [
+    {
+      name: 'nome',
+      value: inputNome
+    },
+    {
+      name: 'data',
+      value: inputData
+    },
+    {
+      name: 'logradouro',
+      value: inputLogradouro
+    },
+    {
+      name: 'tipo',
+      value: inputTipo
+    },
+    {
+      name: 'image',
+      value: inputImage
+    },
+    {
+      name: 'descricao',
+      value: inputDescricao
+    },
+    {
+      name: 'preco',
+      value: inputPreco
+    },
+   ]
+   campos.forEach((campo) => {
+    if (!campo.value) {
+      setFormMensagem((prevFormMensagem) => ({
+        ...prevFormMensagem,
+        [campo.name]: mensagensDeErro.empty,
+      }));
+    } 
+    else{
+      if (campo.value < 10.0 && campo.name === 'preco' ) {
+        setFormMensagem((prevFormMensagem) => ({
+          ...prevFormMensagem,
+          [campo.name]: mensagensDeErro.preco,
+        }));
+      }
+  }
+  });
+
+  if (!inputTermos) {
+    setFormMensagem((prevFormMensagem) => ({
+      ...prevFormMensagem,
+      termos: mensagensDeErro.termos,
+    }));
+  }
+
+  
+  }
+
+  function transformarParaFloat(valorEmReais) {
+    let valorFormatado = valorEmReais.replace('R$', '').replace(',', '.');
+    
+    // Converter para float
+    let valorFloat = parseFloat(valorFormatado);
+    
+    return valorFloat;
+}
 
   const submitFormulario = () => {
+      if(validaTodosCampos()) {
+        const apiUrl = `http://localhost:8080/api/tickets/register`;
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
     
-  }
+        console.log(token)
+        const data = {
+          title: inputNome,
+          date: inputData,
+          event_place: inputLogradouro,
+          price: transformarParaFloat(inputPreco),
+          description: inputDescricao, 
+          type: inputTipo, 
+          category: inputCategoria, 
+          image: inputImage
+        };
+    
+        console.log(data)
+      
+        axios.post(apiUrl, data, { headers })
+          .then(response => {
+          
+            
+          })
+          .catch(error => {
+            console.error( error);
+          });
+
+      } 
+    }
+  
 
   return (
     <div className="card-cadastro-ingressos">
@@ -383,9 +433,9 @@ const Card = () => {
           <div
             style={{
               backgroundColor:
-                inputCategoria === 'ESPETACULOS_E_TEATROS' ? '#e82c4f3d' : ''
+                inputCategoria === 'ESPETACULO_E_TEATRO' ? '#e82c4f3d' : ''
             }}
-            className="categoria-elemento ESPETACULOS_E_TEATROS"
+            className="categoria-elemento ESPETACULO_E_TEATRO"
             onClick={selecionaCategoria}
           >
             <FontAwesomeIcon
@@ -393,7 +443,7 @@ const Card = () => {
                   icon={faTheaterMasks}
                   style={{ color: '#E82C4F'}}
                 />
-            <h2 className="titulo-categoria ESPETACULOS_E_TEATROS">
+            <h2 className="titulo-categoria ESPETACULO_E_TEATRO">
               Espetaculos e teatros
             </h2>
           </div>
@@ -523,17 +573,20 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>Nome do evento*</label>
+          <label>Título*</label>
           <input
             onFocus={event => HandleFocus(event)}
             onBlur={event => BlurFocus(event)}
             type="text"
-            maxLength={25}
+            maxLength={35}
             name="nome"
             value={inputNome}
             onChange={event => aoDigitado(event)}
             placeholder="Digite o nome do evento"
           ></input>
+            <ErrorMessageCadastroIngresso 
+           message={formMensagem.nome}
+          />
         </div>
         <div
           className={primeiroInput ? 'textfield' : 'textfield-hidden'}
@@ -552,7 +605,11 @@ const Card = () => {
             name="data"
             onChange={event => aoDigitado(event)}
           ></input>
+          <ErrorMessageCadastroIngresso 
+           message={formMensagem.data}
+          />
         </div>
+       
         <div
           className={segundoInput ? 'textfield' : 'textfield-hidden'}
           style={{
@@ -561,16 +618,22 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>Horário do evento*</label>
+          <label>Local do evento*</label>
           <input
             onFocus={event => HandleFocus(event)}
             onBlur={event => BlurFocus(event)}
-            type="time"
-            name="horario"
-            value={inputHorario}
-            onChange={event => aoDigitado(event)}
-          ></input>
+            type="text"
+            maxLength={60}
+            onChange={aoDigitado}
+            placeholder="Digite o local do evento"
+            name="logradouro"
+            value={`${inputLogradouro}`}
+          />
+           <ErrorMessageCadastroIngresso 
+            message={formMensagem.logradouro}
+          />
         </div>
+
         <button
           onClick={() => avancar(1)}
           style={{ display: segundoInput ? 'block' : 'none' }}
@@ -637,48 +700,13 @@ const Card = () => {
             >
               ambos
             </button>
+
+            <ErrorMessageCadastroIngresso 
+              message={formMensagem.tipo}
+            />
           </div>
         </div>
-        <div
-          className={primeiroInput ? 'textfield' : 'textfield-hidden'}
-          style={{
-            animation: animationStatus
-              ? 'slide-in 0.6s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-        >
-          <label>Setor do ingresso (se houver)</label>
-          <input
-            onFocus={event => HandleFocus(event)}
-            onBlur={event => BlurFocus(event)}
-            maxLength={10}
-            type="text"
-            placeholder="Digite o setor referente ao ingresso"
-            name="setor"
-            value={inputSetor}
-            onChange={event => aoDigitado(event)}
-          ></input>
-        </div>
-        <div
-          className={segundoInput ? 'textfield' : 'textfield-hidden'}
-          style={{
-            animation: animationStatus
-              ? 'slide-in 0.6s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-        >
-          <label>Quantidade de ingressos</label>
-          <input
-            onFocus={event => HandleFocus(event)}
-            onBlur={event => BlurFocus(event)}
-            type="number"
-            min="1"
-            name="quantidade"
-            value={inputQuantidade}
-            placeholder="1"
-            onChange={event => aoDigitado(event)}
-          ></input>
-        </div>
+        
         <button
           onClick={() => avancar(2)}
           style={{ display: segundoInput ? 'block' : 'none' }}
@@ -725,15 +753,6 @@ const Card = () => {
           <div className="textfield">
             <label>
               Imagem do evento
-              <div
-                className="aviso-card"
-                style={{ display: avisoDisplay ? 'flex' : 'none' }}
-              >
-                <p>
-                  Atenção! Cuidado para não mostrar dados pessoais ou o QR code
-                  do ingresso na foto
-                </p>
-              </div>
             </label>
             <div id="campoImagem">
               <div className="upload-btn-wrapper">
@@ -766,6 +785,9 @@ const Card = () => {
             </div>
           </div>
         </div>
+        <ErrorMessageCadastroIngresso 
+           message={formMensagem.image}
+          />
         <div
           className={primeiroInput ? 'textfield' : 'textfield-hidden'}
           style={{
@@ -783,6 +805,9 @@ const Card = () => {
             name="descricao"
           ></textarea>
           <div className="contador">({inputDescricao.length}/280)</div>
+          <ErrorMessageCadastroIngresso 
+            message={formMensagem.descricao}
+          />
         </div>
 
         <button
@@ -828,151 +853,6 @@ const Card = () => {
               : 'pop-down 0.4s alternate'
           }}
         >
-          <label>CEP*</label>
-          <input
-            onFocus={event => HandleFocus(event)}
-            onBlur={event => BlurFocus(event)}
-            type="text"
-            name="cep"
-            value={inputCep}
-            onChange={aoDigitado}
-            placeholder="Digite o CEP"
-            maxLength={9}
-          />
-        </div>
-        <div
-          className={primeiroInput ? 'textfield' : 'textfield-hidden'}
-          style={{
-            animation: animationStatus
-              ? 'slide-in 0.6s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-        >
-          <label>Logradouro*</label>
-          <input
-            onFocus={event => HandleFocus(event)}
-            onBlur={event => BlurFocus(event)}
-            type="text"
-            maxLength={55}
-            onChange={aoDigitado}
-            placeholder="Digite o logradouro do evento"
-            name="logradouro"
-            value={`${inputLogradouro}`}
-          />
-        </div>
-
-        <div
-          className={segundoInput ? 'textfield' : 'textfield-hidden'}
-          style={{
-            animation: animationStatus
-              ? 'slide-in 0.6s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-        >
-          <label>Cidade*</label>
-          <input
-            onFocus={event => HandleFocus(event)}
-            onBlur={event => BlurFocus(event)}
-            type="text"
-            maxLength={40}
-            onChange={aoDigitado}
-            placeholder="Digite a cidade do evento"
-            name="cidade"
-            value={`${inputCidade}`}
-          />
-        </div>
-
-        <div
-          className={terceiroInput ? 'textfield' : 'textfield-hidden'}
-          style={{
-            animation: animationStatus
-              ? 'slide-in 0.6s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-        >
-          <label>Estado(UF)*</label>
-          <select
-            className="select-estado"
-            onFocus={event => HandleFocus(event)}
-            onBlur={event => BlurFocus(event)}
-            onChange={aoSelecionarEstado}
-            name="estado"
-            value={inputEstado}
-          >
-            <option value="">Selecione o estado do evento</option>
-            <option value="AC">Acre</option>
-            <option value="AL">Alagoas</option>
-            <option value="AP">Amapá</option>
-            <option value="AM">Amazonas</option>
-            <option value="BA">Bahia</option>
-            <option value="CE">Ceará</option>
-            <option value="DF">Distrito Federal</option>
-            <option value="ES">Espírito Santo</option>
-            <option value="GO">Goiás</option>
-            <option value="MA">Maranhão</option>
-            <option value="MT">Mato Grosso</option>
-            <option value="MS">Mato Grosso do Sul</option>
-            <option value="MG">Minas Gerais</option>
-            <option value="PA">Pará</option>
-            <option value="PB">Paraíba</option>
-            <option value="PR">Paraná</option>
-            <option value="PE">Pernambuco</option>
-            <option value="PI">Piauí</option>
-            <option value="RJ">Rio de Janeiro</option>
-            <option value="RN">Rio Grande do Norte</option>
-            <option value="RS">Rio Grande do Sul</option>
-            <option value="RO">Rondônia</option>
-            <option value="RR">Roraima</option>
-            <option value="SC">Santa Catarina</option>
-            <option value="SP">São Paulo</option>
-            <option value="SE">Sergipe</option>
-            <option value="TO">Tocantins</option>
-          </select>
-        </div>
-
-        <button
-          onClick={() => avancar(4)}
-          style={{ display: terceiroInput ? 'block' : 'none' }}
-        >
-          avançar
-        </button>
-      </div>
-
-      <div
-        id={dadosQuintoDisplay ? 'dadosQuinto' : 'dadosQuinto-hidden'}
-        className="dados"
-        style={{
-          animation: animationStatus
-            ? 'pop-up 0.7s ease-in-out'
-            : 'pop-down 0.4s alternate'
-        }}
-      >
-        <h1
-          style={{
-            animation: animationStatus
-              ? 'pop-up 0.7s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-          className="titulo"
-        >
-          <button
-            onClick={() => voltar(4)}
-            style={{ display: dadosQuintoDisplay ? 'flex' : 'none' }}
-            className="botao-voltar"
-          >
-            {'<'}
-          </button>
-          Para finalizar os dados do seu anúncio...
-        </h1>
-
-        <div
-          className={dadosQuintoDisplay ? 'textfield' : 'textfield-hidden'}
-          style={{
-            animation: animationStatus
-              ? 'slide-in 0.6s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-        >
           <label>Preço*</label>
           <input
             onFocus={event => HandleFocus(event)}
@@ -980,29 +860,11 @@ const Card = () => {
             value={inputPreco}
             onChange={event => aoDigitado(event)}
             type="text"
-            placeholder="R$0,00"
+            placeholder="R$ 0,00"
             name="preco"
           />
-        </div>
-
-        <div
-          className={primeiroInput ? 'textfield' : 'textfield-hidden'}
-          style={{
-            animation: animationStatus
-              ? 'slide-in 0.6s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-        >
-          <label>Lote do ingresso (se houver) </label>
-          <input
-            onFocus={event => HandleFocus(event)}
-            onBlur={event => BlurFocus(event)}
-            name="lote"
-            maxLength={20}
-            value={inputLote}
-            onChange={event => aoDigitado(event)}
-            placeholder="Digite o lote do ingresso"
-            type="text"
+          <ErrorMessageCadastroIngresso 
+            message={formMensagem.preco}
           />
         </div>
 
@@ -1021,35 +883,20 @@ const Card = () => {
             </h5>
           </div>
         </div>
+        <ErrorMessageCadastroIngresso 
+              message={formMensagem.termos}
+            />
 
         <button
           onClick={submitFormulario}
-          style={{ display: dadosQuintoDisplay ? 'block' : 'none' }}
+          style={{ display: dadosQuartoDisplay ? 'block' : 'none' }}
         >
           cadastrar
         </button>
+        <ErrorMessageCadastroIngresso 
+              message={formMensagem.formulario}
+            />
         <h5 id="campos-obrigatorios">Os campos com (*) são obrigatórios</h5>
-
-        <div
-          style={{
-            animation: erros.camposVazios
-              ? 'pop-up 0.7s ease-in-out'
-              : 'pop-down 0.4s alternate'
-          }}
-          className="erro"
-          id={erros.camposVazios ? 'erro-campos-vazios' : 'erro-campos-vazios-hidden'}
-        >
-          
-           <h4> 
-             <FontAwesomeIcon
-                  className='remover-imagem'
-                  icon={faXmarkCircle}
-                  style={{ color: '#E82C4F',display: removeStatusImage  }}
-                  onClick={handleImageRemove}
-                />Existem campos obrigatórios (*) vazios.</h4> 
-           </div>
-
-
       </div>
     </div>
   )

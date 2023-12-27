@@ -4,7 +4,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: left;
-  margin-left: 1vw;
+    margin-left: 1vw;
 
     border: 1px solid rgb(188, 187, 187);
     border-radius: 10px;
@@ -14,7 +14,7 @@
     box-shadow: 1px 1px  rgba(188, 187, 187, 0.638);
    
 
-    img {
+    .icone {
       width: 1rem;
       cursor: pointer;
     }
