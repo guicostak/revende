@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Verifique seu e-mail</title>
+    <style lang="scss">
+        body {
+            width: 40%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-top: 1rem;
+            font-family: Arial, sans-serif;
+            padding-inline: 4rem;
+            text-align: left;
+        }
+
+        img {
+            width: 10rem;
+            margin-bottom: 1rem;
+        }
+
+        .botao {
+            cursor: pointer;
+            width: 30em;
+            height: 3em;
+            background-color: #E82C4F;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: 0.7s;
+        }
+
+        .botao:hover {
+            background-color: white;
+            color: #E82C4F;
+            border: 1px solid #E82C4F;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        .rodape {
+            margin-top: 2rem;
+            border-top: 1px solid grey;
+            color: grey;
+        }
+
+        .rodape a {
+            color: black;
+            text-decoration: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                padding-top: 1rem;
+                font-family: Arial, sans-serif;
+                padding-inline: 4rem;
+                text-align: left;
+            }
+
+            img {
+                width: 14rem;
+                margin-bottom: 1rem;
+            }
+
+            .botao {
+                cursor: pointer;
+                width: 30em;
+                height: 3em;
+                background-color: #E82C4F;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-family: Arial, sans-serif;
+                font-weight: 600;
+                font-size: 1.5rem;
+                transition: 0.7s;
+            }
+
+            .botao:hover {
+                background-color: white;
+                color: #E82C4F;
+                border: 1px solid #E82C4F;
+            }
+
+            p {
+                font-size: 2rem;
+            }
+
+            .rodape {
+                margin-top: 2rem;
+                border-top: 1px solid grey;
+                color: grey;
+            }
+
+            .rodape a {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+<img src="https://github.com/guicostak/revende/blob/master/src/main/resources/img/logos/logo.png?raw=true"/>
+<p>Olá <span th:text="${nome}"></span>,</p>
+<p>Agradecemos por criar uma conta na Revende. Verifique seu e-mail para poder ativar a sua conta.</p>
+<a th:href="${confirmationLink}">
+    <button class="botao">Verificar Email</button>
+</a>
+<p>Obrigado, <br/> Equipe Revende</p>
+<div class="rodape">
+    <p>Revende inc, pablo's st, New Lima, MG</p>
+    <p>Precisa de ajuda ? <a href="/help">Ajuda aqui</a></p>
+</div>
+</body>
+</html>
+
